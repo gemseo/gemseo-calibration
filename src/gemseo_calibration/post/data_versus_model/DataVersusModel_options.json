@@ -1,0 +1,24 @@
+{
+    "name": "DataVersusModel_options",
+    "required": ["save", "output"],
+    "properties": {
+        "save": {
+            "type": "boolean"
+        },
+        "show": {
+            "type": "boolean"
+        },
+        "file_path": {
+            "type": "string"
+        },
+        "extension": {
+            "type": "string"
+        },
+        "output":{
+            "type": "string"
+        }
+    },
+    "additionalProperties": false,
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "type": "object"
+}
