@@ -26,6 +26,7 @@ from gemseo.disciplines.analytic import AnalyticDiscipline
 from gemseo.utils.testing import image_comparison
 from gemseo_calibration.calibrator import CalibrationMeasure
 from gemseo_calibration.post.data_versus_model.post import DataVersusModel
+from gemseo_calibration.post.factory import CalibrationPostFactory
 from gemseo_calibration.scenario import CalibrationScenario
 from numpy import array
 
@@ -80,9 +81,26 @@ def test_plot(
     pyplot_close_all,
 ):
     """Test images created by DataVersusModel._plot against references."""
-    DataVersusModel(
+    CalibrationPostFactory().create(
         calibration_scenario.formulation.opt_problem,
         calibration_scenario.calibrator.reference_data,
         calibration_scenario.prior_model_data,
         calibration_scenario.posterior_model_data,
-    )._plot(**kwargs)
+        "DataVersusModel",
+    ).execute(save=False, **kwargs)
+
+
+def test_factory_plot(calibration_scenario):
+    """Check CalibrationPostFactory.execute()."""
+    factory = CalibrationPostFactory()
+    post = factory.execute(
+        calibration_scenario.formulation.opt_problem,
+        calibration_scenario.calibrator.reference_data,
+        calibration_scenario.prior_model_data,
+        calibration_scenario.posterior_model_data,
+        "DataVersusModel",
+        output="y",
+        save=False,
+    )
+    assert isinstance(post, DataVersusModel)
+    assert factory.executed_post == [post]
