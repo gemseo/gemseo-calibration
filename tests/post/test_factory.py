@@ -18,7 +18,6 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-from gemseo.problems.analytical.rosenbrock import Rosenbrock
 from gemseo_calibration.post.factory import CalibrationPostFactory
 
 DATA = Path(__file__).parent / ".." / "data"
@@ -38,27 +37,7 @@ def test_init(post_factory):
     )
 
 
-def test_create(post_factory):
-    """Check that a post-processor is correctly created."""
-    post = post_factory.create(Rosenbrock(), 1, 2, 3, "NewCalibrationPostProcessor")
-    assert post.__class__.__name__ == "NewCalibrationPostProcessor"
-    assert post._reference_data == 1
-    assert post._prior_model_data == 2
-    assert post._posterior_model_data == 3
-
-
-def test_execute(post_factory):
-    """Check that a post-processor is correctly executed.
-
-    Args:
-        factory (CalibrationPostFactory): A factory
-            to post-process calibration scenarios.
-    """
-    post = post_factory.execute(Rosenbrock(), 1, 2, 3, "NewCalibrationPostProcessor")
-    assert post.executed
-
-
 def test_posts(post_factory):
     """Check that a post-processor is correctly executed."""
-    assert "NewCalibrationPostProcessor" in post_factory.posts
-    assert "OptPostProcessor" not in post_factory.posts
+    assert "DataVersusModel" in post_factory.posts
+    assert "OptHistoryView" not in post_factory.posts

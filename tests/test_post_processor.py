@@ -16,12 +16,16 @@
 from __future__ import annotations
 
 from gemseo.post.opt_post_processor import OptPostProcessor
+from gemseo.post.opt_post_processor import OptPostProcessorOptionType
 from gemseo.problems.analytical.rosenbrock import Rosenbrock
 from gemseo_calibration.post_processor import CalibrationPostProcessor
 
 
 class NewCalibrationPostProcessor(CalibrationPostProcessor):
     """A new calibration post processor."""
+
+    def _plot(self, **options: OptPostProcessorOptionType) -> None:
+        return
 
 
 def test_post():
