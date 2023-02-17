@@ -73,7 +73,7 @@ class CalibrationScenario(MDOScenario):
         formulation: str = "MDF",
         name: str | None = None,
         **formulation_options: Any,
-    ) -> None:  # noqa: D205,D212,D415
+    ) -> None:
         """
         Args:
             disciplines: The disciplines
@@ -96,7 +96,7 @@ class CalibrationScenario(MDOScenario):
             name: A name for this calibration scenario.
                 If ``None``, use the name of the class.
             **formulation_options: The options of the formulation.
-        """
+        """  # noqa: D205,D212,D415
         self.__prior_parameters = calibration_space.get_current_value(as_dict=True)
         self.__posterior_parameters = {}
         self.prior_model_data = None
@@ -186,12 +186,10 @@ class CalibrationScenario(MDOScenario):
         )
 
     @property
-    def posts(self) -> list[str]:
-        # noqa: D102
+    def posts(self) -> list[str]:  # noqa: D102
         return self.post_factory.posts + self.__calibration_post_factory.posts
 
-    def post_process(self, post_name: str, **options: Any) -> None:
-        # noqa: D102
+    def post_process(self, post_name: str, **options: Any) -> None:  # noqa: D102
         if post_name in self.__calibration_post_factory.posts:
             return self.__calibration_post_factory.execute(
                 self.formulation.opt_problem,

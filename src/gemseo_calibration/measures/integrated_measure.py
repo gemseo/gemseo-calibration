@@ -36,11 +36,10 @@ class IntegratedMeasure(CalibrationMeasure):
         name: str | None = None,
         f_type: str | None = None,
     ) -> None:
-        # noqa: D205 D212 D415
         """
         Args:
             mesh_name: The name of the 1D mesh.
-        """
+        """  # noqa: D205 D212 D415
         self.mesh_name = mesh_name
         self.__reference_mesh = None
         super().__init__(output_name, name=name, f_type=f_type)
@@ -48,8 +47,7 @@ class IntegratedMeasure(CalibrationMeasure):
     def _compute_name(self) -> str:
         return f"{self.__class__.__name__}({self.output_name};{self.mesh_name})"
 
-    def __call__(self, model_dataset: Dataset) -> float:
-        # noqa: D102
+    def __call__(self, model_dataset: Dataset) -> float:  # noqa: D102
         model_data = model_dataset[self.output_name]
         model_mesh = model_dataset[self.mesh_name]
         self._update_bounds(model_data)
@@ -67,11 +65,9 @@ class IntegratedMeasure(CalibrationMeasure):
         )
 
     @property
-    def full_output_name(self) -> str:
-        # noqa: D102
+    def full_output_name(self) -> str:  # noqa: D102
         return f"{self.output_name}[{self.mesh_name}]"
 
-    def set_reference_data(self, reference_dataset: Dataset) -> None:
-        # noqa: D102
+    def set_reference_data(self, reference_dataset: Dataset) -> None:  # noqa: D102
         self.__reference_mesh = reference_dataset[self.mesh_name]
         super().set_reference_data(reference_dataset)

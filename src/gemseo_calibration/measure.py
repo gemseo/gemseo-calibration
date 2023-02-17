@@ -37,11 +37,10 @@ class CalibrationMeasure(MDOFunction):
     def __init__(
         self, output_name: str, name: str | None = None, f_type: str | None = None
     ) -> None:
-        # noqa: D205,D212,D415
         """
         Args:
             output_name: The name of the output to be taken into account by the measure.
-        """
+        """  # noqa: D205,D212,D415
         self.output_name = output_name
         super().__init__(None, name or self._compute_name(), f_type=f_type)
         self._lower_bound = -infty

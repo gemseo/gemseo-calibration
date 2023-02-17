@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 import logging
+from typing import Any
 
 from gemseo.algos.opt_problem import OptimizationProblem
 from gemseo.core.dataset import Dataset
@@ -41,7 +42,7 @@ class CalibrationPostFactory(PostFactory):
         prior_model_data: Dataset,
         posterior_model_data: Dataset,
         post_name: str,
-        **options,
+        **options: Any,
     ) -> CalibrationPostProcessor:
         """Compute the post-processing.
 
