@@ -59,7 +59,7 @@ class Calibrator(MDOScenarioAdapter):
         parameter_names: str | Iterable[str],
         formulation: str = "MDF",
         **formulation_options: Any,
-    ) -> None:  # noqa: D205,D212,D415
+    ) -> None:
         """
         Args:
             disciplines: The disciplines
@@ -79,7 +79,7 @@ class Calibrator(MDOScenarioAdapter):
             formulation: The name of a formulation
                 to manage the multidisciplinary coupling.
             **formulation_options: The options of the formulation.
-        """
+        """  # noqa: D205,D212,D415
         self.__measure_factory = CalibrationMeasureFactory()
         input_names = self.__to_iterable(input_names, str)
         control_outputs = self.__to_iterable(control_outputs, CalibrationMeasure)
@@ -167,14 +167,14 @@ class Calibrator(MDOScenarioAdapter):
         for measure in self.__measures:
             measure.set_reference_data(self.__reference_data)
 
-    def _run(self):
+    def _run(self) -> None:
         root_logger = logging.getLogger()
         saved_level = root_logger.level
         root_logger.setLevel(logging.WARNING)
         super()._run()
         root_logger.setLevel(saved_level)
 
-    def _post_run(self):
+    def _post_run(self) -> None:
         model_dataset = self.scenario.export_to_dataset()
         for name, measure in self.__names_to_measures.items():
             self.local_data[name] = array([measure(model_dataset)])

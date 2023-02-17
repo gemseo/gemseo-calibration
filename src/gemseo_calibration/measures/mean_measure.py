@@ -24,11 +24,10 @@ from gemseo_calibration.measure import CalibrationMeasure
 class MeanMeasure(CalibrationMeasure):
     """An abstract mean measure between the model and reference output data."""
 
-    def __call__(
+    def __call__(  # noqa: D102
         self,
         model_dataset: Dataset,
     ) -> float:
-        # noqa: D102
         model_data = model_dataset[self.output_name]
         self._update_bounds(model_data)
         return nanmean(self._compare_data(self._reference_data, model_data))

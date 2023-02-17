@@ -22,11 +22,10 @@ from gemseo_calibration.measure import CalibrationMeasure
 class MeasureCstr(CalibrationMeasure):
     """The calibration measure to be used as a constraint."""
 
-    def __call__(
+    def __call__(  # noqa: D102
         self,
         model_dataset: Dataset,
     ) -> float:
-        # noqa: D102
         return model_dataset[1]["y"][0]
 
 
@@ -35,20 +34,18 @@ class MeasureObj(CalibrationMeasure):
 
     maximize = True
 
-    def __call__(
+    def __call__(  # noqa: D102
         self,
         model_dataset: Dataset,
     ) -> float:
-        # noqa: D102
         return model_dataset[0]["y"][0]
 
 
 class NewCalibrationMeasure(CalibrationMeasure):
     """The calibration measure returning zero."""
 
-    def __call__(
+    def __call__(  # noqa: D102
         self,
         model_dataset: Dataset,
     ) -> float:
-        # noqa: D102
         return 0.0

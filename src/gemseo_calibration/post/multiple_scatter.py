@@ -19,13 +19,10 @@
 #    OTHER AUTHORS   - MACROSCOPIC CHANGES
 r"""Overlay several scatter plots from a :class:`.Dataset`.
 
-A :class:`Scatter` plot
-represents a set of points :math:`\{x_i,y_i\}_{1\leq i \leq n}`
-as markers on a classical plot,
-while a :class:`MultipleScatter` plot
-represents a set of points :math:`\{x_i,y_{i,1},\ldots,y_{i,d}\}_{1\leq i \leq n}`
-as markers on a classical plot,
-with one color per series :math:`\{y_i\}_{1\leq i \leq n}`.
+A :class:`Scatter` plot represents a set of points :math:`\{x_i,y_i\}_{1\leq i \leq n}`
+as markers on a classical plot, while a :class:`MultipleScatter` plot represents a set of
+points :math:`\{x_i,y_{i,1},\ldots,y_{i,d}\}_{1\leq i \leq n}` as markers on a classical
+plot, with one color per series :math:`\{y_i\}_{1\leq i \leq n}`.
 """
 from __future__ import annotations
 
@@ -49,7 +46,6 @@ class MultipleScatter(DatasetPlot):
         x_comp: str = 0,
         y_comp: Mapping[str, int] = None,
     ) -> None:
-        # noqa: D205 D212 D415
         """
         Args:
             x: The name of the variable on the x-axis.
@@ -60,7 +56,7 @@ class MultipleScatter(DatasetPlot):
                 and the values are the components.
                 If None or if a name is missing,
                 use the first component.
-        """
+        """  # noqa: D205 D212 D415
         super().__init__(dataset=dataset, x=x, y=y, x_comp=x_comp, y_comp=y_comp)
 
     def _plot(
