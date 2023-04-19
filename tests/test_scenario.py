@@ -71,7 +71,7 @@ def test_init(calibration_scenario):
     assert calibration_scenario.formulation_name == "DisciplinaryOpt"
     assert len(calibration_scenario.disciplines) == 1
     assert isinstance(calibration_scenario.disciplines[0], Calibrator)
-    assert calibration_scenario.design_space.variables_names == ["a", "b"]
+    assert calibration_scenario.design_space.variable_names == ["a", "b"]
     assert calibration_scenario.name == "calib"
     assert isinstance(calibration_scenario.calibrator, Calibrator)
     assert calibration_scenario.formulation._maximize_objective is True
@@ -100,7 +100,7 @@ def test_init_list(
     monkeypatch.setenv("GEMSEO_PATH", DATA)
     scenario = CalibrationScenario(disciplines, inputs, outputs, calibration_space)
     scenario.add_constraint(constraints)
-    assert scenario.calibrator.scenario.design_space.variables_names == ["x"]
+    assert scenario.calibrator.scenario.design_space.variable_names == ["x"]
     assert scenario.calibrator.scenario.formulation._objective_name == "y"
 
 

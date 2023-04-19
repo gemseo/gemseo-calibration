@@ -27,7 +27,7 @@ from gemseo.core.dataset import Dataset
 from gemseo.core.discipline import MDODiscipline
 from gemseo.core.doe_scenario import DOEScenario
 from gemseo.core.grammars.json_grammar import JSONGrammar
-from gemseo.disciplines.scenario_adapter import MDOScenarioAdapter
+from gemseo.disciplines.scenario_adapters.mdo_scenario_adapter import MDOScenarioAdapter
 from numpy import array
 
 from gemseo_calibration.measure import CalibrationMeasure as CalibrationMeasure_
@@ -146,7 +146,7 @@ class Calibrator(MDOScenarioAdapter):
         E.g. MSE(y,z) is the name of the MSE measure applied to the outputs y and z.
         """
         output_grammar = JSONGrammar("outputs")
-        output_grammar.update(self.__names_to_measures.keys())
+        output_grammar.update_from_names(self.__names_to_measures.keys())
         self.output_grammar = output_grammar
 
     def set_reference_data(self, reference_data: Dataset) -> None:
@@ -161,7 +161,7 @@ class Calibrator(MDOScenarioAdapter):
             del design_space[name]
             design_space.add_variable(name, size=reference_data.sizes[name])
 
-        inputs = self.scenario.get_optim_variables_names()
+        inputs = self.scenario.get_optim_variable_names()
         input_data = reference_data.get_data_by_names(inputs, False)
         self.scenario.default_inputs[self.__ALGO_OPTIONS][self.__SAMPLES] = input_data
         for measure in self.__measures:
@@ -175,7 +175,7 @@ class Calibrator(MDOScenarioAdapter):
         root_logger.setLevel(saved_level)
 
     def _post_run(self) -> None:
-        model_dataset = self.scenario.export_to_dataset()
+        model_dataset = self.scenario.to_dataset()
         for name, measure in self.__names_to_measures.items():
             self.local_data[name] = array([measure(model_dataset)])
 

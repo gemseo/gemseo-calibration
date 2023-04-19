@@ -77,6 +77,12 @@ def test_factory_is_available(factory):
     assert not factory.is_available("foo")
 
 
+def test_factory_is_integrated_measure(factory):
+    """Test the method is_integrated_measure()."""
+    assert factory.is_integrated_measure("ISE")
+    assert not factory.is_integrated_measure("MSE")
+
+
 def test_factory_measures(factory):
     """Test the property measures of the CalibrationMeasureFactory."""
     assert "NewCalibrationMeasure" in factory.measures

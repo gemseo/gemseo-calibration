@@ -27,7 +27,7 @@ from gemseo.algos.parameter_space import ParameterSpace
 from gemseo.core.chain import MDOChain
 from gemseo.core.doe_scenario import DOEScenario
 from gemseo.disciplines.analytic import AnalyticDiscipline
-from gemseo.disciplines.scenario_adapter import MDOScenarioAdapter
+from gemseo.disciplines.scenario_adapters.mdo_scenario_adapter import MDOScenarioAdapter
 from gemseo_calibration.scenario import CalibrationMeasure
 from gemseo_calibration.scenario import CalibrationScenario
 from matplotlib import pyplot as plt
@@ -43,7 +43,7 @@ model = AnalyticDiscipline({"y": "a*x**2+b*x+c"}, name="model")
 original_model = AnalyticDiscipline({"y": "2*x**2-1.5*x+0.75"}, name="model")
 
 reference = MDOChain([original_model, AnalyticDiscipline({"y": "y+u"}, name="noise")])
-reference.set_cache_policy("MemoryFullCache")
+reference.set_cache_policy(reference.CacheType.MEMORY_FULL)
 
 #######################################################################################
 # This reference model contains a random additive term :math:`u`
@@ -100,7 +100,7 @@ adapter = MDOScenarioAdapter(sub_scenario, ["u"], ["y"])
 # in charge to sample it over the uncertain space.
 scenario = DOEScenario([adapter], "DisciplinaryOpt", "y", noise_space)
 scenario.execute({"algo": "OT_LHSC", "n_samples": 5})
-reference_data = reference.cache.export_to_dataset(by_group=True)
+reference_data = reference.cache.to_dataset(by_group=True)
 
 #######################################################################################
 # From these information sources,

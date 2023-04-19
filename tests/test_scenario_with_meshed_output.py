@@ -29,8 +29,8 @@ class Model(MDODiscipline):
 
     def __init__(self):  # noqa: D107
         super().__init__()
-        self.input_grammar.update(["x", "a", "b"])
-        self.output_grammar.update(["y", "z", "mesh"])
+        self.input_grammar.update_from_names(["x", "a", "b"])
+        self.output_grammar.update_from_names(["y", "z", "mesh"])
         self.default_inputs = {"x": array([0.0]), "a": array([0.0]), "b": array([0.0])}
 
     def _run(self):  # noqa: D107
@@ -48,8 +48,8 @@ class ReferenceModel(MDODiscipline):
 
     def __init__(self):  # noqa: D107
         super().__init__()
-        self.input_grammar.update(["x"])
-        self.output_grammar.update(["y", "z", "mesh"])
+        self.input_grammar.update_from_names(["x"])
+        self.output_grammar.update_from_names(["y", "z", "mesh"])
         self.default_inputs = {"x": array([0.0])}
 
     def _run(self):  # noqa: D107
@@ -76,7 +76,7 @@ def reference_data() -> Dataset:
     reference.set_cache_policy("MemoryFullCache")
     reference.execute({"x": array([1.0])})
     reference.execute({"x": array([2.0])})
-    return reference.cache.export_to_dataset(by_group=True)
+    return reference.cache.to_dataset(by_group=True)
 
 
 def test_execute(reference_data, calibration_space):
