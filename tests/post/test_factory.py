@@ -24,7 +24,7 @@ DATA = Path(__file__).parent / ".." / "data"
 
 
 @pytest.fixture
-def post_factory(monkeypatch):  # type: (...) -> CalibrationPostFactory
+def post_factory(monkeypatch) -> CalibrationPostFactory:
     """The factory of post-processors dedicated to calibration."""
     monkeypatch.setenv("GEMSEO_PATH", DATA)
     return CalibrationPostFactory()
@@ -32,9 +32,7 @@ def post_factory(monkeypatch):  # type: (...) -> CalibrationPostFactory
 
 def test_init(post_factory):
     """Check that the factory is correctly initialized."""
-    assert (
-        post_factory.factory._Factory__base_class.__name__ == "CalibrationPostProcessor"
-    )
+    assert post_factory._CLASS.__name__ == "CalibrationPostProcessor"
 
 
 def test_posts(post_factory):

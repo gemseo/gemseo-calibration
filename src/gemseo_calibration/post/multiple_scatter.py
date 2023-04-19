@@ -20,9 +20,9 @@
 r"""Overlay several scatter plots from a :class:`.Dataset`.
 
 A :class:`Scatter` plot represents a set of points :math:`\{x_i,y_i\}_{1\leq i \leq n}`
-as markers on a classical plot, while a :class:`MultipleScatter` plot represents a set of
-points :math:`\{x_i,y_{i,1},\ldots,y_{i,d}\}_{1\leq i \leq n}` as markers on a classical
-plot, with one color per series :math:`\{y_i\}_{1\leq i \leq n}`.
+as markers on a classical plot, while a :class:`MultipleScatter` plot represents a set
+of points :math:`\{x_i,y_{i,1},\ldots,y_{i,d}\}_{1\leq i \leq n}` as markers on a
+classical plot, with one color per series :math:`\{y_i\}_{1\leq i \leq n}`.
 """
 from __future__ import annotations
 

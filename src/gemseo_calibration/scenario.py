@@ -105,7 +105,7 @@ class CalibrationScenario(MDOScenario):
             disciplines,
             input_names,
             control_outputs,
-            calibration_space.variables_names,
+            calibration_space.variable_names,
             formulation=formulation,
             **formulation_options,
         )
@@ -122,14 +122,14 @@ class CalibrationScenario(MDOScenario):
     def _run_algorithm(self) -> None:
         self.calibrator.set_reference_data(self.local_data[self.__REFERENCE_DATA])
         self.calibrator.execute()
-        self.prior_model_data = self.calibrator.scenario.export_to_dataset()
+        self.prior_model_data = self.calibrator.scenario.to_dataset()
         super()._run_algorithm()
         self.__posterior_parameters = self.design_space.array_to_dict(
             self.optimization_result.x_opt
         )
         self.calibrator.default_inputs = self.posterior_parameters
         self.calibrator.execute()
-        self.posterior_model_data = self.calibrator.scenario.export_to_dataset()
+        self.posterior_model_data = self.calibrator.scenario.to_dataset()
 
     @property
     def calibrator(self) -> Calibrator:
@@ -149,7 +149,7 @@ class CalibrationScenario(MDOScenario):
     def add_constraint(
         self,
         control_outputs: CalibrationMeasure | Iterable[CalibrationMeasure],
-        constraint_type: str = MDOFunction.TYPE_EQ,
+        constraint_type: MDOFunction.ConstraintType = MDOFunction.ConstraintType.EQ,
         constraint_name: str | None = None,
         value: str | float = None,
         positive: bool = False,

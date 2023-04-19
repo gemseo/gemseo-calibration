@@ -23,7 +23,7 @@ from __future__ import annotations
 import pytest
 from gemseo.algos.parameter_space import ParameterSpace
 from gemseo.disciplines.analytic import AnalyticDiscipline
-from gemseo.utils.testing import image_comparison
+from gemseo.utils.testing.helpers import image_comparison
 from gemseo_calibration.calibrator import CalibrationMeasure
 from gemseo_calibration.post.data_versus_model.post import DataVersusModel
 from gemseo_calibration.post.factory import CalibrationPostFactory
@@ -44,7 +44,7 @@ def calibration_scenario() -> CalibrationScenario:
     reference.set_cache_policy("MemoryFullCache")
     reference.execute({"x": array([1.0])})
     reference.execute({"x": array([2.0])})
-    reference_data = reference.cache.export_to_dataset(by_group=False)
+    reference_data = reference.cache.to_dataset(by_group=False)
 
     calibration = CalibrationScenario(
         model,
@@ -82,11 +82,11 @@ def test_plot(
 ):
     """Test images created by DataVersusModel._plot against references."""
     CalibrationPostFactory().create(
+        "DataVersusModel",
         calibration_scenario.formulation.opt_problem,
         calibration_scenario.calibrator.reference_data,
         calibration_scenario.prior_model_data,
         calibration_scenario.posterior_model_data,
-        "DataVersusModel",
     ).execute(save=False, **kwargs)
 
 
@@ -103,4 +103,4 @@ def test_factory_plot(calibration_scenario):
         save=False,
     )
     assert isinstance(post, DataVersusModel)
-    assert factory.executed_post == [post]
+    assert factory.executed_post[-1] == post
