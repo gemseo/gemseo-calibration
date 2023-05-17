@@ -44,7 +44,7 @@ def calibration_scenario() -> CalibrationScenario:
     reference.set_cache_policy("MemoryFullCache")
     reference.execute({"x": array([1.0])})
     reference.execute({"x": array([2.0])})
-    reference_data = reference.cache.to_dataset(by_group=False)
+    reference_data = reference.cache.to_dataset()
 
     calibration = CalibrationScenario(
         model,

@@ -29,7 +29,7 @@ from __future__ import annotations
 from typing import Iterable
 from typing import Mapping
 
-from gemseo.core.dataset import Dataset
+from gemseo.datasets.dataset import Dataset
 from gemseo.post.dataset.dataset_plot import DatasetPlot
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
@@ -73,7 +73,9 @@ class MultipleScatter(DatasetPlot):
         for name in y:
             y_comp[name] = y_comp.get(name, 0)
 
-        reference = self.dataset.get_data_by_names(x, False)[:, self._param.x_comp]
+        reference = self.dataset.get_view(variable_names=x).to_numpy()[
+            :, self._param.x_comp
+        ]
 
         fig, axes = self._get_figure_and_axes(fig, axes)
         bounds = [min(reference), max(reference)]
@@ -82,7 +84,7 @@ class MultipleScatter(DatasetPlot):
         for index, name in enumerate(y):
             axes.plot(
                 reference,
-                self.dataset.get_data_by_names(name, False)[:, y_comp[name]],
+                self.dataset.get_view(variable_names=name).to_numpy()[:, y_comp[name]],
                 color=self.color[index],
                 marker="o",
                 linestyle="",

@@ -15,7 +15,7 @@
 """A module to compute the mean measure between the model and reference data."""
 from __future__ import annotations
 
-from gemseo.core.dataset import Dataset
+from gemseo.datasets.dataset import Dataset
 from numpy import nanmean
 
 from gemseo_calibration.measure import CalibrationMeasure
@@ -28,6 +28,6 @@ class MeanMeasure(CalibrationMeasure):
         self,
         model_dataset: Dataset,
     ) -> float:
-        model_data = model_dataset[self.output_name]
+        model_data = model_dataset.get_view(variable_names=self.output_name).to_numpy()
         self._update_bounds(model_data)
         return nanmean(self._compare_data(self._reference_data, model_data))

@@ -16,7 +16,7 @@
 from __future__ import annotations
 
 import pytest
-from gemseo.core.dataset import Dataset
+from gemseo.datasets.dataset import Dataset
 from gemseo_calibration.measures.iae import IAE
 from gemseo_calibration.measures.mae import MAE
 from numpy import array
@@ -64,11 +64,11 @@ def test_mean_error_with_mesh(output_name, mesh_name, expected):
         measure = IAE(output_name, mesh_name)
         assert measure.full_output_name == "y[m]"
 
-    reference_data = Dataset(by_group=False)
+    reference_data = Dataset()
     reference_data.add_variable("y", array([[1.0, 1.0, 1.0]]))
     reference_data.add_variable("m", array([[0.0, 1.0, 3.0]]))
 
-    model_data = Dataset(by_group=False)
+    model_data = Dataset()
     model_data.add_variable("y", array([[2.0, 3.0, 4.0]]))
     model_data.add_variable("m", array([[0.0, 1.0, 3.0]]))
 
@@ -85,11 +85,11 @@ def test_mean_error_with_interpolation_over_reference_mesh(
     """Test that integrated measures handle interpolation over reference mesh."""
     measure = IAE("y", "m")
 
-    reference_data = Dataset(by_group=False)
+    reference_data = Dataset()
     reference_data.add_variable("y", array([[1.0] * len(reference_mesh)]))
     reference_data.add_variable("m", array([reference_mesh]))
 
-    model_data = Dataset(by_group=False)
+    model_data = Dataset()
     model_data.add_variable("y", array([[2.0, 3.0, 4.0]]))
     model_data.add_variable("m", array([[0.0, 1.0, 3.0]]))
 

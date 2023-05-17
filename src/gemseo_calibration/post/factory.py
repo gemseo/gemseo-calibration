@@ -20,7 +20,7 @@ from pathlib import Path
 from typing import Any
 
 from gemseo.algos.opt_problem import OptimizationProblem
-from gemseo.core.dataset import Dataset
+from gemseo.datasets.dataset import Dataset
 from gemseo.post.post_factory import PostFactory
 
 from gemseo_calibration.post_processor import CalibrationPostProcessor

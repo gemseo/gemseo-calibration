@@ -58,7 +58,7 @@ prior.add_variable("b", l_b=0.0, u_b=10.0, value=0.0)
 reference.set_cache_policy(reference.CacheType.MEMORY_FULL)
 reference.execute({"x": array([1.0])})
 reference.execute({"x": array([2.0])})
-reference_data = reference.cache.to_dataset(by_group=True)
+reference_data = reference.cache.to_dataset()
 
 #######################################################################################
 # From these information sources,

@@ -17,7 +17,7 @@ from __future__ import annotations
 
 import logging
 
-from gemseo.core.dataset import Dataset
+from gemseo.datasets.dataset import Dataset
 
 from gemseo_calibration.post.multiple_scatter import MultipleScatter
 from gemseo_calibration.post_processor import CalibrationPostProcessor
@@ -39,17 +39,21 @@ class DataVersusModel(CalibrationPostProcessor):
         dataset = Dataset()
         dataset.add_variable(
             opt_name,
-            self._posterior_model_data.get_data_by_names(output, False).mean(1)[
-                :, None
-            ],
+            self._posterior_model_data.get_view(variable_names=output)
+            .to_numpy()
+            .mean(1)[:, None],
         )
         dataset.add_variable(
             init_name,
-            self._prior_model_data.get_data_by_names(output, False).mean(1)[:, None],
+            self._prior_model_data.get_view(variable_names=output)
+            .to_numpy()
+            .mean(1)[:, None],
         )
         dataset.add_variable(
             ref_name,
-            self._reference_data.get_data_by_names(output, False).mean(1)[:, None],
+            self._reference_data.get_view(variable_names=output)
+            .to_numpy()
+            .mean(1)[:, None],
         )
         plot = MultipleScatter(dataset, x=ref_name, y=[init_name, opt_name])
         plot.color = ["blue", "red"]

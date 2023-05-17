@@ -82,7 +82,7 @@ def test_set_reference_data(adapter, reference_data):
     for measure in adapter._Calibrator__measures:
         assert len(measure._reference_data) == 2
 
-    assert adapter.reference_data == reference_data
+    assert adapter.reference_data.equals(reference_data)
 
 
 def test_execute_default(adapter, reference_data):
