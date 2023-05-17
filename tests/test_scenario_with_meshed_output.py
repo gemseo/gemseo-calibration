@@ -16,8 +16,8 @@ from __future__ import annotations
 
 import pytest
 from gemseo.algos.parameter_space import ParameterSpace
-from gemseo.datasets.dataset import Dataset
 from gemseo.core.discipline import MDODiscipline
+from gemseo.datasets.dataset import Dataset
 from gemseo_calibration.calibrator import CalibrationMeasure
 from gemseo_calibration.scenario import CalibrationScenario
 from numpy import array

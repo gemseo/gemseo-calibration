@@ -22,10 +22,10 @@ from typing import Iterable
 from typing import Sequence
 
 from gemseo.algos.design_space import DesignSpace
-from gemseo.datasets.dataset import Dataset
 from gemseo.core.discipline import MDODiscipline
 from gemseo.core.mdo_scenario import MDOScenario
 from gemseo.core.mdofunctions.mdo_function import MDOFunction
+from gemseo.datasets.dataset import Dataset
 from numpy import ndarray
 
 from gemseo_calibration.calibrator import CalibrationMeasure

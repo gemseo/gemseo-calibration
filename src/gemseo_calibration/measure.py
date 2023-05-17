@@ -17,8 +17,8 @@ from __future__ import annotations
 
 from typing import ClassVar
 
-from gemseo.datasets.dataset import Dataset
 from gemseo.core.mdofunctions.mdo_function import MDOFunction
+from gemseo.datasets.dataset import Dataset
 from numpy import infty
 from numpy import nanmax
 from numpy import nanmin
