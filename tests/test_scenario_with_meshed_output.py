@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import pytest
 from gemseo.algos.parameter_space import ParameterSpace
-from gemseo.core.dataset import Dataset
+from gemseo.datasets.dataset import Dataset
 from gemseo.core.discipline import MDODiscipline
 from gemseo_calibration.calibrator import CalibrationMeasure
 from gemseo_calibration.scenario import CalibrationScenario
@@ -76,7 +76,7 @@ def reference_data() -> Dataset:
     reference.set_cache_policy("MemoryFullCache")
     reference.execute({"x": array([1.0])})
     reference.execute({"x": array([2.0])})
-    return reference.cache.to_dataset(by_group=True)
+    return reference.cache.to_dataset()
 
 
 def test_execute(reference_data, calibration_space):

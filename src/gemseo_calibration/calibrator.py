@@ -23,7 +23,7 @@ from typing import Sequence
 
 from gemseo.algos.design_space import DesignSpace
 from gemseo.algos.doe.lib_custom import CustomDOE
-from gemseo.core.dataset import Dataset
+from gemseo.datasets.dataset import Dataset
 from gemseo.core.discipline import MDODiscipline
 from gemseo.core.doe_scenario import DOEScenario
 from gemseo.core.grammars.json_grammar import JSONGrammar
@@ -159,10 +159,12 @@ class Calibrator(MDOScenarioAdapter):
         design_space = self.scenario.design_space
         for name in design_space:
             del design_space[name]
-            design_space.add_variable(name, size=reference_data.sizes[name])
+            design_space.add_variable(
+                name, size=reference_data.variable_names_to_n_components[name]
+            )
 
         inputs = self.scenario.get_optim_variable_names()
-        input_data = reference_data.get_data_by_names(inputs, False)
+        input_data = reference_data.get_view(variable_names=inputs).to_numpy()
         self.scenario.default_inputs[self.__ALGO_OPTIONS][self.__SAMPLES] = input_data
         for measure in self.__measures:
             measure.set_reference_data(self.__reference_data)

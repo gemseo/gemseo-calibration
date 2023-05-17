@@ -17,7 +17,7 @@ from __future__ import annotations
 
 from typing import ClassVar
 
-from gemseo.core.dataset import Dataset
+from gemseo.datasets.dataset import Dataset
 from gemseo.core.mdofunctions.mdo_function import MDOFunction
 from numpy import infty
 from numpy import nanmax
@@ -62,7 +62,9 @@ class CalibrationMeasure(MDOFunction):
         Args:
             reference_dataset: The reference input-output data set.
         """
-        self._reference_data = reference_dataset[self.output_name]
+        self._reference_data = reference_dataset.get_view(
+            variable_names=self.output_name
+        ).to_numpy()
         self._lower_bound = nanmin(self._reference_data)
         self._upper_bound = nanmax(self._reference_data)
 

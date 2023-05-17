@@ -16,7 +16,7 @@
 from __future__ import annotations
 
 from gemseo.algos.opt_problem import OptimizationProblem
-from gemseo.core.dataset import Dataset
+from gemseo.datasets.dataset import Dataset
 from gemseo.post.opt_post_processor import OptPostProcessor
 
 

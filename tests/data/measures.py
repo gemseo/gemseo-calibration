@@ -15,7 +15,7 @@
 """Dummy calibration measures used for tests."""
 from __future__ import annotations
 
-from gemseo.core.dataset import Dataset
+from gemseo.datasets.dataset import Dataset
 from gemseo_calibration.measure import CalibrationMeasure
 
 
