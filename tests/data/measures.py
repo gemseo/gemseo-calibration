@@ -15,8 +15,8 @@
 """Dummy calibration measures used for tests."""
 from __future__ import annotations
 
-from gemseo.datasets.dataset import Dataset
 from gemseo_calibration.measure import CalibrationMeasure
+from numpy import ndarray
 
 
 class MeasureCstr(CalibrationMeasure):
@@ -24,9 +24,9 @@ class MeasureCstr(CalibrationMeasure):
 
     def __call__(  # noqa: D102
         self,
-        model_dataset: Dataset,
+        model_dataset: dict[str, ndarray],
     ) -> float:
-        return model_dataset[1]["y"][0]
+        return model_dataset["y"][1, 0]
 
 
 class MeasureObj(CalibrationMeasure):
@@ -36,9 +36,9 @@ class MeasureObj(CalibrationMeasure):
 
     def __call__(  # noqa: D102
         self,
-        model_dataset: Dataset,
+        model_dataset: dict[str, ndarray],
     ) -> float:
-        return model_dataset[0]["y"][0]
+        return model_dataset["y"][0, 0]
 
 
 class NewCalibrationMeasure(CalibrationMeasure):
@@ -46,6 +46,6 @@ class NewCalibrationMeasure(CalibrationMeasure):
 
     def __call__(  # noqa: D102
         self,
-        model_dataset: Dataset,
+        model_dataset: dict[str, ndarray],
     ) -> float:
         return 0.0

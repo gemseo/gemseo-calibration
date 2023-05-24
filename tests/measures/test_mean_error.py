@@ -16,32 +16,33 @@
 from __future__ import annotations
 
 import pytest
-from gemseo.datasets.dataset import Dataset
 from gemseo_calibration.measures.iae import IAE
 from gemseo_calibration.measures.mae import MAE
 from numpy import array
 from numpy import nan
+from numpy import ndarray
+from numpy import ones
 
 
 @pytest.fixture(scope="module")
 def reference_data():
     """Synthetic reference data containing two observations."""
-    data = Dataset()
-    data.add_variable("y", array([[1.0], [2.0], [2.0], [nan]]))
-    data.add_variable("z", array([[1.0] * 3, [2.0] * 3, [2.0] * 3, [nan, 2.0, 2.0]]))
-    return data
+    return {
+        "y": array([[1.0], [2.0], [2.0], [nan]]),
+        "z": array([[1.0] * 3, [2.0] * 3, [2.0] * 3, [nan, 2.0, 2.0]]),
+    }
 
 
 @pytest.fixture(scope="module")
-def model_data() -> Dataset:
+def model_data() -> dict[str, ndarray]:
     """Synthetic model data corresponding to the input values of the reference data."""
-    data = Dataset()
-    data.add_variable("x", array([[1.0], [2.0], [2.0], [2.0]]))
-    data.add_variable("y", array([[3.0], [4.0], [nan], [4.0]]))
-    data.add_variable(
-        "z", array([[2.0, 3.0, 4.0], [3.0, 4.0, 5.0], [nan, 4.0, 5.0], [3.0, 4.0, 5.0]])
-    )
-    return data
+    return {
+        "x": array([[1.0], [2.0], [2.0], [2.0]]),
+        "y": array([[3.0], [4.0], [nan], [4.0]]),
+        "z": array(
+            [[2.0, 3.0, 4.0], [3.0, 4.0, 5.0], [nan, 4.0, 5.0], [3.0, 4.0, 5.0]]
+        ),
+    }
 
 
 @pytest.mark.parametrize("output_name,expected", [("y", 2.0), ("z", 2.2)])
@@ -58,20 +59,13 @@ def test_mean_error(reference_data, model_data, output_name, expected):
 )
 def test_mean_error_with_mesh(output_name, mesh_name, expected):
     """Test that the mean error works correctly in presence of indexed variables."""
+    reference_data = {"y": array([[1.0, 1.0, 1.0]]), "m": array([[0.0, 1.0, 3.0]])}
+    model_data = {"y": array([[2.0, 3.0, 4.0]]), "m": array([[0.0, 1.0, 3.0]])}
     if mesh_name is None:
         measure = MAE(output_name)
     else:
         measure = IAE(output_name, mesh_name)
         assert measure.full_output_name == "y[m]"
-
-    reference_data = Dataset()
-    reference_data.add_variable("y", array([[1.0, 1.0, 1.0]]))
-    reference_data.add_variable("m", array([[0.0, 1.0, 3.0]]))
-
-    model_data = Dataset()
-    model_data.add_variable("y", array([[2.0, 3.0, 4.0]]))
-    model_data.add_variable("m", array([[0.0, 1.0, 3.0]]))
-
     measure.set_reference_data(reference_data)
     assert measure(model_data) == expected
 
@@ -83,15 +77,8 @@ def test_mean_error_with_interpolation_over_reference_mesh(
     reference_mesh, expected_measure
 ):
     """Test that integrated measures handle interpolation over reference mesh."""
+    reference_data = {"y": ones((1, len(reference_mesh))), "m": array([reference_mesh])}
+    model_data = {"y": array([[2.0, 3.0, 4.0]]), "m": array([[0.0, 1.0, 3.0]])}
     measure = IAE("y", "m")
-
-    reference_data = Dataset()
-    reference_data.add_variable("y", array([[1.0] * len(reference_mesh)]))
-    reference_data.add_variable("m", array([reference_mesh]))
-
-    model_data = Dataset()
-    model_data.add_variable("y", array([[2.0, 3.0, 4.0]]))
-    model_data.add_variable("m", array([[0.0, 1.0, 3.0]]))
-
     measure.set_reference_data(reference_data)
     assert measure(model_data) == expected_measure

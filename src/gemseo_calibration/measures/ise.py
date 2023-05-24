@@ -24,8 +24,5 @@ class ISE(IntegratedMeasure):
     """The integrated square error between the model and reference output data."""
 
     @staticmethod
-    def _compare_data(
-        data: ndarray,
-        other_data: ndarray,
-    ) -> ndarray:
+    def _compare_data(data: ndarray, other_data: ndarray) -> ndarray:
         return (data - other_data) ** 2

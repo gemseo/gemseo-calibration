@@ -25,11 +25,11 @@ from gemseo.algos.design_space import DesignSpace
 from gemseo.core.discipline import MDODiscipline
 from gemseo.core.mdo_scenario import MDOScenario
 from gemseo.core.mdofunctions.mdo_function import MDOFunction
-from gemseo.datasets.dataset import Dataset
 from numpy import ndarray
 
 from gemseo_calibration.calibrator import CalibrationMeasure
 from gemseo_calibration.calibrator import Calibrator
+from gemseo_calibration.measure import DataType
 from gemseo_calibration.post.factory import CalibrationPostFactory
 
 LOGGER = logging.getLogger(__name__)
@@ -55,10 +55,10 @@ class CalibrationScenario(MDOScenario):
     from an optimizer and a reference input-output :class:`.Dataset`.
     """
 
-    prior_model_data: Dataset | None
+    prior_model_data: dict[str, ndarray]
     """The model data before the calibration."""
 
-    posterior_model_data: Dataset | None
+    posterior_model_data: dict[str, ndarray]
     """The model data after the calibration."""
 
     __REFERENCE_DATA: ClassVar[str] = "reference_data"
@@ -71,7 +71,7 @@ class CalibrationScenario(MDOScenario):
         control_outputs: CalibrationMeasure | Sequence[CalibrationMeasure],
         calibration_space: DesignSpace,
         formulation: str = "MDF",
-        name: str | None = None,
+        name: str = "",
         **formulation_options: Any,
     ) -> None:
         """
@@ -94,13 +94,13 @@ class CalibrationScenario(MDOScenario):
             formulation: The name of a formulation
                 to manage the multidisciplinary coupling.
             name: A name for this calibration scenario.
-                If ``None``, use the name of the class.
+                If empty, use the name of the class.
             **formulation_options: The options of the formulation.
         """  # noqa: D205,D212,D415
         self.__prior_parameters = calibration_space.get_current_value(as_dict=True)
         self.__posterior_parameters = {}
-        self.prior_model_data = None
-        self.posterior_model_data = None
+        self.prior_model_data = {}
+        self.posterior_model_data = {}
         calibrator = Calibrator(
             disciplines,
             input_names,
@@ -122,14 +122,18 @@ class CalibrationScenario(MDOScenario):
     def _run_algorithm(self) -> None:
         self.calibrator.set_reference_data(self.local_data[self.__REFERENCE_DATA])
         self.calibrator.execute()
-        self.prior_model_data = self.calibrator.scenario.to_dataset()
+        self.prior_model_data = self.calibrator.scenario.to_dataset().to_dict_of_arrays(
+            False
+        )
         super()._run_algorithm()
         self.__posterior_parameters = self.design_space.array_to_dict(
             self.optimization_result.x_opt
         )
         self.calibrator.default_inputs = self.posterior_parameters
         self.calibrator.execute()
-        self.posterior_model_data = self.calibrator.scenario.to_dataset()
+        self.posterior_model_data = (
+            self.calibrator.scenario.to_dataset().to_dict_of_arrays(False)
+        )
 
     @property
     def calibrator(self) -> Calibrator:
@@ -137,12 +141,12 @@ class CalibrationScenario(MDOScenario):
         return self.formulation.disciplines[0]
 
     @property
-    def prior_parameters(self) -> dict[str, ndarray]:
+    def prior_parameters(self) -> DataType:
         """The values of the parameters before the calibration stage."""
         return self.__prior_parameters
 
     @property
-    def posterior_parameters(self) -> dict[str, ndarray]:
+    def posterior_parameters(self) -> DataType:
         """The values of the parameters after the calibration stage."""
         return self.__posterior_parameters
 
@@ -150,8 +154,8 @@ class CalibrationScenario(MDOScenario):
         self,
         control_outputs: CalibrationMeasure | Iterable[CalibrationMeasure],
         constraint_type: MDOFunction.ConstraintType = MDOFunction.ConstraintType.EQ,
-        constraint_name: str | None = None,
-        value: str | float = None,
+        constraint_name: str = "",
+        value: float = 0.0,
         positive: bool = False,
     ) -> None:
         """Define a constraint from a calibration measure related to discipline outputs.
@@ -171,18 +175,20 @@ class CalibrationScenario(MDOScenario):
                 ``"eq"`` for equality constraint and
                 ``"ineq"`` for inequality constraint.
             constraint_name: The name of the constraint to be stored.
-                If ``None``,
+                If empty,
                 the name of the constraint is generated from the output name.
             value: The value for which the constraint is active.
-                If ``None``, this value is 0.
             positive: Whether to consider the inequality constraint as positive.
         """
         if isinstance(control_outputs, CalibrationMeasure):
             control_outputs = [control_outputs]
 
-        output_name, _ = self.calibrator.add_measure(control_outputs)
         super().add_constraint(
-            output_name, constraint_type, constraint_name, value, positive
+            self.calibrator.add_measure(control_outputs)[0],
+            constraint_type,
+            constraint_name or None,
+            value or None,
+            positive,
         )
 
     @property

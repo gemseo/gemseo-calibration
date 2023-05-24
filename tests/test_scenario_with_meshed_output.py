@@ -17,11 +17,11 @@ from __future__ import annotations
 import pytest
 from gemseo.algos.parameter_space import ParameterSpace
 from gemseo.core.discipline import MDODiscipline
-from gemseo.datasets.dataset import Dataset
 from gemseo_calibration.calibrator import CalibrationMeasure
 from gemseo_calibration.scenario import CalibrationScenario
 from numpy import array
 from numpy import linspace
+from numpy import ndarray
 
 
 class Model(MDODiscipline):
@@ -70,13 +70,13 @@ def calibration_space() -> ParameterSpace:
 
 
 @pytest.fixture(scope="module")
-def reference_data() -> Dataset:
+def reference_data() -> dict[str, ndarray]:
     """The reference dataset."""
     reference = ReferenceModel()
     reference.set_cache_policy("MemoryFullCache")
     reference.execute({"x": array([1.0])})
     reference.execute({"x": array([2.0])})
-    return reference.cache.to_dataset()
+    return reference.cache.to_dataset().to_dict_of_arrays(False)
 
 
 def test_execute(reference_data, calibration_space):

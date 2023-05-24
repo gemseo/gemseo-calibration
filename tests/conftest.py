@@ -15,10 +15,10 @@
 from __future__ import annotations
 
 import pytest
-from gemseo.datasets.dataset import Dataset
 from gemseo.disciplines.analytic import AnalyticDiscipline
 from matplotlib import pyplot as plt
 from numpy import array
+from numpy import ndarray
 
 
 @pytest.fixture(scope="package")
@@ -28,13 +28,13 @@ def discipline() -> AnalyticDiscipline:
 
 
 @pytest.fixture(scope="package")
-def reference_data() -> Dataset:
+def reference_data() -> dict[str, ndarray]:
     """The reference data to calibrate the discipline."""
-    dataset = Dataset()
-    dataset.add_variable("x", array([[0.5], [1.0]]))
-    dataset.add_variable("y", array([[1.0], [2.0]]))
-    dataset.add_variable("z", array([[-1.0], [-2.0]]))
-    return dataset
+    return {
+        "x": array([[0.5], [1.0]]),
+        "y": array([[1.0], [2.0]]),
+        "z": array([[-1.0], [-2.0]]),
+    }
 
 
 @pytest.fixture

@@ -16,13 +16,21 @@
 from __future__ import annotations
 
 from typing import ClassVar
+from typing import Dict
 
 from gemseo.core.mdofunctions.mdo_function import MDOFunction
-from gemseo.datasets.dataset import Dataset
 from numpy import infty
 from numpy import nanmax
 from numpy import nanmin
 from numpy import ndarray
+
+DataType = Dict[str, ndarray]
+"""The type of data.
+
+The data are set as ``{variable_name: variable_values}``
+where ``variable_values`` is a 2D NumPy array
+whose rows are the samples and columns are the components of the variable.
+"""
 
 
 class CalibrationMeasure(MDOFunction):
@@ -35,7 +43,10 @@ class CalibrationMeasure(MDOFunction):
     """Whether to maximize the calibration measure."""
 
     def __init__(
-        self, output_name: str, name: str | None = None, f_type: str | None = None
+        self,
+        output_name: str,
+        name: str = "",
+        f_type: MDOFunction.FunctionType = MDOFunction.FunctionType.NONE,
     ) -> None:
         """
         Args:
@@ -56,15 +67,13 @@ class CalibrationMeasure(MDOFunction):
         """Return the name of the measure."""
         return f"{self.__class__.__name__}({self.output_name})"
 
-    def set_reference_data(self, reference_dataset: Dataset) -> None:
+    def set_reference_data(self, reference_dataset: DataType) -> None:
         """Define the reference input-output data set.
 
         Args:
             reference_dataset: The reference input-output data set.
         """
-        self._reference_data = reference_dataset.get_view(
-            variable_names=self.output_name
-        ).to_numpy()
+        self._reference_data = reference_dataset[self.output_name]
         self._lower_bound = nanmin(self._reference_data)
         self._upper_bound = nanmax(self._reference_data)
 
@@ -77,7 +86,7 @@ class CalibrationMeasure(MDOFunction):
         self._lower_bound = min(data.min(), self._lower_bound)
         self._upper_bound = max(data.max(), self._upper_bound)
 
-    def __call__(self, model_dataset: Dataset) -> float:
+    def __call__(self, model_dataset: DataType) -> float:
         """Measure the (in)consistency between the model dataset and the reference one.
 
         Args:
@@ -89,10 +98,7 @@ class CalibrationMeasure(MDOFunction):
         raise NotImplementedError
 
     @staticmethod
-    def _compare_data(
-        data: ndarray,
-        other_data: ndarray,
-    ) -> ndarray:
+    def _compare_data(data: ndarray, other_data: ndarray) -> ndarray:
         """Compare two data arrays.
 
         Args:
