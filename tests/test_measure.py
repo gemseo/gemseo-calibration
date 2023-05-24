@@ -18,7 +18,6 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-from gemseo.datasets.dataset import Dataset
 from gemseo_calibration.measure import CalibrationMeasure
 from gemseo_calibration.measures.factory import CalibrationMeasureFactory
 from numpy import array
@@ -48,12 +47,9 @@ def test_measure_init(measure):
 
 def test_measure_set_reference_data(measure):
     """Test the method set_reference_data of CalibrationMeasure."""
-    dataset = Dataset()
-    dataset.add_variable("y", array([[2.0], [4.0]]))
+    dataset = {"y": array([[2.0], [4.0]])}
     measure.set_reference_data(dataset)
-    assert_equal(
-        measure._reference_data, dataset.get_view(variable_names="y").to_numpy()
-    )
+    assert_equal(measure._reference_data, dataset["y"])
 
 
 def test_call(measure):

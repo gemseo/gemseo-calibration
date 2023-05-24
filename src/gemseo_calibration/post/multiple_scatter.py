@@ -26,6 +26,7 @@ classical plot, with one color per series :math:`\{y_i\}_{1\leq i \leq n}`.
 """
 from __future__ import annotations
 
+from types import MappingProxyType
 from typing import Iterable
 from typing import Mapping
 
@@ -43,8 +44,8 @@ class MultipleScatter(DatasetPlot):
         dataset: Dataset,
         x: str,
         y: str | Iterable[str],
-        x_comp: str = 0,
-        y_comp: Mapping[str, int] = None,
+        x_comp: int = 0,
+        y_comp: Mapping[str, int] = MappingProxyType({}),
     ) -> None:
         """
         Args:
@@ -54,15 +55,15 @@ class MultipleScatter(DatasetPlot):
             y_comp: The components of y,
                 where the names are the names of the variables
                 and the values are the components.
-                If None or if a name is missing,
+                If empty or if a name is missing,
                 use the first component.
         """  # noqa: D205 D212 D415
         super().__init__(dataset=dataset, x=x, y=y, x_comp=x_comp, y_comp=y_comp)
 
     def _plot(
         self,
-        fig: None | Figure = None,
-        axes: None | Axes = None,
+        fig: Figure | None = None,
+        axes: Axes | None = None,
     ) -> list[Figure]:
         x = self._param.x
         y = self._param.y

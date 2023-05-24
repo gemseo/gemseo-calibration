@@ -41,7 +41,7 @@ reference_data = Dataset.from_array(
         "y": "outputs",
         "z": "outputs",
     },
-)
+).to_dict_of_arrays(False)
 
 control_outputs = [CalibrationMeasure("y", "MSE"), CalibrationMeasure("z", "MSE")]
 calibration = CalibrationScenario(model, "x", control_outputs, prior)

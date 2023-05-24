@@ -16,8 +16,9 @@
 from __future__ import annotations
 
 from gemseo.algos.opt_problem import OptimizationProblem
-from gemseo.datasets.dataset import Dataset
 from gemseo.post.opt_post_processor import OptPostProcessor
+
+from gemseo_calibration.measure import DataType
 
 
 class CalibrationPostProcessor(OptPostProcessor):
@@ -26,9 +27,9 @@ class CalibrationPostProcessor(OptPostProcessor):
     def __init__(
         self,
         opt_problem: OptimizationProblem,
-        reference_data: Dataset,
-        prior_model_data: Dataset,
-        posterior_model_data: Dataset,
+        reference_data: DataType,
+        prior_model_data: DataType,
+        posterior_model_data: DataType,
     ) -> None:
         """
         Args:

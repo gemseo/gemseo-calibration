@@ -128,7 +128,6 @@ def test_execute(calibration_scenario, reference_data):
     calibration_scenario.execute(
         {"algo": "NLOPT_COBYLA", "reference_data": reference_data, "max_iter": 10}
     )
-    assert calibration_scenario.calibrator.reference_data.name == reference_data.name
     assert calibration_scenario.prior_parameters == {
         "a": array([0.5]),
         "b": array([0.5]),

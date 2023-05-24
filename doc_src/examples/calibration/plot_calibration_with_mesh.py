@@ -39,8 +39,8 @@ from numpy import linspace
 class Model(MDODiscipline):
     def __init__(self) -> None:
         super().__init__()
-        self.input_grammar.update(["x", "a", "b"])
-        self.output_grammar.update(["y", "z", "mesh"])
+        self.input_grammar.update_from_names(["x", "a", "b"])
+        self.output_grammar.update_from_names(["y", "z", "mesh"])
         self.default_inputs = {"x": array([0.0]), "a": array([0.0]), "b": array([0.0])}
 
     def _run(self) -> None:
@@ -60,8 +60,8 @@ class Model(MDODiscipline):
 class ReferenceModel(MDODiscipline):
     def __init__(self) -> None:
         super().__init__()
-        self.input_grammar.update(["x"])
-        self.output_grammar.update(["y", "z", "mesh"])
+        self.input_grammar.update_from_names(["x"])
+        self.output_grammar.update_from_names(["y", "z", "mesh"])
         self.default_inputs = {"x": array([0.0])}
 
     def _run(self) -> None:
@@ -95,7 +95,7 @@ reference = ReferenceModel()
 reference.set_cache_policy(reference.CacheType.MEMORY_FULL)
 reference.execute({"x": array([1.0])})
 reference.execute({"x": array([2.0])})
-reference_data = reference.cache.to_dataset()
+reference_data = reference.cache.to_dataset().to_dict_of_arrays(False)
 
 #######################################################################################
 # From these information sources,

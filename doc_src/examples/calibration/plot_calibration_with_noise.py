@@ -100,7 +100,7 @@ adapter = MDOScenarioAdapter(sub_scenario, ["u"], ["y"])
 # in charge to sample it over the uncertain space.
 scenario = DOEScenario([adapter], "DisciplinaryOpt", "y", noise_space)
 scenario.execute({"algo": "OT_LHSC", "n_samples": 5})
-reference_data = reference.cache.to_dataset()
+reference_data = reference.cache.to_dataset().to_dict_of_arrays(False)
 
 #######################################################################################
 # From these information sources,
