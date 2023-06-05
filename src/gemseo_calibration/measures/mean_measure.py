@@ -15,20 +15,16 @@
 """A module to compute the mean measure between the model and reference data."""
 from __future__ import annotations
 
-from gemseo.core.dataset import Dataset
 from numpy import nanmean
 
 from gemseo_calibration.measure import CalibrationMeasure
+from gemseo_calibration.measure import DataType
 
 
 class MeanMeasure(CalibrationMeasure):
     """An abstract mean measure between the model and reference output data."""
 
-    def __call__(
-        self,
-        model_dataset: Dataset,
-    ) -> float:
-        # noqa: D102
+    def __call__(self, model_dataset: DataType) -> float:  # noqa: D102
         model_data = model_dataset[self.output_name]
         self._update_bounds(model_data)
         return nanmean(self._compare_data(self._reference_data, model_data))

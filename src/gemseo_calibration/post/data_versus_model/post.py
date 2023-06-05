@@ -17,7 +17,8 @@ from __future__ import annotations
 
 import logging
 
-from gemseo.core.dataset import Dataset
+from gemseo.datasets.dataset import Dataset
+from numpy import newaxis
 
 from gemseo_calibration.post.multiple_scatter import MultipleScatter
 from gemseo_calibration.post_processor import CalibrationPostProcessor
@@ -28,29 +29,19 @@ LOGGER = logging.getLogger(__name__)
 class DataVersusModel(CalibrationPostProcessor):
     """Scatter plot of the model data versus the reference ones."""
 
-    def _plot(
-        self,
-        output: str,
-    ) -> None:
+    def _plot(self, output: str) -> None:
         opt_name = f"Opt[{output}]"
         init_name = f"Init[{output}]"
         ref_name = f"Ref[{output}]"
 
         dataset = Dataset()
         dataset.add_variable(
-            opt_name,
-            self._posterior_model_data.get_data_by_names(output, False).mean(1)[
-                :, None
-            ],
+            opt_name, self._posterior_model_data[output].mean(1)[:, newaxis]
         )
         dataset.add_variable(
-            init_name,
-            self._prior_model_data.get_data_by_names(output, False).mean(1)[:, None],
+            init_name, self._prior_model_data[output].mean(1)[:, newaxis]
         )
-        dataset.add_variable(
-            ref_name,
-            self._reference_data.get_data_by_names(output, False).mean(1)[:, None],
-        )
+        dataset.add_variable(ref_name, self._reference_data[output].mean(1)[:, newaxis])
         plot = MultipleScatter(dataset, x=ref_name, y=[init_name, opt_name])
         plot.color = ["blue", "red"]
         plot.xlabel = "Reference"

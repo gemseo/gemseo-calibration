@@ -18,7 +18,6 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-from gemseo.core.dataset import Dataset
 from gemseo_calibration.measure import CalibrationMeasure
 from gemseo_calibration.measures.factory import CalibrationMeasureFactory
 from numpy import array
@@ -48,10 +47,9 @@ def test_measure_init(measure):
 
 def test_measure_set_reference_data(measure):
     """Test the method set_reference_data of CalibrationMeasure."""
-    dataset = Dataset(by_group=False)
-    dataset.add_variable("y", array([[2.0], [4.0]]))
+    dataset = {"y": array([[2.0], [4.0]])}
     measure.set_reference_data(dataset)
-    assert_equal(measure._reference_data, dataset.data["y"])
+    assert_equal(measure._reference_data, dataset["y"])
 
 
 def test_call(measure):
@@ -75,6 +73,12 @@ def test_factory_is_available(factory):
     """Test the method is_available() of the CalibrationMeasureFactory."""
     assert factory.is_available("NewCalibrationMeasure")
     assert not factory.is_available("foo")
+
+
+def test_factory_is_integrated_measure(factory):
+    """Test the method is_integrated_measure()."""
+    assert factory.is_integrated_measure("ISE")
+    assert not factory.is_integrated_measure("MSE")
 
 
 def test_factory_measures(factory):

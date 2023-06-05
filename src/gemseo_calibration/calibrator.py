@@ -23,14 +23,15 @@ from typing import Sequence
 
 from gemseo.algos.design_space import DesignSpace
 from gemseo.algos.doe.lib_custom import CustomDOE
-from gemseo.core.dataset import Dataset
 from gemseo.core.discipline import MDODiscipline
 from gemseo.core.doe_scenario import DOEScenario
 from gemseo.core.grammars.json_grammar import JSONGrammar
-from gemseo.disciplines.scenario_adapter import MDOScenarioAdapter
+from gemseo.disciplines.scenario_adapters.mdo_scenario_adapter import MDOScenarioAdapter
 from numpy import array
+from numpy import hstack
 
 from gemseo_calibration.measure import CalibrationMeasure as CalibrationMeasure_
+from gemseo_calibration.measure import DataType
 from gemseo_calibration.measures.factory import CalibrationMeasureFactory
 
 CalibrationMeasure = namedtuple(
@@ -59,7 +60,7 @@ class Calibrator(MDOScenarioAdapter):
         parameter_names: str | Iterable[str],
         formulation: str = "MDF",
         **formulation_options: Any,
-    ) -> None:  # noqa: D205,D212,D415
+    ) -> None:
         """
         Args:
             disciplines: The disciplines
@@ -79,7 +80,7 @@ class Calibrator(MDOScenarioAdapter):
             formulation: The name of a formulation
                 to manage the multidisciplinary coupling.
             **formulation_options: The options of the formulation.
-        """
+        """  # noqa: D205,D212,D415
         self.__measure_factory = CalibrationMeasureFactory()
         input_names = self.__to_iterable(input_names, str)
         control_outputs = self.__to_iterable(control_outputs, CalibrationMeasure)
@@ -119,7 +120,7 @@ class Calibrator(MDOScenarioAdapter):
         self.objective_name, output_names = self.add_measure(control_outputs)
         super().__init__(doe_scenario, parameter_names, output_names, name="Calibrator")
         self.__update_output_grammar()
-        self.__reference_data = None
+        self.__reference_data = {}
 
     @staticmethod
     def __to_iterable(obj: Any, cls: type) -> Iterable[Any]:
@@ -146,10 +147,10 @@ class Calibrator(MDOScenarioAdapter):
         E.g. MSE(y,z) is the name of the MSE measure applied to the outputs y and z.
         """
         output_grammar = JSONGrammar("outputs")
-        output_grammar.update(self.__names_to_measures.keys())
+        output_grammar.update_from_names(self.__names_to_measures.keys())
         self.output_grammar = output_grammar
 
-    def set_reference_data(self, reference_data: Dataset) -> None:
+    def set_reference_data(self, reference_data: DataType) -> None:
         """Pass the reference data to the scenario and to the measures.
 
         Args:
@@ -159,23 +160,23 @@ class Calibrator(MDOScenarioAdapter):
         design_space = self.scenario.design_space
         for name in design_space:
             del design_space[name]
-            design_space.add_variable(name, size=reference_data.sizes[name])
+            design_space.add_variable(name, size=reference_data[name].shape[1])
 
-        inputs = self.scenario.get_optim_variables_names()
-        input_data = reference_data.get_data_by_names(inputs, False)
-        self.scenario.default_inputs[self.__ALGO_OPTIONS][self.__SAMPLES] = input_data
+        self.scenario.default_inputs[self.__ALGO_OPTIONS][self.__SAMPLES] = hstack(
+            reference_data[name] for name in self.scenario.get_optim_variable_names()
+        )
         for measure in self.__measures:
             measure.set_reference_data(self.__reference_data)
 
-    def _run(self):
+    def _run(self) -> None:
         root_logger = logging.getLogger()
         saved_level = root_logger.level
         root_logger.setLevel(logging.WARNING)
         super()._run()
         root_logger.setLevel(saved_level)
 
-    def _post_run(self):
-        model_dataset = self.scenario.export_to_dataset()
+    def _post_run(self) -> None:
+        model_dataset = self.scenario.to_dataset().to_dict_of_arrays(False)
         for name, measure in self.__names_to_measures.items():
             self.local_data[name] = array([measure(model_dataset)])
 
@@ -302,6 +303,6 @@ class Calibrator(MDOScenarioAdapter):
             return measure, [control_output.output]
 
     @property
-    def reference_data(self) -> Dataset:
+    def reference_data(self) -> DataType:
         """The reference data used for the calibration."""
         return self.__reference_data

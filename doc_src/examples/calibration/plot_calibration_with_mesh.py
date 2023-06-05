@@ -37,13 +37,13 @@ from numpy import linspace
 
 
 class Model(MDODiscipline):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
-        self.input_grammar.initialize_from_data_names(["x", "a", "b"])
-        self.output_grammar.initialize_from_data_names(["y", "z", "mesh"])
+        self.input_grammar.update_from_names(["x", "a", "b"])
+        self.output_grammar.update_from_names(["y", "z", "mesh"])
         self.default_inputs = {"x": array([0.0]), "a": array([0.0]), "b": array([0.0])}
 
-    def _run(self):
+    def _run(self) -> None:
         x_input = self.local_data["x"]
         a_parameter = self.local_data["a"]
         b_parameter = self.local_data["b"]
@@ -58,13 +58,13 @@ class Model(MDODiscipline):
 # which a kind of oracle providing input-output data
 # without the mathematical relationship behind it:
 class ReferenceModel(MDODiscipline):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
-        self.input_grammar.initialize_from_data_names(["x"])
-        self.output_grammar.initialize_from_data_names(["y", "z", "mesh"])
+        self.input_grammar.update_from_names(["x"])
+        self.output_grammar.update_from_names(["y", "z", "mesh"])
         self.default_inputs = {"x": array([0.0])}
 
-    def _run(self):
+    def _run(self) -> None:
         x_input = self.local_data["x"]
         y_output = 2 * x_input
         z_mesh = linspace(0, 1, 5)
@@ -92,10 +92,10 @@ prior.add_variable("b", l_b=0.0, u_b=10.0, value=0.0)
 # Secondly,
 # we have reference output data over the input space :math:`[0.,3.]`:
 reference = ReferenceModel()
-reference.set_cache_policy("MemoryFullCache")
+reference.set_cache_policy(reference.CacheType.MEMORY_FULL)
 reference.execute({"x": array([1.0])})
 reference.execute({"x": array([2.0])})
-reference_data = reference.cache.export_to_dataset(by_group=True)
+reference_data = reference.cache.to_dataset().to_dict_of_arrays(False)
 
 #######################################################################################
 # From these information sources,

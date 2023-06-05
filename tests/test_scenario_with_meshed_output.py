@@ -16,12 +16,12 @@ from __future__ import annotations
 
 import pytest
 from gemseo.algos.parameter_space import ParameterSpace
-from gemseo.core.dataset import Dataset
 from gemseo.core.discipline import MDODiscipline
 from gemseo_calibration.calibrator import CalibrationMeasure
 from gemseo_calibration.scenario import CalibrationScenario
 from numpy import array
 from numpy import linspace
+from numpy import ndarray
 
 
 class Model(MDODiscipline):
@@ -29,8 +29,8 @@ class Model(MDODiscipline):
 
     def __init__(self):  # noqa: D107
         super().__init__()
-        self.input_grammar.update(["x", "a", "b"])
-        self.output_grammar.update(["y", "z", "mesh"])
+        self.input_grammar.update_from_names(["x", "a", "b"])
+        self.output_grammar.update_from_names(["y", "z", "mesh"])
         self.default_inputs = {"x": array([0.0]), "a": array([0.0]), "b": array([0.0])}
 
     def _run(self):  # noqa: D107
@@ -48,8 +48,8 @@ class ReferenceModel(MDODiscipline):
 
     def __init__(self):  # noqa: D107
         super().__init__()
-        self.input_grammar.update(["x"])
-        self.output_grammar.update(["y", "z", "mesh"])
+        self.input_grammar.update_from_names(["x"])
+        self.output_grammar.update_from_names(["y", "z", "mesh"])
         self.default_inputs = {"x": array([0.0])}
 
     def _run(self):  # noqa: D107
@@ -70,13 +70,13 @@ def calibration_space() -> ParameterSpace:
 
 
 @pytest.fixture(scope="module")
-def reference_data() -> Dataset:
+def reference_data() -> dict[str, ndarray]:
     """The reference dataset."""
     reference = ReferenceModel()
     reference.set_cache_policy("MemoryFullCache")
     reference.execute({"x": array([1.0])})
     reference.execute({"x": array([2.0])})
-    return reference.cache.export_to_dataset(by_group=True)
+    return reference.cache.to_dataset().to_dict_of_arrays(False)
 
 
 def test_execute(reference_data, calibration_space):

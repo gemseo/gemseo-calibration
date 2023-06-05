@@ -16,7 +16,7 @@
 from __future__ import annotations
 
 from gemseo.algos.parameter_space import ParameterSpace
-from gemseo.core.dataset import Dataset
+from gemseo.datasets.dataset import Dataset
 from gemseo.disciplines.analytic import AnalyticDiscipline
 from gemseo_calibration.scenario import CalibrationMeasure
 from gemseo_calibration.scenario import CalibrationScenario
@@ -29,15 +29,19 @@ prior = ParameterSpace()
 prior.add_variable("a", l_b=0.0, u_b=10.0, value=0.0)
 prior.add_variable("b", l_b=0.0, u_b=10.0, value=0.0)
 
-reference_data = Dataset()
 data = array(
     [[1, 1.0, 2.0, NaN], [2, 1.0, NaN, 3.0], [3, 2.0, 4.0, NaN], [4, 2.0, NaN, 6.0]]
 )
-reference_data.set_from_array(
+reference_data = Dataset.from_array(
     data,
-    variables=["index", "x", "y", "z"],
-    groups={"index": "inputs", "x": "inputs", "y": "outputs", "z": "outputs"},
-)
+    variable_names=["index", "x", "y", "z"],
+    variable_names_to_group_names={
+        "index": "inputs",
+        "x": "inputs",
+        "y": "outputs",
+        "z": "outputs",
+    },
+).to_dict_of_arrays(False)
 
 control_outputs = [CalibrationMeasure("y", "MSE"), CalibrationMeasure("z", "MSE")]
 calibration = CalibrationScenario(model, "x", control_outputs, prior)

@@ -55,10 +55,10 @@ prior.add_variable("b", l_b=0.0, u_b=10.0, value=0.0)
 #######################################################################################
 # Secondly,
 # we have reference output data over the input space :math:`[0.,3.]`:
-reference.set_cache_policy("MemoryFullCache")
+reference.set_cache_policy(reference.CacheType.MEMORY_FULL)
 reference.execute({"x": array([1.0])})
 reference.execute({"x": array([2.0])})
-reference_data = reference.cache.export_to_dataset(by_group=True)
+reference_data = reference.cache.to_dataset().to_dict_of_arrays(False)
 
 #######################################################################################
 # From these information sources,

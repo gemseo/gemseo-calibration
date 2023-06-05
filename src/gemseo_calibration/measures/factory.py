@@ -15,52 +15,30 @@
 """A factory to create instances of :class:`.CalibrationMeasure`."""
 from __future__ import annotations
 
-from typing import Any
-
-from gemseo.core.factory import Factory
+from gemseo.core.base_factory import BaseFactory
 
 from gemseo_calibration.measure import CalibrationMeasure
 from gemseo_calibration.measures.integrated_measure import IntegratedMeasure
 
 
-class CalibrationMeasureFactory:
+class CalibrationMeasureFactory(BaseFactory):
     """A factory to create instances of :class:`.CalibrationMeasure`."""
 
-    is_integrated_measure: bool
-    """Whether the calibration measure is an :class:`.IntegratedMeasure`."""
+    _CLASS = CalibrationMeasure
+    _MODULE_NAMES = ("gemseo_calibration.measures",)
 
-    def __init__(self) -> None:  # noqa: D107,D415,D102,D417
-        self.__factory = Factory(CalibrationMeasure, ("gemseo_calibration.measures",))
-        factory = Factory(IntegratedMeasure, ("gemseo_calibration.measures",))
-        self.is_integrated_measure = factory.is_available
-
-    def create(self, name: str, **options: Any) -> CalibrationMeasure:
-        """Instantiate a :class:`.CalibrationMeasure` from its class name.
+    def is_integrated_measure(self, name: str) -> bool:
+        """Return whether a calibration measure is an :class:`.IntegratedMeasure`.
 
         Args:
-            name: The name of a class inheriting from :class:`.CalibrationMeasure`.
-            **options: The options of the calibration measure.
+            name: The name of the class of the calibration measure.
 
         Returns:
-            The calibration measure.
+            Whether the calibration measure is an :class:`.IntegratedMeasure`.
         """
-        return self.__factory.create(name, **options)
+        return issubclass(self.get_class(name), IntegratedMeasure)
 
     @property
     def measures(self) -> list[str]:
         """The names of the available calibration measures."""
-        return self.__factory.classes
-
-    def is_available(
-        self,
-        name: str,
-    ) -> bool:
-        """Return whether a calibration measure is available.
-
-        Args:
-            name: The name of a calibration measure.
-
-        Returns:
-            Whether the measure is available.
-        """
-        return self.__factory.is_available(name)
+        return self.class_names

@@ -19,20 +19,18 @@
 #    OTHER AUTHORS   - MACROSCOPIC CHANGES
 r"""Overlay several scatter plots from a :class:`.Dataset`.
 
-A :class:`Scatter` plot
-represents a set of points :math:`\{x_i,y_i\}_{1\leq i \leq n}`
-as markers on a classical plot,
-while a :class:`MultipleScatter` plot
-represents a set of points :math:`\{x_i,y_{i,1},\ldots,y_{i,d}\}_{1\leq i \leq n}`
-as markers on a classical plot,
-with one color per series :math:`\{y_i\}_{1\leq i \leq n}`.
+A :class:`Scatter` plot represents a set of points :math:`\{x_i,y_i\}_{1\leq i \leq n}`
+as markers on a classical plot, while a :class:`MultipleScatter` plot represents a set
+of points :math:`\{x_i,y_{i,1},\ldots,y_{i,d}\}_{1\leq i \leq n}` as markers on a
+classical plot, with one color per series :math:`\{y_i\}_{1\leq i \leq n}`.
 """
 from __future__ import annotations
 
+from types import MappingProxyType
 from typing import Iterable
 from typing import Mapping
 
-from gemseo.core.dataset import Dataset
+from gemseo.datasets.dataset import Dataset
 from gemseo.post.dataset.dataset_plot import DatasetPlot
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
@@ -46,10 +44,9 @@ class MultipleScatter(DatasetPlot):
         dataset: Dataset,
         x: str,
         y: str | Iterable[str],
-        x_comp: str = 0,
-        y_comp: Mapping[str, int] = None,
+        x_comp: int = 0,
+        y_comp: Mapping[str, int] = MappingProxyType({}),
     ) -> None:
-        # noqa: D205 D212 D415
         """
         Args:
             x: The name of the variable on the x-axis.
@@ -58,15 +55,15 @@ class MultipleScatter(DatasetPlot):
             y_comp: The components of y,
                 where the names are the names of the variables
                 and the values are the components.
-                If None or if a name is missing,
+                If empty or if a name is missing,
                 use the first component.
-        """
+        """  # noqa: D205 D212 D415
         super().__init__(dataset=dataset, x=x, y=y, x_comp=x_comp, y_comp=y_comp)
 
     def _plot(
         self,
-        fig: None | Figure = None,
-        axes: None | Axes = None,
+        fig: Figure | None = None,
+        axes: Axes | None = None,
     ) -> list[Figure]:
         x = self._param.x
         y = self._param.y
@@ -77,7 +74,9 @@ class MultipleScatter(DatasetPlot):
         for name in y:
             y_comp[name] = y_comp.get(name, 0)
 
-        reference = self.dataset.get_data_by_names(x, False)[:, self._param.x_comp]
+        reference = self.dataset.get_view(variable_names=x).to_numpy()[
+            :, self._param.x_comp
+        ]
 
         fig, axes = self._get_figure_and_axes(fig, axes)
         bounds = [min(reference), max(reference)]
@@ -86,7 +85,7 @@ class MultipleScatter(DatasetPlot):
         for index, name in enumerate(y):
             axes.plot(
                 reference,
-                self.dataset.get_data_by_names(name, False)[:, y_comp[name]],
+                self.dataset.get_view(variable_names=name).to_numpy()[:, y_comp[name]],
                 color=self.color[index],
                 marker="o",
                 linestyle="",

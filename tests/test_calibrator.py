@@ -21,6 +21,7 @@ import pytest
 from gemseo_calibration.calibrator import CalibrationMeasure
 from gemseo_calibration.calibrator import Calibrator
 from numpy import array
+from numpy.testing import assert_equal
 
 DATA = Path(__file__).parent / "data"
 
@@ -56,7 +57,7 @@ def test_init_measures(adapter):
 
 def test_init_data(adapter):
     """Check that there is no reference data after initialization."""
-    assert adapter.reference_data is None
+    assert adapter.reference_data == {}
 
 
 def test_init_grammars(adapter):
@@ -76,13 +77,12 @@ def test_maximize(adapter):
 def test_set_reference_data(adapter, reference_data):
     """Check that the reference data are correctly passed."""
     adapter.set_reference_data(reference_data)
-    assert adapter.reference_data.name == reference_data.name
     assert adapter.scenario.default_inputs["algo"] == "CustomDOE"
     assert adapter.scenario.default_inputs["algo_options"]["samples"].shape == (2, 1)
     for measure in adapter._Calibrator__measures:
         assert len(measure._reference_data) == 2
 
-    assert adapter.reference_data == reference_data
+    assert_equal(adapter.reference_data, reference_data)
 
 
 def test_execute_default(adapter, reference_data):

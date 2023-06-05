@@ -15,15 +15,13 @@
 from __future__ import annotations
 
 from gemseo.algos.opt_problem import OptimizationProblem
-from gemseo.core.dataset import Dataset
 from gemseo.post.opt_post_processor import OptPostProcessor
 from gemseo_calibration.post_processor import CalibrationPostProcessor
+from numpy import ndarray
 
 
 class NewOptPostProcessor(OptPostProcessor):
     """A new optimization post-processor."""
-
-    pass
 
 
 class NewCalibrationPostProcessor(CalibrationPostProcessor):
@@ -32,18 +30,17 @@ class NewCalibrationPostProcessor(CalibrationPostProcessor):
     def __init__(
         self,
         opt_problem: OptimizationProblem,
-        reference_data: Dataset,
-        prior_model_data: Dataset,
-        posterior_model_data: Dataset,
-    ):  # type: (...) -> None
-        # noqa: D205 D212 D415
+        reference_data: dict[str, ndarray],
+        prior_model_data: dict[str, ndarray],
+        posterior_model_data: dict[str, ndarray],
+    ) -> None:
         """
         Args:
             opt_problem: The optimization problem to run.
             reference_data: The reference data.
             prior_model_data: The model data before the calibration.
             posterior_model_data: The model data after the calibration.
-        """
+        """  # noqa: D205 D212 D415
         super().__init__(
             opt_problem, reference_data, prior_model_data, posterior_model_data
         )

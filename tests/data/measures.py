@@ -15,19 +15,18 @@
 """Dummy calibration measures used for tests."""
 from __future__ import annotations
 
-from gemseo.core.dataset import Dataset
 from gemseo_calibration.measure import CalibrationMeasure
+from numpy import ndarray
 
 
 class MeasureCstr(CalibrationMeasure):
     """The calibration measure to be used as a constraint."""
 
-    def __call__(
+    def __call__(  # noqa: D102
         self,
-        model_dataset: Dataset,
+        model_dataset: dict[str, ndarray],
     ) -> float:
-        # noqa: D102
-        return model_dataset[1]["y"][0]
+        return model_dataset["y"][1, 0]
 
 
 class MeasureObj(CalibrationMeasure):
@@ -35,20 +34,18 @@ class MeasureObj(CalibrationMeasure):
 
     maximize = True
 
-    def __call__(
+    def __call__(  # noqa: D102
         self,
-        model_dataset: Dataset,
+        model_dataset: dict[str, ndarray],
     ) -> float:
-        # noqa: D102
-        return model_dataset[0]["y"][0]
+        return model_dataset["y"][0, 0]
 
 
 class NewCalibrationMeasure(CalibrationMeasure):
     """The calibration measure returning zero."""
 
-    def __call__(
+    def __call__(  # noqa: D102
         self,
-        model_dataset: Dataset,
+        model_dataset: dict[str, ndarray],
     ) -> float:
-        # noqa: D102
         return 0.0
