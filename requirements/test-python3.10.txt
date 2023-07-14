@@ -30,7 +30,7 @@ execnet==2.0.2
     # via pytest-xdist
 fastjsonschema==2.16.3
     # via gemseo
-fonttools==4.40.0
+fonttools==4.41.0
     # via matplotlib
 gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@develop
     # via gemseo-calibration (setup.py)
@@ -132,7 +132,7 @@ strenum==0.4.10
     # via gemseo
 sympy==1.11.1
     # via gemseo
-threadpoolctl==3.1.0
+threadpoolctl==3.2.0
     # via scikit-learn
 tomli==2.0.1
     # via
