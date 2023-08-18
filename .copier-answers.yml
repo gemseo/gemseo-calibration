@@ -1,0 +1,13 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: c306dde
+_src_path: /home/ad/gemseo-copier
+author_email: contact@gemseo.org
+author_name: Matthias De Lozzo
+gemseo_min_version: '5'
+package_is_a_gemseo_plugin: false
+project_is_open_source: true
+project_name: gemseo-calibration
+project_name_suffix: calibration
+project_slug: gemseo_calibration
+short_description: Capability to calibrate GEMSEO disciplines from data.
+use_gemseo_develop: true
