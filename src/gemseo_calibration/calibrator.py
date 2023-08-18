@@ -163,7 +163,7 @@ class Calibrator(MDOScenarioAdapter):
             design_space.add_variable(name, size=reference_data[name].shape[1])
 
         self.scenario.default_inputs[self.__ALGO_OPTIONS][self.__SAMPLES] = hstack(
-            reference_data[name] for name in self.scenario.get_optim_variable_names()
+            [reference_data[name] for name in self.scenario.get_optim_variable_names()]
         )
         for measure in self.__measures:
             measure.set_reference_data(self.__reference_data)
