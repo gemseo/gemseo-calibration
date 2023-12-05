@@ -14,10 +14,15 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 from __future__ import annotations
 
-from gemseo.algos.opt_problem import OptimizationProblem
+from typing import TYPE_CHECKING
+
 from gemseo.post.opt_post_processor import OptPostProcessor
+
 from gemseo_calibration.post_processor import CalibrationPostProcessor
-from numpy import ndarray
+
+if TYPE_CHECKING:
+    from gemseo.algos.opt_problem import OptimizationProblem
+    from numpy import ndarray
 
 
 class NewOptPostProcessor(OptPostProcessor):

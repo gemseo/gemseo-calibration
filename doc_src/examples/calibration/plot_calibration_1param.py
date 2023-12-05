@@ -17,13 +17,15 @@
 Calibration scenario
 ====================
 """
+
 from __future__ import annotations
 
 from gemseo.algos.parameter_space import ParameterSpace
 from gemseo.disciplines.analytic import AnalyticDiscipline
+from numpy import array
+
 from gemseo_calibration.scenario import CalibrationMeasure
 from gemseo_calibration.scenario import CalibrationScenario
-from numpy import array
 
 #######################################################################################
 # Let us consider a function :math:`f(x)=ax`
@@ -65,9 +67,11 @@ reference_data = reference.cache.to_dataset().to_dict_of_arrays(False)
 # which minimizes a :class:`.CalibrationMeasure`
 # taking into account the outputs :math:`y`:
 calibration = CalibrationScenario(model, "x", CalibrationMeasure("y", "MSE"), prior)
-calibration.execute(
-    {"algo": "NLOPT_COBYLA", "reference_data": reference_data, "max_iter": 100}
-)
+calibration.execute({
+    "algo": "NLOPT_COBYLA",
+    "reference_data": reference_data,
+    "max_iter": 100,
+})
 
 #######################################################################################
 # Lastly,

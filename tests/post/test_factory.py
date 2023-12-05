@@ -13,17 +13,19 @@
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """Test the :class:`.CalibrationPostFactory`."""
+
 from __future__ import annotations
 
 from pathlib import Path
 
 import pytest
+
 from gemseo_calibration.post.factory import CalibrationPostFactory
 
 DATA = Path(__file__).parent / ".." / "data"
 
 
-@pytest.fixture
+@pytest.fixture()
 def post_factory(monkeypatch) -> CalibrationPostFactory:
     """The factory of post-processors dedicated to calibration."""
     monkeypatch.setenv("GEMSEO_PATH", DATA)

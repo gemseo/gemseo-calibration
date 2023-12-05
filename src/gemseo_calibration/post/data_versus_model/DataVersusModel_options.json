@@ -1,12 +1,14 @@
 {
-    "name": "DataVersusModel_options",
-    "required": ["output"],
-    "properties": {
-        "output":{
-            "type": "string"
-        }
-    },
-    "additionalProperties": false,
-    "$schema": "http://json-schema.org/draft-04/schema",
-    "type": "object"
+  "name": "DataVersusModel_options",
+  "required": [
+    "output"
+  ],
+  "properties": {
+    "output": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object"
 }
