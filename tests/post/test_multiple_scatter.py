@@ -18,14 +18,16 @@
 #        :author: Matthias De Lozzo
 #    OTHER AUTHORS   - MACROSCOPIC CHANGES
 """Test the class MultipleScatter plotting variable y_i versus a variable x."""
+
 from __future__ import annotations
 
 import pytest
 from gemseo.datasets.dataset import Dataset
 from gemseo.utils.testing.helpers import image_comparison
-from gemseo_calibration.post.multiple_scatter import MultipleScatter
 from matplotlib import pyplot as plt
 from numpy import array
+
+from gemseo_calibration.post.multiple_scatter import MultipleScatter
 
 
 @pytest.fixture(scope="module")
@@ -36,12 +38,11 @@ def dataset() -> Dataset:
     sample3 = [1.0, 1.0, 0.25, 1.0]
     data_array = array([sample1, sample2, sample3])
     variable_names_to_n_components = {"x": 1, "y1": 1, "y2": 2}
-    dataset = Dataset.from_array(
+    return Dataset.from_array(
         data_array,
         variable_names=["x", "y1", "y2"],
         variable_names_to_n_components=variable_names_to_n_components,
     )
-    return dataset
 
 
 # the test parameters, it maps a test name to the inputs and references outputs:
@@ -78,7 +79,7 @@ TEST_PARAMETERS = {
 
 
 @pytest.mark.parametrize(
-    "kwargs, properties, baseline_images",
+    ("options", "properties", "baseline_images"),
     TEST_PARAMETERS.values(),
     indirect=["baseline_images"],
     ids=TEST_PARAMETERS.keys(),
@@ -86,11 +87,14 @@ TEST_PARAMETERS = {
 @pytest.mark.parametrize("fig_and_axes", [False, True])
 @image_comparison(None)
 def test_plot(
-    kwargs, properties, baseline_images, dataset, pyplot_close_all, fig_and_axes
+    options, properties, baseline_images, dataset, pyplot_close_all, fig_and_axes
 ):
     """Test images created by MultipleScatter._plot against references."""
-    plot = MultipleScatter(dataset, **kwargs)
+    plot = MultipleScatter(dataset, **options)
     fig, axes = (
         (None, None) if not fig_and_axes else plt.subplots(figsize=plot.fig_size)
     )
-    plot.execute(save=False, show=False, properties=properties, fig=fig, axes=axes)
+    for name, value in properties.items():
+        setattr(plot, name, value)
+
+    plot.execute(save=False, show=False, fig=fig, axes=axes)

@@ -17,14 +17,16 @@
 Calibration scenario with a mesh-based output
 =============================================
 """
+
 from __future__ import annotations
 
 from gemseo.algos.parameter_space import ParameterSpace
 from gemseo.core.discipline import MDODiscipline
-from gemseo_calibration.scenario import CalibrationMeasure
-from gemseo_calibration.scenario import CalibrationScenario
 from numpy import array
 from numpy import linspace
+
+from gemseo_calibration.scenario import CalibrationMeasure
+from gemseo_calibration.scenario import CalibrationScenario
 
 #######################################################################################
 # Let us consider a function :math:`f(x)=[ax,\gamma bx, \gamma]`
@@ -109,9 +111,11 @@ control_outputs = [
     CalibrationMeasure("z", "ISE", "mesh"),
 ]
 calibration = CalibrationScenario(model, "x", control_outputs, prior)
-calibration.execute(
-    {"algo": "NLOPT_COBYLA", "reference_data": reference_data, "max_iter": 100}
-)
+calibration.execute({
+    "algo": "NLOPT_COBYLA",
+    "reference_data": reference_data,
+    "max_iter": 100,
+})
 
 #######################################################################################
 # Lastly,

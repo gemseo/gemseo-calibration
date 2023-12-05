@@ -13,10 +13,12 @@
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """A discipline evaluating the quality of another one with respect to reference data."""
+
 from __future__ import annotations
 
 import logging
 from collections import namedtuple
+from typing import TYPE_CHECKING
 from typing import Any
 from typing import Iterable
 from typing import Sequence
@@ -30,9 +32,11 @@ from gemseo.disciplines.scenario_adapters.mdo_scenario_adapter import MDOScenari
 from numpy import array
 from numpy import hstack
 
-from gemseo_calibration.measure import CalibrationMeasure as CalibrationMeasure_
-from gemseo_calibration.measure import DataType
 from gemseo_calibration.measures.factory import CalibrationMeasureFactory
+
+if TYPE_CHECKING:
+    from gemseo_calibration.measure import CalibrationMeasure as CalibrationMeasure_
+    from gemseo_calibration.measure import DataType
 
 CalibrationMeasure = namedtuple(
     "CalibrationMeasure", "output,measure,mesh,weight", defaults=["MSE", None, None]
@@ -135,8 +139,7 @@ class Calibrator(MDOScenarioAdapter):
         """
         if isinstance(obj, cls):
             return [obj]
-        else:
-            return obj
+        return obj
 
     def _reset_optimization_problem(self) -> None:
         self.scenario.formulation.opt_problem.reset()
@@ -162,9 +165,9 @@ class Calibrator(MDOScenarioAdapter):
             del design_space[name]
             design_space.add_variable(name, size=reference_data[name].shape[1])
 
-        self.scenario.default_inputs[self.__ALGO_OPTIONS][self.__SAMPLES] = hstack(
-            [reference_data[name] for name in self.scenario.get_optim_variable_names()]
-        )
+        self.scenario.default_inputs[self.__ALGO_OPTIONS][self.__SAMPLES] = hstack([
+            reference_data[name] for name in self.scenario.get_optim_variable_names()
+        ])
         for measure in self.__measures:
             measure.set_reference_data(self.__reference_data)
 
@@ -296,11 +299,11 @@ class Calibrator(MDOScenarioAdapter):
                 mesh_name=control_output.mesh,
             )
             return measure, [control_output.output, control_output.mesh]
-        else:
-            measure = self.__measure_factory.create(
-                control_output.measure, output_name=control_output.output
-            )
-            return measure, [control_output.output]
+
+        measure = self.__measure_factory.create(
+            control_output.measure, output_name=control_output.output
+        )
+        return measure, [control_output.output]
 
     @property
     def reference_data(self) -> DataType:

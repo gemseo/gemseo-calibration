@@ -17,6 +17,7 @@
 Calibration scenario with noised observations
 =============================================
 """
+
 #######################################################################################
 # Let us consider a function :math:`f(x)=ax^2+bx+c`
 # from :math:`\mathbb{R}` to :math:`\mathbb{R}`:
@@ -28,11 +29,12 @@ from gemseo.core.chain import MDOChain
 from gemseo.core.doe_scenario import DOEScenario
 from gemseo.disciplines.analytic import AnalyticDiscipline
 from gemseo.disciplines.scenario_adapters.mdo_scenario_adapter import MDOScenarioAdapter
-from gemseo_calibration.scenario import CalibrationMeasure
-from gemseo_calibration.scenario import CalibrationScenario
 from matplotlib import pyplot as plt
 from numpy import array
 from numpy import linspace
+
+from gemseo_calibration.scenario import CalibrationMeasure
+from gemseo_calibration.scenario import CalibrationScenario
 
 model = AnalyticDiscipline({"y": "a*x**2+b*x+c"}, name="model")
 
@@ -108,9 +110,11 @@ reference_data = reference.cache.to_dataset().to_dict_of_arrays(False)
 # to find the value of the parameters :math:`a`, :math:`b` and :math:`c`
 # which minimizes a :class:`.CalibrationMeasure` related to the output :math:`y`:
 calibration = CalibrationScenario(model, "x", CalibrationMeasure("y", "MSE"), prior)
-calibration.execute(
-    {"algo": "NLOPT_COBYLA", "reference_data": reference_data, "max_iter": 100}
-)
+calibration.execute({
+    "algo": "NLOPT_COBYLA",
+    "reference_data": reference_data,
+    "max_iter": 100,
+})
 
 #######################################################################################
 # Lastly,

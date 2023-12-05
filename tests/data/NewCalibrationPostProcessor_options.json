@@ -1,21 +1,23 @@
 {
-    "name": "CalibrationPostProcessor_options",
-    "required": ["save"],
-    "properties": {
-        "save": {
-            "type": "boolean"
-        },
-        "show":{
-            "type": "boolean"
-        },
-        "file_path": {
-            "type": "string"
-        },
-        "extension": {
-            "type": "string"
-        }
+  "name": "CalibrationPostProcessor_options",
+  "required": [
+    "save"
+  ],
+  "properties": {
+    "save": {
+      "type": "boolean"
     },
-    "additionalProperties": false,
-    "$schema": "http://json-schema.org/draft-04/schema",
-    "type": "object"
+    "show": {
+      "type": "boolean"
+    },
+    "file_path": {
+      "type": "string"
+    },
+    "extension": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object"
 }

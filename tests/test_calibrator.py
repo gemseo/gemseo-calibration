@@ -13,22 +13,24 @@
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """Test the class Calibrator."""
+
 from __future__ import annotations
 
 from pathlib import Path
 
 import pytest
-from gemseo_calibration.calibrator import CalibrationMeasure
-from gemseo_calibration.calibrator import Calibrator
 from numpy import array
 from numpy.testing import assert_equal
+
+from gemseo_calibration.calibrator import CalibrationMeasure
+from gemseo_calibration.calibrator import Calibrator
 
 DATA = Path(__file__).parent / "data"
 
 CSTR_NAME = "0.5*MeasureCstr[y]+0.5*MeasureCstr[z]"
 
 
-@pytest.fixture
+@pytest.fixture()
 def adapter(monkeypatch, discipline) -> Calibrator:
     """The calibration adapter to compute calibration measures from reference data."""
     monkeypatch.setenv("GEMSEO_PATH", DATA)
@@ -36,9 +38,10 @@ def adapter(monkeypatch, discipline) -> Calibrator:
         discipline, ["x"], CalibrationMeasure("y", "MeasureObj"), ["a", "b"]
     )
     discipline.default_inputs = {"a": array([0.5]), "b": array([0.5])}
-    discipline.add_measure(
-        [CalibrationMeasure("y", "MeasureCstr"), CalibrationMeasure("z", "MeasureCstr")]
-    )
+    discipline.add_measure([
+        CalibrationMeasure("y", "MeasureCstr"),
+        CalibrationMeasure("z", "MeasureCstr"),
+    ])
     return discipline
 
 
@@ -62,8 +65,8 @@ def test_init_data(adapter):
 
 def test_init_grammars(adapter):
     """Check the value of the input and output grammars after initialization."""
-    assert sorted(list(adapter.get_input_data_names())) == ["a", "b"]
-    assert sorted(list(adapter.get_output_data_names())) == [
+    assert sorted(adapter.get_input_data_names()) == ["a", "b"]
+    assert sorted(adapter.get_output_data_names()) == [
         "0.5*MeasureCstr[y]+0.5*MeasureCstr[z]",
         "MeasureObj[y]",
     ]

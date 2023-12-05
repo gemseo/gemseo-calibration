@@ -13,15 +13,17 @@
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """Test the calibration measure MeanError."""
+
 from __future__ import annotations
 
 import pytest
-from gemseo_calibration.measures.iae import IAE
-from gemseo_calibration.measures.mae import MAE
 from numpy import array
 from numpy import nan
 from numpy import ndarray
 from numpy import ones
+
+from gemseo_calibration.measures.iae import IAE
+from gemseo_calibration.measures.mae import MAE
 
 
 @pytest.fixture(scope="module")
@@ -39,13 +41,16 @@ def model_data() -> dict[str, ndarray]:
     return {
         "x": array([[1.0], [2.0], [2.0], [2.0]]),
         "y": array([[3.0], [4.0], [nan], [4.0]]),
-        "z": array(
-            [[2.0, 3.0, 4.0], [3.0, 4.0, 5.0], [nan, 4.0, 5.0], [3.0, 4.0, 5.0]]
-        ),
+        "z": array([
+            [2.0, 3.0, 4.0],
+            [3.0, 4.0, 5.0],
+            [nan, 4.0, 5.0],
+            [3.0, 4.0, 5.0],
+        ]),
     }
 
 
-@pytest.mark.parametrize("output_name,expected", [("y", 2.0), ("z", 2.2)])
+@pytest.mark.parametrize(("output_name", "expected"), [("y", 2.0), ("z", 2.2)])
 def test_mean_error(reference_data, model_data, output_name, expected):
     """Test that the mean error works correctly for different outputs."""
     mae = MAE(output_name)
@@ -54,7 +59,7 @@ def test_mean_error(reference_data, model_data, output_name, expected):
 
 
 @pytest.mark.parametrize(
-    "output_name,mesh_name,expected",
+    ("output_name", "mesh_name", "expected"),
     [("y", None, 2.0), ("y", "m", 6.5)],
 )
 def test_mean_error_with_mesh(output_name, mesh_name, expected):
@@ -71,7 +76,8 @@ def test_mean_error_with_mesh(output_name, mesh_name, expected):
 
 
 @pytest.mark.parametrize(
-    "reference_mesh,expected_measure", [([0.0, 1.0, 2.0, 3.0], 6.5), ([0.0, 3.0], 6.0)]
+    ("reference_mesh", "expected_measure"),
+    [([0.0, 1.0, 2.0, 3.0], 6.5), ([0.0, 3.0], 6.0)],
 )
 def test_mean_error_with_interpolation_over_reference_mesh(
     reference_mesh, expected_measure
