@@ -36,7 +36,7 @@ fastjsonschema==2.19.0
     # via gemseo
 fonttools==4.46.0
     # via matplotlib
-gemseo[all]==5.1.2.dev243+gab14d04f
+gemseo[all]==5.1.2.dev267+gb18fa017
     # via
     #   gemseo
     #   gemseo-calibration (pyproject.toml)
@@ -153,7 +153,7 @@ tomli==2.0.1
     #   pytest
 tqdm==4.66.1
     # via gemseo
-typing-extensions==4.9.0rc1
+typing-extensions==4.9.0
     # via
     #   gemseo
     #   pydantic
