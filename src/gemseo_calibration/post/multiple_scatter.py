@@ -29,12 +29,13 @@ from __future__ import annotations
 
 from types import MappingProxyType
 from typing import TYPE_CHECKING
-from typing import Iterable
-from typing import Mapping
 
 from gemseo.post.dataset.dataset_plot import DatasetPlot
 
 if TYPE_CHECKING:
+    from collections.abc import Iterable
+    from collections.abc import Mapping
+
     from gemseo.datasets.dataset import Dataset
     from numpy import ndarray
 

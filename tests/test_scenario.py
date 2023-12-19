@@ -18,7 +18,6 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import TYPE_CHECKING
-from typing import Generator
 
 import pytest
 from gemseo.algos.design_space import DesignSpace
@@ -31,6 +30,8 @@ from gemseo_calibration.post.data_versus_model.post import DataVersusModel
 from gemseo_calibration.scenario import CalibrationScenario
 
 if TYPE_CHECKING:
+    from collections.abc import Generator
+
     from gemseo.core.discipline import MDODiscipline
 
 DATA = Path(__file__).parent / "data"

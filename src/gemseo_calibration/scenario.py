@@ -20,8 +20,6 @@ import logging
 from typing import TYPE_CHECKING
 from typing import Any
 from typing import ClassVar
-from typing import Iterable
-from typing import Sequence
 
 from gemseo.core.mdo_scenario import MDOScenario
 from gemseo.core.mdofunctions.mdo_function import MDOFunction
@@ -31,6 +29,9 @@ from gemseo_calibration.calibrator import Calibrator
 from gemseo_calibration.post.factory import CalibrationPostFactory
 
 if TYPE_CHECKING:
+    from collections.abc import Iterable
+    from collections.abc import Sequence
+
     from gemseo.algos.design_space import DesignSpace
     from gemseo.core.discipline import MDODiscipline
     from numpy import ndarray
