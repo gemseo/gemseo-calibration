@@ -17,14 +17,15 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
-from typing import Iterable
-from typing import Mapping
 
 from gemseo.post.dataset._matplotlib.plot import MatplotlibPlot
 from gemseo.utils.compatibility.matplotlib import get_color_map
 from numpy import linspace
 
 if TYPE_CHECKING:
+    from collections.abc import Iterable
+    from collections.abc import Mapping
+
     from matplotlib.axes import Axes
     from matplotlib.figure import Figure
     from numpy import ndarray
@@ -48,7 +49,7 @@ class MultipleScatter(MatplotlibPlot):
             reference: The reference values.
             y: The names of the variables on the y-axis.
             y_comp: The components of these variables.
-        """
+        """  # noqa: D205 D212
         fig, axes = self._get_figure_and_axes(fig, axes)
         axes.plot(bounds, bounds, color="gray", linestyle="--", marker="o")
         n_items = len(y)

@@ -17,7 +17,6 @@
 from __future__ import annotations
 
 from typing import ClassVar
-from typing import Dict
 
 from gemseo.core.mdofunctions.mdo_function import MDOFunction
 from numpy import inf
@@ -25,7 +24,7 @@ from numpy import nanmax
 from numpy import nanmin
 from numpy import ndarray
 
-DataType = Dict[str, ndarray]
+DataType = dict[str, ndarray]
 """The type of data.
 
 The data are set as ``{variable_name: variable_values}``
