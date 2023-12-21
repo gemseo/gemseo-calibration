@@ -18,17 +18,19 @@
 #        :author: Matthias De Lozzo
 #    OTHER AUTHORS   - MACROSCOPIC CHANGES
 """Test the class DataVersusModel."""
+
 from __future__ import annotations
 
 import pytest
 from gemseo.algos.parameter_space import ParameterSpace
 from gemseo.disciplines.analytic import AnalyticDiscipline
 from gemseo.utils.testing.helpers import image_comparison
+from numpy import array
+
 from gemseo_calibration.calibrator import CalibrationMeasure
 from gemseo_calibration.post.data_versus_model.post import DataVersusModel
 from gemseo_calibration.post.factory import CalibrationPostFactory
 from gemseo_calibration.scenario import CalibrationScenario
-from numpy import array
 
 
 @pytest.fixture(scope="module")
@@ -52,9 +54,11 @@ def calibration_scenario() -> CalibrationScenario:
         [CalibrationMeasure("y", "MSE"), CalibrationMeasure("z", "MSE")],
         prior,
     )
-    calibration.execute(
-        {"algo": "NLOPT_COBYLA", "reference_data": reference_data, "max_iter": 10}
-    )
+    calibration.execute({
+        "algo": "NLOPT_COBYLA",
+        "reference_data": reference_data,
+        "max_iter": 10,
+    })
     return calibration
 
 
@@ -68,7 +72,7 @@ TEST_PARAMETERS = {
 
 
 @pytest.mark.parametrize(
-    "kwargs, baseline_images",
+    ("kwargs", "baseline_images"),
     TEST_PARAMETERS.values(),
     indirect=["baseline_images"],
     ids=TEST_PARAMETERS.keys(),

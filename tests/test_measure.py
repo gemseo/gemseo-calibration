@@ -13,27 +13,32 @@
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """Test the CalibrationMeasure and the CalibrationMeasureFactory."""
+
 from __future__ import annotations
 
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import pytest
-from gemseo_calibration.measure import CalibrationMeasure
-from gemseo_calibration.measures.factory import CalibrationMeasureFactory
 from numpy import array
 from numpy.testing import assert_equal
+
+from gemseo_calibration.measures.factory import CalibrationMeasureFactory
+
+if TYPE_CHECKING:
+    from gemseo_calibration.measure import CalibrationMeasure
 
 DATA = Path(__file__).parent / "data"
 
 
-@pytest.fixture
+@pytest.fixture()
 def factory(monkeypatch) -> CalibrationMeasureFactory:
     """The factory to create a CalibrationMeasure."""
     monkeypatch.setenv("GEMSEO_PATH", DATA)
     return CalibrationMeasureFactory()
 
 
-@pytest.fixture
+@pytest.fixture()
 def measure(factory) -> CalibrationMeasure:
     """A calibration measure related to y and returning zero."""
     return factory.create("NewCalibrationMeasure", output_name="y")

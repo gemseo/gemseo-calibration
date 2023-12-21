@@ -37,7 +37,7 @@ def reference_data() -> dict[str, ndarray]:
     }
 
 
-@pytest.fixture
+@pytest.fixture()
 def baseline_images(request):
     """Return the baseline_images contents.
 
@@ -46,7 +46,7 @@ def baseline_images(request):
     return request.param
 
 
-@pytest.fixture
+@pytest.fixture()
 def pyplot_close_all():
     """Fixture that prevents figures aggregation with matplotlib pyplot."""
     plt.close("all")

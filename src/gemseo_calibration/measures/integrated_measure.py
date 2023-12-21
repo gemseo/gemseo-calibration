@@ -13,6 +13,7 @@
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """A module to compute the integrated measure between two data sets."""
+
 from __future__ import annotations
 
 from numpy import interp
@@ -51,18 +52,16 @@ class IntegratedMeasure(CalibrationMeasure):
         model_data = model_dataset[self.output_name]
         model_mesh = model_dataset[self.mesh_name]
         self._update_bounds(model_data)
-        return mean(
-            [
-                integrate(
-                    self._compare_data(
-                        self._reference_data[i],
-                        interp(self.__reference_mesh[i], model_mesh[i], model_data[i]),
-                    ),
-                    self.__reference_mesh[i],
-                )
-                for i in range(len(model_data))
-            ]
-        )
+        return mean([
+            integrate(
+                self._compare_data(
+                    self._reference_data[i],
+                    interp(self.__reference_mesh[i], model_mesh[i], model_data[i]),
+                ),
+                self.__reference_mesh[i],
+            )
+            for i in range(len(model_data))
+        ])
 
     @property
     def full_output_name(self) -> str:  # noqa: D102

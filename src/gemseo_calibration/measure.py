@@ -13,18 +13,18 @@
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """A module to measure the consistency or the inconsistency between two data sets."""
+
 from __future__ import annotations
 
 from typing import ClassVar
-from typing import Dict
 
 from gemseo.core.mdofunctions.mdo_function import MDOFunction
-from numpy import infty
+from numpy import inf
 from numpy import nanmax
 from numpy import nanmin
 from numpy import ndarray
 
-DataType = Dict[str, ndarray]
+DataType = dict[str, ndarray]
 """The type of data.
 
 The data are set as ``{variable_name: variable_values}``
@@ -54,8 +54,8 @@ class CalibrationMeasure(MDOFunction):
         """  # noqa: D205,D212,D415
         self.output_name = output_name
         super().__init__(None, name or self._compute_name(), f_type=f_type)
-        self._lower_bound = -infty
-        self._upper_bound = infty
+        self._lower_bound = -inf
+        self._upper_bound = inf
         self._reference_data = []
 
     @property

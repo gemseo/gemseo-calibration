@@ -13,20 +13,26 @@
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """Test the class CalibrationScenario."""
+
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Generator
+from typing import TYPE_CHECKING
 
 import pytest
 from gemseo.algos.design_space import DesignSpace
-from gemseo.core.discipline import MDODiscipline
 from gemseo.post.opt_history_view import OptHistoryView
+from numpy import array
+
 from gemseo_calibration.calibrator import CalibrationMeasure
 from gemseo_calibration.calibrator import Calibrator
 from gemseo_calibration.post.data_versus_model.post import DataVersusModel
 from gemseo_calibration.scenario import CalibrationScenario
-from numpy import array
+
+if TYPE_CHECKING:
+    from collections.abc import Generator
+
+    from gemseo.core.discipline import MDODiscipline
 
 DATA = Path(__file__).parent / "data"
 
@@ -40,7 +46,7 @@ def calibration_space() -> DesignSpace:
     return space
 
 
-@pytest.fixture
+@pytest.fixture()
 def calibration_scenario(
     discipline: MDODiscipline,
     calibration_space: DesignSpace,
@@ -107,7 +113,7 @@ def test_init_list(
 def test_calibration_adapter(calibration_scenario):
     """Check the calibrator after initialization + add of the constraint."""
     names_to_measures = calibration_scenario.calibrator._Calibrator__names_to_measures
-    assert sorted(list(names_to_measures.keys())) == [
+    assert sorted(names_to_measures.keys()) == [
         "0.5*MeasureCstr[y]+0.5*MeasureCstr[z]",
         "MeasureObj[y]",
     ]
@@ -125,9 +131,11 @@ def test_constraint(calibration_scenario):
 
 def test_execute(calibration_scenario, reference_data):
     """Test that the reference data are correctly passed during the execution."""
-    calibration_scenario.execute(
-        {"algo": "NLOPT_COBYLA", "reference_data": reference_data, "max_iter": 10}
-    )
+    calibration_scenario.execute({
+        "algo": "NLOPT_COBYLA",
+        "reference_data": reference_data,
+        "max_iter": 10,
+    })
     assert calibration_scenario.prior_parameters == {
         "a": array([0.5]),
         "b": array([0.5]),
@@ -148,9 +156,11 @@ def test_posts(calibration_scenario):
 
 def test_post_process(calibration_scenario, reference_data):
     """Check the post-processing of a calibration scenario."""
-    calibration_scenario.execute(
-        {"algo": "NLOPT_COBYLA", "reference_data": reference_data, "max_iter": 2}
-    )
+    calibration_scenario.execute({
+        "algo": "NLOPT_COBYLA",
+        "reference_data": reference_data,
+        "max_iter": 2,
+    })
     post = calibration_scenario.post_process("OptHistoryView", save=False, show=False)
     assert isinstance(post, OptHistoryView)
     post = calibration_scenario.post_process(

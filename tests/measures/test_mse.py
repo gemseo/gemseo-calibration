@@ -13,13 +13,15 @@
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """Test the calibration measures MSE and ISE."""
+
 from __future__ import annotations
 
 import pytest
-from gemseo_calibration.measures.ise import ISE
-from gemseo_calibration.measures.mse import MSE
 from numpy import array
 from numpy.testing import assert_array_equal
+
+from gemseo_calibration.measures.ise import ISE
+from gemseo_calibration.measures.mse import MSE
 
 
 @pytest.mark.parametrize("measure", [MSE, ISE])

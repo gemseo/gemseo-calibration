@@ -13,10 +13,15 @@
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """Dummy calibration measures used for tests."""
+
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 from gemseo_calibration.measure import CalibrationMeasure
-from numpy import ndarray
+
+if TYPE_CHECKING:
+    from numpy import ndarray
 
 
 class MeasureCstr(CalibrationMeasure):

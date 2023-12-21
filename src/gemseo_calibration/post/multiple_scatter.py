@@ -24,16 +24,20 @@ as markers on a classical plot, while a :class:`MultipleScatter` plot represents
 of points :math:`\{x_i,y_{i,1},\ldots,y_{i,d}\}_{1\leq i \leq n}` as markers on a
 classical plot, with one color per series :math:`\{y_i\}_{1\leq i \leq n}`.
 """
+
 from __future__ import annotations
 
 from types import MappingProxyType
-from typing import Iterable
-from typing import Mapping
+from typing import TYPE_CHECKING
 
-from gemseo.datasets.dataset import Dataset
 from gemseo.post.dataset.dataset_plot import DatasetPlot
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
+    from collections.abc import Mapping
+
+    from gemseo.datasets.dataset import Dataset
+    from numpy import ndarray
 
 
 class MultipleScatter(DatasetPlot):
@@ -60,39 +64,28 @@ class MultipleScatter(DatasetPlot):
         """  # noqa: D205 D212 D415
         super().__init__(dataset=dataset, x=x, y=y, x_comp=x_comp, y_comp=y_comp)
 
-    def _plot(
+    def _create_specific_data_from_dataset(
         self,
-        fig: Figure | None = None,
-        axes: Axes | None = None,
-    ) -> list[Figure]:
-        x = self._param.x
-        y = self._param.y
+    ) -> tuple[tuple[float, float], ndarray, Iterable[str], Mapping[str, int]]:
+        """
+        Returns:
+            The lower and upper bounds of the reference values,
+            the reference values,
+            the names of the variables on the y-axis and
+            the components of these variables.
+        """  # noqa: D205, D212, D415
+        x = self._specific_settings.x
+        y = self._specific_settings.y
         if isinstance(y, str):
             y = [y]
 
-        y_comp = self._param.y_comp or {}
+        y_comp = self._specific_settings.y_comp or {}
         for name in y:
             y_comp[name] = y_comp.get(name, 0)
 
         reference = self.dataset.get_view(variable_names=x).to_numpy()[
-            :, self._param.x_comp
+            :, self._specific_settings.x_comp
         ]
-
-        fig, axes = self._get_figure_and_axes(fig, axes)
-        bounds = [min(reference), max(reference)]
-        axes.plot(bounds, bounds, color="gray", linestyle="--", marker="o")
         self._set_color(len(y))
-        for index, name in enumerate(y):
-            axes.plot(
-                reference,
-                self.dataset.get_view(variable_names=name).to_numpy()[:, y_comp[name]],
-                color=self.color[index],
-                marker="o",
-                linestyle="",
-                label=self.labels.get(name, name),
-            )
-        axes.set_xlabel(self.xlabel)
-        axes.set_ylabel(self.ylabel)
-        axes.set_title(self.title)
-        axes.legend()
-        return [fig]
+        bounds = (min(reference), max(reference))
+        return bounds, reference, y, y_comp

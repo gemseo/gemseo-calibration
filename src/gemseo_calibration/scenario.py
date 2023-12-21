@@ -13,24 +13,30 @@
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """A module to calibrate a multidisciplinary system from data."""
+
 from __future__ import annotations
 
 import logging
+from typing import TYPE_CHECKING
 from typing import Any
 from typing import ClassVar
-from typing import Iterable
-from typing import Sequence
 
-from gemseo.algos.design_space import DesignSpace
-from gemseo.core.discipline import MDODiscipline
 from gemseo.core.mdo_scenario import MDOScenario
 from gemseo.core.mdofunctions.mdo_function import MDOFunction
-from numpy import ndarray
 
 from gemseo_calibration.calibrator import CalibrationMeasure
 from gemseo_calibration.calibrator import Calibrator
-from gemseo_calibration.measure import DataType
 from gemseo_calibration.post.factory import CalibrationPostFactory
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
+    from collections.abc import Sequence
+
+    from gemseo.algos.design_space import DesignSpace
+    from gemseo.core.discipline import MDODiscipline
+    from numpy import ndarray
+
+    from gemseo_calibration.measure import DataType
 
 LOGGER = logging.getLogger(__name__)
 

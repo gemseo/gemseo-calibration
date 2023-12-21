@@ -13,11 +13,13 @@
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """Test the calibration measure MAE."""
+
 from __future__ import annotations
 
-from gemseo_calibration.measures.mae import MAE
 from numpy import array
 from numpy.testing import assert_array_equal
+
+from gemseo_calibration.measures.mae import MAE
 
 
 def test_compute_output_error():

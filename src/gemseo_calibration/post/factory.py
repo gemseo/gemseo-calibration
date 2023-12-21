@@ -13,17 +13,22 @@
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """A factory to post-process  a :class:`.CalibrationScenario`."""
+
 from __future__ import annotations
 
 import logging
-from pathlib import Path
+from typing import TYPE_CHECKING
 from typing import Any
 
 from gemseo.algos.opt_problem import OptimizationProblem
-from gemseo.datasets.dataset import Dataset
 from gemseo.post.post_factory import PostFactory
 
 from gemseo_calibration.post_processor import CalibrationPostProcessor
+
+if TYPE_CHECKING:
+    from pathlib import Path
+
+    from gemseo.datasets.dataset import Dataset
 
 LOGGER = logging.getLogger(__name__)
 

@@ -13,11 +13,15 @@
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """Compute the integrated square error between the model and reference output data."""
+
 from __future__ import annotations
 
-from numpy import ndarray
+from typing import TYPE_CHECKING
 
 from gemseo_calibration.measures.integrated_measure import IntegratedMeasure
+
+if TYPE_CHECKING:
+    from numpy import ndarray
 
 
 class ISE(IntegratedMeasure):

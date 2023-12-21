@@ -13,11 +13,13 @@
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """Test the class CalibrationPostProcessor."""
+
 from __future__ import annotations
 
 from gemseo.post.opt_post_processor import OptPostProcessor
 from gemseo.post.opt_post_processor import OptPostProcessorOptionType
 from gemseo.problems.analytical.rosenbrock import Rosenbrock
+
 from gemseo_calibration.post_processor import CalibrationPostProcessor
 
 

@@ -17,11 +17,12 @@ from __future__ import annotations
 import pytest
 from gemseo.algos.parameter_space import ParameterSpace
 from gemseo.core.discipline import MDODiscipline
-from gemseo_calibration.calibrator import CalibrationMeasure
-from gemseo_calibration.scenario import CalibrationScenario
 from numpy import array
 from numpy import linspace
 from numpy import ndarray
+
+from gemseo_calibration.calibrator import CalibrationMeasure
+from gemseo_calibration.scenario import CalibrationScenario
 
 
 class Model(MDODiscipline):
@@ -86,9 +87,11 @@ def test_execute(reference_data, calibration_space):
         CalibrationMeasure(output="z", mesh="mesh", measure="ISE"),
     ]
     calibration = CalibrationScenario(Model(), "x", outputs, calibration_space)
-    calibration.execute(
-        {"algo": "NLOPT_COBYLA", "reference_data": reference_data, "max_iter": 100}
-    )
+    calibration.execute({
+        "algo": "NLOPT_COBYLA",
+        "reference_data": reference_data,
+        "max_iter": 100,
+    })
 
     assert calibration.posterior_parameters["a"][0] == pytest.approx(2.0, 0.1)
     assert calibration.posterior_parameters["b"][0] == pytest.approx(3.0, 0.1)
