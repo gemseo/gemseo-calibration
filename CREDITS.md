@@ -16,11 +16,9 @@ GEMSEO-calibration depends on software with compatible licenses that are
 listed below.
 
 [GEMSEO](http://gemseo.org/)
-
 :   GNU LGPL v3.0
 
 [Python](http://python.org/)
-
 :   Python Software License
 
 # Internal Dependencies
@@ -34,48 +32,31 @@ Some external applications are used by GEMSEO-calibration, but not
 linked with the application, for documentation generation, training or
 example purposes.
 
-[black](https://black.readthedocs.io)
-
-:   MIT
-
 [commitizen](https://commitizen-tools.github.io/commitizen/)
-
-:   MIT
-
-[flake8](https://flake8.pycqa.org)
-
 :   MIT
 
 [pre-commit](https://pre-commit.com)
-
 :   MIT
 
 [pygrep-hooks](https://github.com/pre-commit/pygrep-hooks)
-
 :   MIT
 
 [pytest](https://pytest.org)
-
 :   MIT
 
 [pytest-cov](https://pytest-cov.readthedocs.io)
-
 :   MIT
 
 [pytest-xdist](https://github.com/pytest-dev/pytest-xdist)
-
 :   MIT
 
-[reorder-python-imports](https://github.com/asottile/reorder_python_imports)
-
+[ruff](https://docs.astral.sh/ruff/)
 :   MIT
 
 [setuptools](https://setuptools.readthedocs.io/)
-
 :   MIT
 
 [setuptools_scm](https://github.com/pypa/setuptools_scm/)
-
 :   MIT
 
 # Resources
