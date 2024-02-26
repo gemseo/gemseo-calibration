@@ -16,6 +16,7 @@ repos:
         --autofix,
         --no-sort-keys,
       ]
+      exclude: \.ipynb
     - id: check-toml
     - id: destroyed-symlinks
     - id: check-symlinks
@@ -52,7 +53,7 @@ repos:
     - id: ruff-format
 
 - repo: https://github.com/commitizen-tools/commitizen
-  rev: v3.15.0
+  rev: v3.16.0
   hooks:
     - id: commitizen
       stages: [commit-msg]
@@ -67,14 +68,18 @@ repos:
   hooks:
     - id: nbqa-black
     - id: nbqa-pyupgrade
-      args: [ "--py38-plus" ]
+      args: [--py39-plus]
     - id: nbqa-autopep8
 
 - repo: https://github.com/igorshubovych/markdownlint-cli
   rev: v0.39.0
   hooks:
   - id: markdownlint
-    args: ["--fix"]
+    args: [
+      --fix,
+      --disable,
+      MD024,
+      ]
 
 - repo: https://github.com/Lucas-C/pre-commit-hooks
   rev: v1.5.5
