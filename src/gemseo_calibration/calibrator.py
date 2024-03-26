@@ -266,17 +266,20 @@ class Calibrator(MDOScenarioAdapter):
                 continue
 
             if not 0 < weight < 1:
-                raise ValueError("The weight must be comprised between 0 and 1.")
+                msg = "The weight must be comprised between 0 and 1."
+                raise ValueError(msg)
 
             total_weight += control_output.weight
 
         if not missing_weight_indices:
             if total_weight != 1:
-                raise ValueError("The weights must sum to 1.")
+                msg = "The weights must sum to 1."
+                raise ValueError(msg)
             return control_outputs
 
         if total_weight >= 1:
-            raise ValueError("The weights must sum to 1.")
+            msg = "The weights must sum to 1."
+            raise ValueError(msg)
 
         missing_weight = (1 - total_weight) / len(missing_weight_indices)
         for index in missing_weight_indices:
