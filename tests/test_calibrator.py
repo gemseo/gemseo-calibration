@@ -16,8 +16,6 @@
 
 from __future__ import annotations
 
-from pathlib import Path
-
 import pytest
 from numpy import array
 from numpy.testing import assert_equal
@@ -25,15 +23,12 @@ from numpy.testing import assert_equal
 from gemseo_calibration.calibrator import CalibrationMeasure
 from gemseo_calibration.calibrator import Calibrator
 
-DATA = Path(__file__).parent / "data"
-
 CSTR_NAME = "0.5*MeasureCstr[y]+0.5*MeasureCstr[z]"
 
 
 @pytest.fixture()
-def adapter(monkeypatch, discipline) -> Calibrator:
+def adapter(measure_factory, discipline) -> Calibrator:
     """The calibration adapter to compute calibration measures from reference data."""
-    monkeypatch.setenv("GEMSEO_PATH", DATA)
     discipline = Calibrator(
         discipline, ["x"], CalibrationMeasure("y", "MeasureObj"), ["a", "b"]
     )

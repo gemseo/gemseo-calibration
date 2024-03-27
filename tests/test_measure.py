@@ -16,32 +16,20 @@
 
 from __future__ import annotations
 
-from pathlib import Path
 from typing import TYPE_CHECKING
 
 import pytest
 from numpy import array
 from numpy.testing import assert_equal
 
-from gemseo_calibration.measures.factory import CalibrationMeasureFactory
-
 if TYPE_CHECKING:
     from gemseo_calibration.measure import CalibrationMeasure
 
-DATA = Path(__file__).parent / "data"
-
 
 @pytest.fixture()
-def factory(monkeypatch) -> CalibrationMeasureFactory:
-    """The factory to create a CalibrationMeasure."""
-    monkeypatch.setenv("GEMSEO_PATH", DATA)
-    return CalibrationMeasureFactory()
-
-
-@pytest.fixture()
-def measure(factory) -> CalibrationMeasure:
+def measure(measure_factory) -> CalibrationMeasure:
     """A calibration measure related to y and returning zero."""
-    return factory.create("NewCalibrationMeasure", output_name="y")
+    return measure_factory.create("NewCalibrationMeasure", output_name="y")
 
 
 def test_measure_init(measure):
@@ -62,30 +50,31 @@ def test_call(measure):
     assert measure("mock") == 0.0
 
 
-def test_factory_create(factory, monkeypatch):
+def test_factory_create(measure_factory):
     """Test the method create() of the CalibrationMeasureFactory."""
-    monkeypatch.setenv("GEMSEO_PATH", DATA)
     assert (
-        factory.create("NewCalibrationMeasure", output_name="y").__class__.__name__
+        measure_factory.create(
+            "NewCalibrationMeasure", output_name="y"
+        ).__class__.__name__
         == "NewCalibrationMeasure"
     )
 
     with pytest.raises(ImportError):
-        factory.create("foo")
+        measure_factory.create("foo")
 
 
-def test_factory_is_available(factory):
+def test_factory_is_available(measure_factory):
     """Test the method is_available() of the CalibrationMeasureFactory."""
-    assert factory.is_available("NewCalibrationMeasure")
-    assert not factory.is_available("foo")
+    assert measure_factory.is_available("NewCalibrationMeasure")
+    assert not measure_factory.is_available("foo")
 
 
-def test_factory_is_integrated_measure(factory):
+def test_factory_is_integrated_measure(measure_factory):
     """Test the method is_integrated_measure()."""
-    assert factory.is_integrated_measure("ISE")
-    assert not factory.is_integrated_measure("MSE")
+    assert measure_factory.is_integrated_measure("ISE")
+    assert not measure_factory.is_integrated_measure("MSE")
 
 
-def test_factory_measures(factory):
+def test_factory_measures(measure_factory):
     """Test the property measures of the CalibrationMeasureFactory."""
-    assert "NewCalibrationMeasure" in factory.measures
+    assert "NewCalibrationMeasure" in measure_factory.measures
