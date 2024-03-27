@@ -16,7 +16,6 @@
 
 from __future__ import annotations
 
-from pathlib import Path
 from typing import TYPE_CHECKING
 
 import pytest
@@ -30,11 +29,7 @@ from gemseo_calibration.post.data_versus_model.post import DataVersusModel
 from gemseo_calibration.scenario import CalibrationScenario
 
 if TYPE_CHECKING:
-    from collections.abc import Generator
-
     from gemseo.core.discipline import MDODiscipline
-
-DATA = Path(__file__).parent / "data"
 
 
 @pytest.fixture(scope="module")
@@ -48,12 +43,11 @@ def calibration_space() -> DesignSpace:
 
 @pytest.fixture()
 def calibration_scenario(
+    measure_factory,
     discipline: MDODiscipline,
     calibration_space: DesignSpace,
-    monkeypatch: Generator[MonkeyPatch, None, None],  # noqa: F821
 ) -> CalibrationScenario:
     """The scenario to calibrate the discipline with the reference input data."""
-    monkeypatch.setenv("GEMSEO_PATH", DATA)
     scenario = CalibrationScenario(
         discipline,
         "x",
@@ -88,7 +82,7 @@ def test_init(calibration_scenario):
 @pytest.mark.parametrize("list_of_outputs", [False, True])
 @pytest.mark.parametrize("list_of_constraints", [False, True])
 def test_init_list(
-    monkeypatch,
+    measure_factory,
     discipline,
     calibration_space,
     list_of_disciplines,
@@ -103,7 +97,6 @@ def test_init_list(
     outputs = [output] if list_of_outputs else output
     constraint = CalibrationMeasure("z", "MeasureCstr")
     constraints = [constraint] if list_of_constraints else constraint
-    monkeypatch.setenv("GEMSEO_PATH", DATA)
     scenario = CalibrationScenario(disciplines, inputs, outputs, calibration_space)
     scenario.add_constraint(constraints)
     assert scenario.calibrator.scenario.design_space.variable_names == ["x"]
