@@ -21,8 +21,8 @@ from typing import TYPE_CHECKING
 from typing import Any
 from typing import ClassVar
 
-from gemseo.core.mdo_scenario import MDOScenario
 from gemseo.core.mdofunctions.mdo_function import MDOFunction
+from gemseo.scenarios.mdo_scenario import MDOScenario
 
 from gemseo_calibration.calibrator import CalibrationMeasure
 from gemseo_calibration.calibrator import Calibrator

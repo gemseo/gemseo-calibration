@@ -24,9 +24,9 @@ from typing import Any
 from gemseo.algos.design_space import DesignSpace
 from gemseo.algos.doe.lib_custom import CustomDOE
 from gemseo.core.discipline import MDODiscipline
-from gemseo.core.doe_scenario import DOEScenario
 from gemseo.core.grammars.json_grammar import JSONGrammar
 from gemseo.disciplines.scenario_adapters.mdo_scenario_adapter import MDOScenarioAdapter
+from gemseo.scenarios.doe_scenario import DOEScenario
 from numpy import array
 from numpy import hstack
 
