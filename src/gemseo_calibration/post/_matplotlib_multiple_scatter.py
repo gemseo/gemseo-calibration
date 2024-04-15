@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from gemseo.post.dataset._matplotlib.plot import MatplotlibPlot
+from gemseo.post.dataset.plots._matplotlib.plot import MatplotlibPlot
 from gemseo.utils.compatibility.matplotlib import get_color_map
 from numpy import linspace
 
