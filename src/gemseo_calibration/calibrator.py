@@ -143,7 +143,7 @@ class Calibrator(MDOScenarioAdapter):
         return obj
 
     def _reset_optimization_problem(self) -> None:
-        self.scenario.formulation.opt_problem.reset()
+        self.scenario.formulation.optimization_problem.reset()
 
     def __update_output_grammar(self) -> None:
         """Redefine the output grammar from the names of the output measures.

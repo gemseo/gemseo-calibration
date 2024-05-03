@@ -21,7 +21,7 @@ from typing import TYPE_CHECKING
 from gemseo.post.opt_post_processor import OptPostProcessor
 
 if TYPE_CHECKING:
-    from gemseo.algos.opt_problem import OptimizationProblem
+    from gemseo.algos.optimization_problem import OptimizationProblem
 
     from gemseo_calibration.measure import DataType
 

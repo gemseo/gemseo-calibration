@@ -20,7 +20,7 @@ import logging
 from typing import TYPE_CHECKING
 from typing import Any
 
-from gemseo.algos.opt_problem import OptimizationProblem
+from gemseo.algos.optimization_problem import OptimizationProblem
 from gemseo.post.factory import PostFactory
 
 from gemseo_calibration.post_processor import CalibrationPostProcessor

@@ -13,8 +13,7 @@
 # FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
 # NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
 # WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-"""
-Calibration scenario with noised observations
+"""Calibration scenario with noised observations.
 =============================================
 """
 
@@ -26,9 +25,9 @@ from __future__ import annotations
 from gemseo.algos.design_space import DesignSpace
 from gemseo.algos.parameter_space import ParameterSpace
 from gemseo.core.chain import MDOChain
-from gemseo.core.doe_scenario import DOEScenario
 from gemseo.disciplines.analytic import AnalyticDiscipline
 from gemseo.disciplines.scenario_adapters.mdo_scenario_adapter import MDOScenarioAdapter
+from gemseo.scenarios.doe_scenario import DOEScenario
 from matplotlib import pyplot as plt
 from numpy import array
 from numpy import linspace
@@ -119,8 +118,6 @@ calibration.execute({
 #######################################################################################
 # Lastly,
 # we get the calibrated parameters:
-print("Initial parameters: ", calibration.prior_parameters)
-print("Calibrated parameters: ", calibration.posterior_parameters)
 
 #######################################################################################
 # plot an optimization history view:

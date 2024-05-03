@@ -204,7 +204,7 @@ class CalibrationScenario(MDOScenario):
     def post_process(self, post_name: str, **options: Any) -> None:  # noqa: D102
         if post_name in self.__calibration_post_factory.posts:
             return self.__calibration_post_factory.execute(
-                self.formulation.opt_problem,
+                self.formulation.optimization_problem,
                 self.calibrator.reference_data,
                 self.prior_model_data,
                 self.posterior_model_data,

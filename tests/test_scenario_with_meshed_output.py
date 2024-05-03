@@ -96,6 +96,6 @@ def test_execute(reference_data, calibration_space):
     assert calibration.posterior_parameters["a"][0] == pytest.approx(2.0, 0.1)
     assert calibration.posterior_parameters["b"][0] == pytest.approx(3.0, 0.1)
     assert (
-        calibration.formulation.opt_problem.objective.name
+        calibration.formulation.optimization_problem.objective.name
         == "0.5*MSE[y]+0.5*ISE[z[mesh]]"
     )

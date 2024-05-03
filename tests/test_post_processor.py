@@ -34,7 +34,7 @@ def test_post():
     """Test that the base class CalibrationPostProcessor is correctly initialized."""
     opt_problem = Rosenbrock()
     post = NewCalibrationPostProcessor(opt_problem, 1, 2, 3)
-    assert post.opt_problem == opt_problem
+    assert post.optimization_problem == opt_problem
     assert isinstance(post, OptPostProcessor)
     assert post._reference_data == 1
     assert post._prior_model_data == 2

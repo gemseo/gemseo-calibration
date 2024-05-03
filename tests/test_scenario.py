@@ -117,7 +117,7 @@ def test_constraint(calibration_scenario):
 
     with the reference input data.
     """
-    constraints = calibration_scenario.formulation.opt_problem.constraints
+    constraints = calibration_scenario.formulation.optimization_problem.constraints
     assert len(constraints) == 1
     assert str(constraints[0]) == "0.5*MeasureCstr[y]+0.5*MeasureCstr[z](a, b) <= 0.05"
 
