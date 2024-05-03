@@ -21,7 +21,7 @@ from gemseo.post.opt_post_processor import OptPostProcessor
 from gemseo_calibration.post_processor import CalibrationPostProcessor
 
 if TYPE_CHECKING:
-    from gemseo.algos.opt_problem import OptimizationProblem
+    from gemseo.algos.optimization_problem import OptimizationProblem
     from numpy import ndarray
 
 

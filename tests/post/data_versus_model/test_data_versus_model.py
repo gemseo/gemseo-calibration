@@ -83,7 +83,7 @@ def test_plot(
     """Test images created by DataVersusModel._plot against references."""
     post_factory.create(
         "DataVersusModel",
-        calibration_scenario.formulation.opt_problem,
+        calibration_scenario.formulation.optimization_problem,
         calibration_scenario.calibrator.reference_data,
         calibration_scenario.prior_model_data,
         calibration_scenario.posterior_model_data,
@@ -93,7 +93,7 @@ def test_plot(
 def test_factory_plot(post_factory, calibration_scenario):
     """Check CalibrationPostFactory.execute()."""
     post = post_factory.execute(
-        calibration_scenario.formulation.opt_problem,
+        calibration_scenario.formulation.optimization_problem,
         calibration_scenario.calibrator.reference_data,
         calibration_scenario.prior_model_data,
         calibration_scenario.posterior_model_data,

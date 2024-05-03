@@ -86,6 +86,6 @@ class MultipleScatter(DatasetPlot):
         reference = self.dataset.get_view(variable_names=x).to_numpy()[
             :, self._specific_settings.x_comp
         ]
-        self._set_color(len(y))
+        self._n_items = len(y)
         bounds = (min(reference), max(reference))
         return bounds, reference, y, y_comp
