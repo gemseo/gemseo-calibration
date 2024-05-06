@@ -122,7 +122,7 @@ class Calibrator(MDOScenarioAdapter):
 
         self.__names_to_measures = {}
         self.__measures = []
-        self.objective_name, output_names = self.add_measure(control_outputs)
+        self.objective_name, output_names = self._add_measure(control_outputs)
         super().__init__(doe_scenario, parameter_names, output_names, name="Calibrator")
         self.__update_output_grammar()
         self.__reference_data = {}
@@ -189,11 +189,15 @@ class Calibrator(MDOScenarioAdapter):
         """Whether to maximize the calibration measure related to the objectives."""
         return self.__names_to_measures[self.objective_name].maximize
 
-    def add_measure(
+    def _add_measure(
         self,
         control_outputs: CalibrationMeasure | Iterable[CalibrationMeasure],
     ) -> tuple[str, list[str]]:
         """Create a new calibration measure and add it to the outputs of the adapter.
+
+        The purpose of this method is to decouple adding a measure from updating
+        the output grammar because during the call from __init__ the grammar instances
+        are not yet existing before calling super().__init__.
 
         Args:
             control_outputs: The names of the outputs used to calibrate the disciplines
@@ -239,8 +243,32 @@ class Calibrator(MDOScenarioAdapter):
         measure.maximize = maximize
         measure.name = name
         self.__names_to_measures[name] = measure
-        self.__update_output_grammar()
         return name, list(set(output_names))
+
+    def add_measure(
+        self,
+        control_outputs: CalibrationMeasure | Iterable[CalibrationMeasure],
+    ) -> tuple[str, list[str]]:
+        """Create a new calibration measure and add it to the outputs of the adapter.
+
+        Args:
+            control_outputs: The names of the outputs used to calibrate the disciplines
+                with the name of the calibration measure and the corresponding weight
+                comprised between 0 and 1 (the weights must sum to 1).
+                When the output is a 1D function discretized over an irregular mesh,
+                the name of the mesh can be provided.
+                E.g. ``CalibrationMeasure(output="z", measure="MSE")``
+                ``CalibrationMeasure(output="z", measure="MSE", weight=0.3)``
+                or ``CalibrationMeasure(output="z", measure="MSE", mesh="z_mesh")``
+                Lastly, ``CalibrationMeasure`` can be imported
+                from :mod:`gemseo-calibration.scenario`.
+
+        Returns:
+            The name of the calibration measure applied to the outputs.
+        """
+        return_values = self._add_measure(control_outputs)
+        self.__update_output_grammar()
+        return return_values
 
     def __update_weights(
         self, control_outputs: Sequence[CalibrationMeasure]
