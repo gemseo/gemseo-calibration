@@ -12,7 +12,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-"""A factory to create instances of :class:`.CalibrationMeasure`."""
+"""A factory of calibration measures."""
 
 from __future__ import annotations
 
@@ -23,19 +23,22 @@ from gemseo_calibration.measures.integrated_measure import IntegratedMeasure
 
 
 class CalibrationMeasureFactory(BaseFactory):
-    """A factory to create instances of :class:`.CalibrationMeasure`."""
+    """A factory of calibration measures."""
 
     _CLASS = CalibrationMeasure
     _MODULE_NAMES = ("gemseo_calibration.measures",)
 
     def is_integrated_measure(self, name: str) -> bool:
-        """Return whether a calibration measure is an :class:`.IntegratedMeasure`.
+        """Return whether a calibration measure is an integrated measure.
+
+        See
+        [IntegratedMeasure][gemseo_calibration.measures.integrated_measure.IntegratedMeasure].
 
         Args:
             name: The name of the class of the calibration measure.
 
         Returns:
-            Whether the calibration measure is an :class:`.IntegratedMeasure`.
+            Whether the calibration measure is an integrated measure.
         """
         return issubclass(self.get_class(name), IntegratedMeasure)
 

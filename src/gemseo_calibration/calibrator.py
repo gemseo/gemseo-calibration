@@ -17,9 +17,9 @@
 from __future__ import annotations
 
 import logging
-from collections import namedtuple
 from typing import TYPE_CHECKING
 from typing import Any
+from typing import NamedTuple
 
 from gemseo.algos.design_space import DesignSpace
 from gemseo.algos.doe.lib_custom import CustomDOE
@@ -39,11 +39,28 @@ if TYPE_CHECKING:
     from gemseo_calibration.measure import CalibrationMeasure as CalibrationMeasure_
     from gemseo_calibration.measure import DataType
 
-CalibrationMeasure = namedtuple(
-    "CalibrationMeasure", "output,measure,mesh,weight", defaults=["MSE", None, None]
-)
 
-LOGGER = logging.getLogger(__name__)
+class CalibrationMeasure(NamedTuple):
+    """A calibration measure."""
+
+    output: str
+    """The name of the output."""
+
+    measure: str = "MSE"
+    """The name of the measure to compare the observed and simulated outputs."""
+
+    mesh: str | None = None
+    """The name of the irregular mesh associated with the output if any.
+
+    To be used when the output is a 1D function discretized over an irregular mesh.
+    """
+
+    weight: float | None = None
+    """The weight of this measure when the measure is an element of a collection.
+
+    The weight must be between 0 and 1. The sum of the weights of the elements in the
+    collection must be 1.
+    """
 
 
 class Calibrator(MDOScenarioAdapter):
@@ -51,7 +68,8 @@ class Calibrator(MDOScenarioAdapter):
 
     When it is executed from parameters values, it computes the calibration measure with
     respect to the reference data, provided through the
-    :meth:`.CalibrationDiscipline.set_reference_data` method.
+    [set_reference_data][gemseo_calibration.calibrator.Calibrator.set_reference_data]
+    method.
     """
 
     __ALGO_OPTIONS = DOEScenario.ALGO_OPTIONS
@@ -76,11 +94,11 @@ class Calibrator(MDOScenarioAdapter):
                 comprised between 0 and 1 (the weights must sum to 1).
                 When the output is a 1D function discretized over an irregular mesh,
                 the name of the mesh can be provided.
-                E.g. ``CalibrationMeasure(output="z", measure="MSE")``
-                ``CalibrationMeasure(output="z", measure="MSE", weight=0.3)``
-                or ``CalibrationMeasure(output="z", measure="MSE", mesh="z_mesh")``
-                Lastly, ``CalibrationMeasure`` can be imported
-                from :mod:`gemseo-calibration.scenario`.
+                E.g. `CalibrationMeasure(output="z", measure="MSE")`
+                `CalibrationMeasure(output="z", measure="MSE", weight=0.3)`
+                or `CalibrationMeasure(output="z", measure="MSE", mesh="z_mesh")`
+                Lastly, `CalibrationMeasure` can be imported
+                from [gemseo-calibration.calibrator][gemseo-calibration.calibrator].
             parameter_names: The names of the parameters to be calibrated.
             formulation: The name of a formulation
                 to manage the multidisciplinary coupling.
@@ -205,11 +223,11 @@ class Calibrator(MDOScenarioAdapter):
                 comprised between 0 and 1 (the weights must sum to 1).
                 When the output is a 1D function discretized over an irregular mesh,
                 the name of the mesh can be provided.
-                E.g. ``CalibrationMeasure(output="z", measure="MSE")``
-                ``CalibrationMeasure(output="z", measure="MSE", weight=0.3)``
-                or ``CalibrationMeasure(output="z", measure="MSE", mesh="z_mesh")``
-                Lastly, ``CalibrationMeasure`` can be imported
-                from :mod:`gemseo-calibration.scenario`.
+                E.g. `CalibrationMeasure(output="z", measure="MSE")`
+                `CalibrationMeasure(output="z", measure="MSE", weight=0.3)`
+                or `CalibrationMeasure(output="z", measure="MSE", mesh="z_mesh")`
+                Lastly, `CalibrationMeasure` can be imported
+                from [gemseo-calibration.calibrator][gemseo-calibration.calibrator].
 
         Returns:
             The name of the calibration measure applied to the outputs.

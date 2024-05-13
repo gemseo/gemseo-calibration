@@ -21,12 +21,12 @@ from typing import TYPE_CHECKING
 from gemseo_calibration.measures.mean_measure import MeanMeasure
 
 if TYPE_CHECKING:
-    from numpy import ndarray
+    from gemseo.typing import RealArray
 
 
 class MAE(MeanMeasure):
     """The mean absolute error between the model and reference output data."""
 
     @staticmethod
-    def _compare_data(data: ndarray, other_data: ndarray) -> ndarray:
+    def _compare_data(data: RealArray, other_data: RealArray) -> RealArray:
         return abs(data - other_data)

@@ -13,13 +13,11 @@
 # FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
 # NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
 # WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-"""Calibration scenario with noised observations.
-=============================================
-"""
+"""# Calibration scenario with noised observations."""
 
-#######################################################################################
-# Let us consider a function :math:`f(x)=ax^2+bx+c`
-# from :math:`\mathbb{R}` to :math:`\mathbb{R}`:
+# %%
+# Let us consider a function $f(x)=ax^2+bx+c$
+# from $\mathbb{R}$ to $\mathbb{R}$:
 from __future__ import annotations
 
 from gemseo.algos.design_space import DesignSpace
@@ -37,8 +35,8 @@ from gemseo_calibration.scenario import CalibrationScenario
 
 model = AnalyticDiscipline({"y": "a*x**2+b*x+c"}, name="model")
 
-#######################################################################################
-# This is a model of a our reference data source,
+# %%
+# This is a model of our reference data source,
 # which a kind of oracle providing input-output data
 # without the mathematical relationship behind it:
 original_model = AnalyticDiscipline({"y": "2*x**2-1.5*x+0.75"}, name="model")
@@ -46,68 +44,76 @@ original_model = AnalyticDiscipline({"y": "2*x**2-1.5*x+0.75"}, name="model")
 reference = MDOChain([original_model, AnalyticDiscipline({"y": "y+u"}, name="noise")])
 reference.set_cache_policy(reference.CacheType.MEMORY_FULL)
 
-#######################################################################################
-# This reference model contains a random additive term :math:`u`
-# normally distributed with mean :math:`\mu` and standard deviation :math:`\sigma`.
-# This means that the observations of :math:`f:x\mapsto 2*x^2-0.5*x` are noised.
+# %%
+# This reference model contains a random additive term $u$
+# normally distributed with mean $\mu$ and standard deviation $\sigma$.
+# This means that the observations of $f:x\mapsto 2*x^2-0.5*x$ are noised.
 
-#######################################################################################
+# %%
 # In this pedagogical example,
 # the mathematical relationship is known
-# and we can see that the parameters :math:`a`, :math:`b` and :math:`c`
+# and we can see that the parameters $a$, $b$ and $c$
 # must be equal to 2, 0.5 and 0.75 respectively
 # so that the model and the reference are identical.
 #
 # In the following,
 # we will try to find these values from several information sources.
 
-#######################################################################################
+# %%
 # Firstly,
-# we have a prior information about the parameters, that is :math:`[a,b,c]\in[-5,5]^2`:
+# we have a prior information about the parameters, that is $[a,b,c]\in[-5,5]^2$:
 prior = ParameterSpace()
 prior.add_variable("a", l_b=-5.0, u_b=5.0, value=0.0)
 prior.add_variable("b", l_b=-5.0, u_b=5.0, value=0.0)
 prior.add_variable("c", l_b=-5.0, u_b=5.0, value=0.0)
 
-#######################################################################################
+# %%
 # Secondly,
-# we have reference output data over the input space :math:`[0.,3.]`.
+# we have reference output data over the input space $[0.,3.]$.
 input_space = DesignSpace()
 input_space.add_variable("x", l_b=0.0, u_b=3.0, value=1.5)
-#######################################################################################
+# %%
 # These data are noisy; this noise can be modeled by a centered Gaussian random variable
 # with standard deviation equal to 0.5.
 noise_space = ParameterSpace()
 noise_space.add_random_variable("u", "OTNormalDistribution", mu=0.0, sigma=0.5)
 
-#######################################################################################
+# %%
 # The observations can be generated with two nested design of experiments:
-# an inner one sampling the reference model :math:`f`,
+# an inner one sampling the reference model $f$,
 # an outer one repeating this sampling for different values of the noise.
-# A classical way of doing this with |g| is to use a :class:`.MDOScenarioAdapter`,
-# which is a :class:`.MDODiscipline` executing a :class:`.DOEScenario`
-# for a given value of :math:`u`.
-# For example, let us imagine a :class:`.DOEScenario`
-# evaluating the reference data source at 5 equispaced points :math:`x_1,\ldots,x_5`.
+# A classical way of doing this with |g| is to use a
+# [MDOScenarioAdapter][gemseo.disciplines.scenario_adapters.mdo_scenario_adapter.MDOScenarioAdapter]
+# which is an [MDODiscipline][gemseo.core.discipline.MDODiscipline] executing a
+# [DOEScenario][gemseo.scenarios.doe_scenario.DOEScenario]
+# for a given value of $u$.
+# For example, let us imagine a [DOEScenario][gemseo.scenarios.doe_scenario.DOEScenario]
+# evaluating the reference data source at 5 equispaced points $x_1,\ldots,x_5$.
 
 sub_scenario = DOEScenario([reference], "DisciplinaryOpt", "y", input_space)
 sub_scenario.default_inputs = {"algo": "fullfact", "n_samples": 5}
 
 adapter = MDOScenarioAdapter(sub_scenario, ["u"], ["y"])
 
-#######################################################################################
+# %%
 # Then,
-# this :class:`.MDOScenarioAdapter` is embedded in a :class:`.DOEScenario`
+# this
+# [MDOScenarioAdapter][gemseo.disciplines.scenario_adapters.mdo_scenario_adapter.MDOScenarioAdapter]
+# is embedded in a
+# [DOEScenario][gemseo.scenarios.doe_scenario.DOEScenario]
 # in charge to sample it over the uncertain space.
 scenario = DOEScenario([adapter], "DisciplinaryOpt", "y", noise_space)
 scenario.execute({"algo": "OT_LHSC", "n_samples": 5})
 reference_data = reference.cache.to_dataset().to_dict_of_arrays(False)
 
-#######################################################################################
+# %%
 # From these information sources,
-# we can build and execute a :class:`.CalibrationScenario`
-# to find the value of the parameters :math:`a`, :math:`b` and :math:`c`
-# which minimizes a :class:`.CalibrationMeasure` related to the output :math:`y`:
+# we can build and execute a
+# [CalibrationScenario][gemseo_calibration.scenario.CalibrationScenario]
+# to find the value of the parameters $a$, $b$ and $c$
+# which minimizes a
+# [CalibrationMeasure][gemseo_calibration.measure.CalibrationMeasure]
+# related to the output $y$:
 calibration = CalibrationScenario(model, "x", CalibrationMeasure("y", "MSE"), prior)
 calibration.execute({
     "algo": "NLOPT_COBYLA",
@@ -115,15 +121,15 @@ calibration.execute({
     "max_iter": 100,
 })
 
-#######################################################################################
+# %%
 # Lastly,
 # we get the calibrated parameters:
 
-#######################################################################################
+# %%
 # plot an optimization history view:
 calibration.post_process("OptHistoryView", save=False, show=True)
 
-#######################################################################################
+# %%
 # as well as the model data versus the reference ones:
 expression = "a*x**2+b*x+c"
 for parameter_name, parameter_value in calibration.posterior_parameters.items():

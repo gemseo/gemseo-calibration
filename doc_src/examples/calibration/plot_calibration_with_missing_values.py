@@ -13,6 +13,8 @@
 # FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
 # NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
 # WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+"""# Calibration scenario with missing values."""
+
 from __future__ import annotations
 
 from gemseo.algos.parameter_space import ParameterSpace
@@ -54,5 +56,3 @@ calibration.execute({
     "reference_data": reference_data,
     "max_iter": 100,
 })
-
-print(calibration.posterior_parameters)
