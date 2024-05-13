@@ -19,16 +19,16 @@ from __future__ import annotations
 from typing import ClassVar
 
 from gemseo.core.mdofunctions.mdo_function import MDOFunction
+from gemseo.typing import RealArray
 from numpy import inf
 from numpy import nanmax
 from numpy import nanmin
-from numpy import ndarray
 
-DataType = dict[str, ndarray]
+DataType = dict[str, RealArray]
 """The type of data.
 
-The data are set as ``{variable_name: variable_values}``
-where ``variable_values`` is a 2D NumPy array
+The data are set as `{variable_name: variable_values}`
+where `variable_values` is a 2D NumPy array
 whose rows are the samples and columns are the components of the variable.
 """
 
@@ -77,7 +77,7 @@ class CalibrationMeasure(MDOFunction):
         self._lower_bound = nanmin(self._reference_data)
         self._upper_bound = nanmax(self._reference_data)
 
-    def _update_bounds(self, data: ndarray) -> None:
+    def _update_bounds(self, data: RealArray) -> None:
         """Update the lower and upper bounds of the output.
 
         Args:
@@ -98,7 +98,7 @@ class CalibrationMeasure(MDOFunction):
         raise NotImplementedError
 
     @staticmethod
-    def _compare_data(data: ndarray, other_data: ndarray) -> ndarray:
+    def _compare_data(data: RealArray, other_data: RealArray) -> RealArray:
         """Compare two data arrays.
 
         Args:

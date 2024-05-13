@@ -17,12 +17,12 @@
 #                           documentation
 #        :author: Matthias De Lozzo
 #    OTHER AUTHORS   - MACROSCOPIC CHANGES
-r"""Overlay several scatter plots from a :class:`.Dataset`.
+r"""Overlay several scatter plots from a `Dataset`.
 
-A :class:`Scatter` plot represents a set of points :math:`\{x_i,y_i\}_{1\leq i \leq n}`
-as markers on a classical plot, while a :class:`MultipleScatter` plot represents a set
-of points :math:`\{x_i,y_{i,1},\ldots,y_{i,d}\}_{1\leq i \leq n}` as markers on a
-classical plot, with one color per series :math:`\{y_i\}_{1\leq i \leq n}`.
+A scatter plot represents a set of points $\{x_i,y_i\}_{1\leq i \leq n}$ as markers on a
+classical plot, while a multiple-scatter plot represents a set of points
+$\{x_i,y_{i,1},\ldots,y_{i,d}\}_{1\leq i \leq n}$ as markers on a classical plot, with
+one color per series $\{y_i\}_{1\leq i \leq n}$.
 """
 
 from __future__ import annotations
@@ -37,7 +37,7 @@ if TYPE_CHECKING:
     from collections.abc import Mapping
 
     from gemseo.datasets.dataset import Dataset
-    from numpy import ndarray
+    from gemseo.typing import RealArray
 
 
 class MultipleScatter(DatasetPlot):
@@ -66,7 +66,7 @@ class MultipleScatter(DatasetPlot):
 
     def _create_specific_data_from_dataset(
         self,
-    ) -> tuple[tuple[float, float], ndarray, Iterable[str], Mapping[str, int]]:
+    ) -> tuple[tuple[float, float], RealArray, Iterable[str], Mapping[str, int]]:
         """
         Returns:
             The lower and upper bounds of the reference values,

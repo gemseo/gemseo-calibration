@@ -16,15 +16,11 @@
 
 from __future__ import annotations
 
-import logging
-
 from gemseo.datasets.dataset import Dataset
 from numpy import newaxis
 
 from gemseo_calibration.post.multiple_scatter import MultipleScatter
 from gemseo_calibration.post_processor import CalibrationPostProcessor
-
-LOGGER = logging.getLogger(__name__)
 
 
 class DataVersusModel(CalibrationPostProcessor):
