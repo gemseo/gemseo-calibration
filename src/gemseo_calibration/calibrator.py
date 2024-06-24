@@ -73,7 +73,6 @@ class Calibrator(MDOScenarioAdapter):
     """
 
     __ALGO_OPTIONS = DOEScenario.ALGO_OPTIONS
-    __SAMPLES = CustomDOE.SAMPLES
 
     def __init__(
         self,
@@ -135,7 +134,7 @@ class Calibrator(MDOScenarioAdapter):
 
         doe_scenario.default_inputs = {
             doe_scenario.ALGO: CustomDOE.__name__,
-            self.__ALGO_OPTIONS: {self.__SAMPLES: None},
+            self.__ALGO_OPTIONS: {"samples": None},
         }
 
         self.__names_to_measures = {}
@@ -184,7 +183,7 @@ class Calibrator(MDOScenarioAdapter):
             del design_space[name]
             design_space.add_variable(name, size=reference_data[name].shape[1])
 
-        self.scenario.default_inputs[self.__ALGO_OPTIONS][self.__SAMPLES] = hstack([
+        self.scenario.default_inputs[self.__ALGO_OPTIONS]["samples"] = hstack([
             reference_data[name] for name in self.scenario.get_optim_variable_names()
         ])
         for measure in self.__measures:
