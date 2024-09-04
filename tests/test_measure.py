@@ -26,7 +26,7 @@ if TYPE_CHECKING:
     from gemseo_calibration.measure import CalibrationMeasure
 
 
-@pytest.fixture()
+@pytest.fixture
 def measure(measure_factory) -> CalibrationMeasure:
     """A calibration measure related to y and returning zero."""
     return measure_factory.create("NewCalibrationMeasure", output_name="y")
@@ -47,7 +47,7 @@ def test_measure_set_reference_data(measure):
 
 def test_call(measure):
     """Test the method __call__ of CalibrationMeasure."""
-    assert measure("mock") == 0.0
+    assert measure.func("mock") == 0.0
 
 
 def test_factory_create(measure_factory):

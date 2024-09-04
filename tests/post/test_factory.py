@@ -24,5 +24,5 @@ def test_init(post_factory):
 
 def test_posts(post_factory):
     """Check that a post-processor is correctly executed."""
-    assert "DataVersusModel" in post_factory.posts
-    assert "OptHistoryView" not in post_factory.posts
+    assert "DataVersusModel" in post_factory.class_names
+    assert "OptHistoryView" not in post_factory.class_names

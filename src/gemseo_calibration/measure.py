@@ -53,7 +53,9 @@ class CalibrationMeasure(MDOFunction):
             output_name: The name of the output to be taken into account by the measure.
         """  # noqa: D205,D212,D415
         self.output_name = output_name
-        super().__init__(None, name or self._compute_name(), f_type=f_type)
+        super().__init__(
+            self._evaluate_measure, name or self._compute_name(), f_type=f_type
+        )
         self._lower_bound = -inf
         self._upper_bound = inf
         self._reference_data = []
@@ -86,7 +88,7 @@ class CalibrationMeasure(MDOFunction):
         self._lower_bound = min(data.min(), self._lower_bound)
         self._upper_bound = max(data.max(), self._upper_bound)
 
-    def __call__(self, model_dataset: DataType) -> float:
+    def _evaluate_measure(self, model_dataset: DataType) -> float:
         """Measure the (in)consistency between the model dataset and the reference one.
 
         Args:

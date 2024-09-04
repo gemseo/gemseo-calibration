@@ -41,7 +41,7 @@ def calibration_space() -> DesignSpace:
     return space
 
 
-@pytest.fixture()
+@pytest.fixture
 def calibration_scenario(
     measure_factory,
     discipline: MDODiscipline,

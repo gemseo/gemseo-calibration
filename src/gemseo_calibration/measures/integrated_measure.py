@@ -48,7 +48,7 @@ class IntegratedMeasure(CalibrationMeasure):
     def _compute_name(self) -> str:
         return f"{self.__class__.__name__}({self.output_name};{self.mesh_name})"
 
-    def __call__(self, model_dataset: DataType) -> float:  # noqa: D102
+    def _evaluate_measure(self, model_dataset: DataType) -> float:  # noqa: D102
         model_data = model_dataset[self.output_name]
         model_mesh = model_dataset[self.mesh_name]
         self._update_bounds(model_data)

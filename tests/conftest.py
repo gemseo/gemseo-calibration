@@ -45,7 +45,7 @@ def reference_data() -> dict[str, ndarray]:
     }
 
 
-@pytest.fixture()
+@pytest.fixture
 def baseline_images(request):
     """Return the baseline_images contents.
 
@@ -54,19 +54,19 @@ def baseline_images(request):
     return request.param
 
 
-@pytest.fixture()
+@pytest.fixture
 def pyplot_close_all():
     """Fixture that prevents figures aggregation with matplotlib pyplot."""
     plt.close("all")
 
 
-@pytest.fixture()
+@pytest.fixture
 def measure_factory(reset_factory, monkeypatch) -> CalibrationMeasureFactory:
     monkeypatch.setenv("GEMSEO_PATH", DATA)
     return CalibrationMeasureFactory()
 
 
-@pytest.fixture()
+@pytest.fixture
 def post_factory(reset_factory, monkeypatch) -> CalibrationPostFactory:
     """The factory of post-processors dedicated to calibration."""
     monkeypatch.setenv("GEMSEO_PATH", DATA)

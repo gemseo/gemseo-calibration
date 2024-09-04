@@ -193,17 +193,19 @@ class CalibrationScenario(MDOScenario):
         super().add_constraint(
             self.calibrator.add_measure(control_outputs)[0],
             constraint_type,
-            constraint_name or None,
-            value or None,
+            constraint_name,
+            value,
             positive,
         )
 
     @property
     def posts(self) -> list[str]:  # noqa: D102
-        return self.post_factory.posts + self.__calibration_post_factory.posts
+        return (
+            self.post_factory.class_names + self.__calibration_post_factory.class_names
+        )
 
     def post_process(self, post_name: str, **options: Any) -> OptPostProcessor:  # noqa: D102
-        if post_name in self.__calibration_post_factory.posts:
+        if post_name in self.__calibration_post_factory.class_names:
             return self.__calibration_post_factory.execute(
                 self.formulation.optimization_problem,
                 self.calibrator.reference_data,

@@ -20,7 +20,7 @@ from typing import TYPE_CHECKING
 from typing import Any
 
 from gemseo.algos.optimization_problem import OptimizationProblem
-from gemseo.post.factory import PostFactory
+from gemseo.post.factory import OptPostProcessorFactory
 
 from gemseo_calibration.post_processor import CalibrationPostProcessor
 
@@ -30,7 +30,7 @@ if TYPE_CHECKING:
     from gemseo.datasets.dataset import Dataset
 
 
-class CalibrationPostFactory(PostFactory):
+class CalibrationPostFactory(OptPostProcessorFactory):
     """A factory for calibration post-processing."""
 
     _CLASS = CalibrationPostProcessor
