@@ -179,7 +179,7 @@ class Calibrator(MDOScenarioAdapter):
         """
         self.__reference_data = reference_data
         design_space = self.scenario.design_space
-        for name in design_space:
+        for name in tuple(design_space):
             del design_space[name]
             design_space.add_variable(name, size=reference_data[name].shape[1])
 
@@ -199,7 +199,7 @@ class Calibrator(MDOScenarioAdapter):
     def _post_run(self) -> None:
         model_dataset = self.scenario.to_dataset().to_dict_of_arrays(False)
         for name, measure in self.__names_to_measures.items():
-            self.local_data[name] = array([measure(model_dataset)])
+            self.local_data[name] = array([measure.func(model_dataset)])
 
     @property
     def maximize_objective_measure(self) -> bool:

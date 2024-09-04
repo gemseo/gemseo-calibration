@@ -55,7 +55,7 @@ def test_mean_error(reference_data, model_data, output_name, expected):
     """Test that the mean error works correctly for different outputs."""
     mae = MAE(output_name)
     mae.set_reference_data(reference_data)
-    assert mae(model_data) == expected
+    assert mae.func(model_data) == expected
 
 
 @pytest.mark.parametrize(
@@ -72,7 +72,7 @@ def test_mean_error_with_mesh(output_name, mesh_name, expected):
         measure = IAE(output_name, mesh_name)
         assert measure.full_output_name == "y[m]"
     measure.set_reference_data(reference_data)
-    assert measure(model_data) == expected
+    assert measure.func(model_data) == expected
 
 
 @pytest.mark.parametrize(
@@ -87,4 +87,4 @@ def test_mean_error_with_interpolation_over_reference_mesh(
     model_data = {"y": array([[2.0, 3.0, 4.0]]), "m": array([[0.0, 1.0, 3.0]])}
     measure = IAE("y", "m")
     measure.set_reference_data(reference_data)
-    assert measure(model_data) == expected_measure
+    assert measure.func(model_data) == expected_measure

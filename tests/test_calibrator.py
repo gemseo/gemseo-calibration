@@ -26,7 +26,7 @@ from gemseo_calibration.calibrator import Calibrator
 CSTR_NAME = "0.5*MeasureCstr[y]+0.5*MeasureCstr[z]"
 
 
-@pytest.fixture()
+@pytest.fixture
 def adapter(measure_factory, discipline) -> Calibrator:
     """The calibration adapter to compute calibration measures from reference data."""
     discipline = Calibrator(

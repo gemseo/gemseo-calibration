@@ -27,7 +27,7 @@ if TYPE_CHECKING:
 class MeasureCstr(CalibrationMeasure):
     """The calibration measure to be used as a constraint."""
 
-    def __call__(  # noqa: D102
+    def _evaluate_measure(  # noqa: D102
         self,
         model_dataset: dict[str, ndarray],
     ) -> float:
@@ -39,7 +39,7 @@ class MeasureObj(CalibrationMeasure):
 
     maximize = True
 
-    def __call__(  # noqa: D102
+    def _evaluate_measure(  # noqa: D102
         self,
         model_dataset: dict[str, ndarray],
     ) -> float:
@@ -49,7 +49,7 @@ class MeasureObj(CalibrationMeasure):
 class NewCalibrationMeasure(CalibrationMeasure):
     """The calibration measure returning zero."""
 
-    def __call__(  # noqa: D102
+    def _evaluate_measure(  # noqa: D102
         self,
         model_dataset: dict[str, ndarray],
     ) -> float:
