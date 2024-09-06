@@ -187,9 +187,6 @@ class CalibrationScenario(MDOScenario):
             value: The value for which the constraint is active.
             positive: Whether to consider the inequality constraint as positive.
         """
-        if isinstance(control_outputs, CalibrationMeasure):
-            control_outputs = [control_outputs]
-
         super().add_constraint(
             self.calibrator.add_measure(control_outputs)[0],
             constraint_type,

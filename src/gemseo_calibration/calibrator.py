@@ -36,6 +36,8 @@ if TYPE_CHECKING:
     from collections.abc import Iterable
     from collections.abc import Sequence
 
+    from gemseo.scenarios.scenario import Scenario
+
     from gemseo_calibration.measure import CalibrationMeasure as CalibrationMeasure_
     from gemseo_calibration.measure import DataType
 
@@ -125,12 +127,7 @@ class Calibrator(MDOScenarioAdapter):
         if mesh_name:
             doe_scenario.add_observable(mesh_name)
 
-        for control_output in control_outputs[1:]:
-            output_name = control_output.output
-            mesh_name = control_output.mesh
-            doe_scenario.add_observable(output_name)
-            if mesh_name:
-                doe_scenario.add_observable(mesh_name)
+        self.__add_observables(control_outputs, doe_scenario)
 
         doe_scenario.default_inputs = {
             doe_scenario.ALGO: CustomDOE.__name__,
@@ -143,6 +140,23 @@ class Calibrator(MDOScenarioAdapter):
         super().__init__(doe_scenario, parameter_names, output_names, name="Calibrator")
         self.__update_output_grammar()
         self.__reference_data = {}
+
+    @staticmethod
+    def __add_observables(
+        calibration_measures: Iterable[CalibrationMeasure], scenario: Scenario
+    ) -> None:
+        """Add observables to a scenario.
+
+        Args:
+            calibration_measures: The calibration measures to be added as observables.
+            scenario: The scenario.
+        """
+        for calibration_measure in calibration_measures:
+            output_name = calibration_measure.output
+            mesh_name = calibration_measure.mesh
+            scenario.add_observable(output_name)
+            if mesh_name:
+                scenario.add_observable(mesh_name)
 
     @staticmethod
     def __to_iterable(obj: Any, cls: type) -> Iterable[Any]:
@@ -233,9 +247,7 @@ class Calibrator(MDOScenarioAdapter):
         """
         control_outputs = self.__update_weights(control_outputs)
         name = ""
-        if isinstance(control_outputs, CalibrationMeasure):
-            control_outputs = [control_outputs]
-
+        control_outputs = self.__to_control_outputs(control_outputs)
         control_output = control_outputs[0]
         measure, output_names = self.__create_measure(control_output)
         self.__measures.append(measure)
@@ -262,6 +274,19 @@ class Calibrator(MDOScenarioAdapter):
         self.__names_to_measures[name] = measure
         return name, list(set(output_names))
 
+    @staticmethod
+    def __to_control_outputs(
+        control_outputs: CalibrationMeasure | Iterable[CalibrationMeasure],
+    ) -> Iterable[CalibrationMeasure]:
+        """Force control output(s) to be an iterator of calibration measures.
+
+        Args:
+            control_outputs: The control output(s).
+        """
+        if isinstance(control_outputs, CalibrationMeasure):
+            control_outputs = [control_outputs]
+        return control_outputs
+
     def add_measure(
         self,
         control_outputs: CalibrationMeasure | Iterable[CalibrationMeasure],
@@ -283,6 +308,8 @@ class Calibrator(MDOScenarioAdapter):
         Returns:
             The name of the calibration measure applied to the outputs.
         """
+        control_outputs = self.__to_control_outputs(control_outputs)
+        self.__add_observables(control_outputs, self.scenario)
         return_values = self._add_measure(control_outputs)
         self.__update_output_grammar()
         return return_values
