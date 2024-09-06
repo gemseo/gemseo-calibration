@@ -9,7 +9,7 @@
 
 # gemseo-calibration
 
-[![PyPI - License](https://img.shields.io/pypi/l/gemseo)](https://www.gnu.org/licenses/lgpl-3.0.en.html)
+[![PyPI - License](https://img.shields.io/pypi/l/gemseo-calibration)](https://www.gnu.org/licenses/lgpl-3.0.en.html)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/gemseo-calibration)](https://pypi.org/project/gemseo-calibration/)
 [![PyPI](https://img.shields.io/pypi/v/gemseo-calibration)](https://pypi.org/project/gemseo-calibration/)
 [![Codecov branch](https://img.shields.io/codecov/c/gitlab/gemseo:dev/gemseo-calibration/develop)](https://app.codecov.io/gl/gemseo:dev/gemseo-calibration)
