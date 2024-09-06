@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from typing import ClassVar
 
-from gemseo.core.mdofunctions.mdo_function import MDOFunction
+from gemseo.core.mdo_functions.mdo_function import MDOFunction
 from gemseo.typing import RealArray
 from numpy import inf
 from numpy import nanmax

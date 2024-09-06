@@ -115,7 +115,8 @@ force-single-line = true
 convention = "google"
 
 [lint.per-file-ignores]
-"tests/*.py" = ["D", "PT009","PT011", "PT027", "PTH"]
+"*.ipynb" = ["RET504"]
+"tests/*.py" = ["D", "PT009", "PT011", "PT027", "PTH"]
 "docs/*.py" = [
   "T",
   "D",
