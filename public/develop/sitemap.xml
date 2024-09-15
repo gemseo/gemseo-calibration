@@ -2,130 +2,130 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/changelog/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/credits/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/licenses/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/generated/examples/calibration/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/generated/examples/calibration/mg_execution_times/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/generated/examples/calibration/plot_calibration/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/generated/examples/calibration/plot_calibration_1param/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/generated/examples/calibration/plot_calibration_constraint/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/generated/examples/calibration/plot_calibration_with_mesh/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/generated/examples/calibration/plot_calibration_with_missing_values/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/generated/examples/calibration/plot_calibration_with_noise/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/reference/SUMMARY/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/reference/gemseo_calibration/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/reference/gemseo_calibration/calibrator/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/reference/gemseo_calibration/measure/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/reference/gemseo_calibration/post_processor/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/reference/gemseo_calibration/scenario/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/reference/gemseo_calibration/measures/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/reference/gemseo_calibration/measures/factory/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/reference/gemseo_calibration/measures/iae/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/reference/gemseo_calibration/measures/integrated_measure/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/reference/gemseo_calibration/measures/ise/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/reference/gemseo_calibration/measures/mae/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/reference/gemseo_calibration/measures/mean_measure/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/reference/gemseo_calibration/measures/mse/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/reference/gemseo_calibration/post/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/reference/gemseo_calibration/post/factory/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/reference/gemseo_calibration/post/multiple_scatter/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/reference/gemseo_calibration/post/data_versus_model/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/reference/gemseo_calibration/post/data_versus_model/post/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-calibration/latest/user_guide/</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-09-15</lastmod>
     </url>
 </urlset>
