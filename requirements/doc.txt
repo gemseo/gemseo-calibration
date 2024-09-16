@@ -53,7 +53,7 @@ griffe-inherited-docstrings==1.0.1
     # via gemseo-calibration (pyproject.toml)
 h5py==3.11.0
     # via gemseo
-idna==3.9
+idna==3.10
     # via requests
 importlib-metadata==8.5.0
     # via
@@ -261,7 +261,7 @@ scipy==1.13.1
     #   gemseo
     #   pydoe3
     #   scikit-learn
-setuptools==74.1.2
+setuptools==75.0.0
     # via mkdocs-bibtex
 six==1.16.0
     # via
