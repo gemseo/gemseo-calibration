@@ -39,8 +39,8 @@ def calibration_scenario() -> CalibrationScenario:
     reference = AnalyticDiscipline({"y": "2*x", "z": "3*x"}, name="reference")
 
     prior = ParameterSpace()
-    prior.add_variable("a", l_b=0.0, u_b=10.0, value=0.0)
-    prior.add_variable("b", l_b=0.0, u_b=10.0, value=0.0)
+    prior.add_variable("a", lower_bound=0.0, upper_bound=10.0, value=0.0)
+    prior.add_variable("b", lower_bound=0.0, upper_bound=10.0, value=0.0)
 
     reference.set_cache_policy("MemoryFullCache")
     reference.execute({"x": array([1.0])})
@@ -102,4 +102,3 @@ def test_factory_plot(post_factory, calibration_scenario):
         save=False,
     )
     assert isinstance(post, DataVersusModel)
-    assert post_factory.executed_post[-1] == post

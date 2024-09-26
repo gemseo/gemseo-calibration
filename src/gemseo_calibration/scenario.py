@@ -133,7 +133,7 @@ class CalibrationScenario(MDOScenario):
             False
         )
         super()._run_algorithm()
-        self.__posterior_parameters = self.design_space.array_to_dict(
+        self.__posterior_parameters = self.design_space.convert_array_to_dict(
             self.optimization_result.x_opt
         )
         self.calibrator.default_inputs = self.posterior_parameters

@@ -36,8 +36,8 @@ if TYPE_CHECKING:
 def calibration_space() -> DesignSpace:
     """The space of the parameters to calibrate."""
     space = DesignSpace()
-    space.add_variable("a", l_b=0.0, u_b=1.0, value=0.5)
-    space.add_variable("b", l_b=0.0, u_b=1.0, value=0.5)
+    space.add_variable("a", lower_bound=0.0, upper_bound=1.0, value=0.5)
+    space.add_variable("b", lower_bound=0.0, upper_bound=1.0, value=0.5)
     return space
 
 
