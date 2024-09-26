@@ -16,17 +16,23 @@
 
 from __future__ import annotations
 
+from typing import ClassVar
+
 from gemseo.datasets.dataset import Dataset
 from numpy import newaxis
 
+from gemseo_calibration.post.data_versus_model.settings import DataVersusModelSettings
 from gemseo_calibration.post.multiple_scatter import MultipleScatter
 from gemseo_calibration.post_processor import CalibrationPostProcessor
 
 
-class DataVersusModel(CalibrationPostProcessor):
+class DataVersusModel(CalibrationPostProcessor[DataVersusModelSettings]):
     """Scatter plot of the model data versus the reference ones."""
 
-    def _plot(self, output: str) -> None:
+    Settings: ClassVar[type[DataVersusModelSettings]] = DataVersusModelSettings
+
+    def _plot(self, settings: DataVersusModelSettings) -> None:
+        output = settings.output
         opt_name = f"Opt[{output}]"
         init_name = f"Init[{output}]"
         ref_name = f"Ref[{output}]"

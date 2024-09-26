@@ -65,8 +65,8 @@ class ReferenceModel(MDODiscipline):
 def calibration_space() -> ParameterSpace:
     """The calibration space."""
     space = ParameterSpace()
-    space.add_variable("a", l_b=0.0, u_b=10.0, value=0.0)
-    space.add_variable("b", l_b=0.0, u_b=10.0, value=0.0)
+    space.add_variable("a", lower_bound=0.0, upper_bound=10.0, value=0.0)
+    space.add_variable("b", lower_bound=0.0, upper_bound=10.0, value=0.0)
     return space
 
 

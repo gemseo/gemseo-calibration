@@ -48,7 +48,7 @@ reference = AnalyticDiscipline({"y": "2*x"}, name="reference")
 # Firstly,
 # we have a prior information about the parameters, that is $a\in[0,10]$:
 prior = ParameterSpace()
-prior.add_variable("a", l_b=0.0, u_b=10.0, value=0.0)
+prior.add_variable("a", lower_bound=0.0, upper_bound=10.0, value=0.0)
 
 # %%
 # Secondly,

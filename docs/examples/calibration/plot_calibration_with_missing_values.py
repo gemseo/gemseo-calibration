@@ -29,8 +29,8 @@ from gemseo_calibration.scenario import CalibrationScenario
 model = AnalyticDiscipline({"y": "a*x", "z": "b*x"}, name="model")
 
 prior = ParameterSpace()
-prior.add_variable("a", l_b=0.0, u_b=10.0, value=0.0)
-prior.add_variable("b", l_b=0.0, u_b=10.0, value=0.0)
+prior.add_variable("a", lower_bound=0.0, upper_bound=10.0, value=0.0)
+prior.add_variable("b", lower_bound=0.0, upper_bound=10.0, value=0.0)
 
 data = array([
     [1, 1.0, 2.0, nan],

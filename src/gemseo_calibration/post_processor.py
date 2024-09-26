@@ -17,16 +17,21 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
+from typing import Generic
+from typing import TypeVar
 
-from gemseo.post.opt_post_processor import OptPostProcessor
+from gemseo.post.base_post import BasePost
+from gemseo.post.base_post_settings import BasePostSettings
 
 if TYPE_CHECKING:
     from gemseo.algos.optimization_problem import OptimizationProblem
 
     from gemseo_calibration.measure import DataType
 
+T = TypeVar("T", bound=BasePostSettings)
 
-class CalibrationPostProcessor(OptPostProcessor):
+
+class CalibrationPostProcessor(BasePost, Generic[T]):
     """Abstract class for optimization post-processing methods."""
 
     def __init__(

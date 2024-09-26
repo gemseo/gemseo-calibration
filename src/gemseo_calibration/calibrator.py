@@ -194,7 +194,7 @@ class Calibrator(MDOScenarioAdapter):
         self.__reference_data = reference_data
         design_space = self.scenario.design_space
         for name in tuple(design_space):
-            del design_space[name]
+            design_space.remove_variable(name)
             design_space.add_variable(name, size=reference_data[name].shape[1])
 
         self.scenario.default_inputs[self.__ALGO_OPTIONS]["samples"] = hstack([
