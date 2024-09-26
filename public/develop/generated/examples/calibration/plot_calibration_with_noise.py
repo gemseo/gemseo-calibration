@@ -63,15 +63,15 @@ reference.set_cache_policy(reference.CacheType.MEMORY_FULL)
 # Firstly,
 # we have a prior information about the parameters, that is $[a,b,c]\in[-5,5]^2$:
 prior = ParameterSpace()
-prior.add_variable("a", l_b=-5.0, u_b=5.0, value=0.0)
-prior.add_variable("b", l_b=-5.0, u_b=5.0, value=0.0)
-prior.add_variable("c", l_b=-5.0, u_b=5.0, value=0.0)
+prior.add_variable("a", lower_bound=-5.0, upper_bound=5.0, value=0.0)
+prior.add_variable("b", lower_bound=-5.0, upper_bound=5.0, value=0.0)
+prior.add_variable("c", lower_bound=-5.0, upper_bound=5.0, value=0.0)
 
 # %%
 # Secondly,
 # we have reference output data over the input space $[0.,3.]$.
 input_space = DesignSpace()
-input_space.add_variable("x", l_b=0.0, u_b=3.0, value=1.5)
+input_space.add_variable("x", lower_bound=0.0, upper_bound=3.0, value=1.5)
 # %%
 # These data are noisy; this noise can be modeled by a centered Gaussian random variable
 # with standard deviation equal to 0.5.

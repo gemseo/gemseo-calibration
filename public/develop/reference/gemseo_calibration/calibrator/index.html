@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.36">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.37">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.06209087.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.8c3ca2c6.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
@@ -1180,6 +1180,8 @@
       
         
       
+        
+      
     
     
       
@@ -1231,6 +1233,27 @@
   
   <span class="md-ellipsis">
     Post
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../post/data_versus_model/settings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Settings
   </span>
   
 
@@ -2126,7 +2149,7 @@ from :mod:<code>gemseo-calibration.scenario</code>.</p>
     <span class="bp">self</span><span class="o">.</span><span class="n">__reference_data</span> <span class="o">=</span> <span class="n">reference_data</span>
     <span class="n">design_space</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scenario</span><span class="o">.</span><span class="n">design_space</span>
     <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">design_space</span><span class="p">):</span>
-        <span class="k">del</span> <span class="n">design_space</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="n">design_space</span><span class="o">.</span><span class="n">remove_variable</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="n">design_space</span><span class="o">.</span><span class="n">add_variable</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">reference_data</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">scenario</span><span class="o">.</span><span class="n">default_inputs</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__ALGO_OPTIONS</span><span class="p">][</span><span class="s2">&quot;samples&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hstack</span><span class="p">([</span>
@@ -2205,7 +2228,7 @@ from :mod:<code>gemseo-calibration.scenario</code>.</p>
     <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.instant", "navigation.indexes"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.d6f25eb3.min.js"></script>
       
         <script src="../../../assets/_markdown_exec_pyodide.js"></script>
       
