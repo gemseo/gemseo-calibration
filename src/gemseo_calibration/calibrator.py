@@ -22,7 +22,7 @@ from typing import Any
 from typing import NamedTuple
 
 from gemseo.algos.design_space import DesignSpace
-from gemseo.algos.doe.lib_custom import CustomDOE
+from gemseo.algos.doe.custom_doe.custom_doe import CustomDOE
 from gemseo.core.discipline import MDODiscipline
 from gemseo.core.grammars.json_grammar import JSONGrammar
 from gemseo.disciplines.scenario_adapters.mdo_scenario_adapter import MDOScenarioAdapter
