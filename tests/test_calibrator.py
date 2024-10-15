@@ -32,7 +32,7 @@ def adapter(measure_factory, discipline) -> Calibrator:
     discipline = Calibrator(
         discipline, ["x"], CalibrationMeasure("y", "MeasureObj"), ["a", "b"]
     )
-    discipline.default_inputs = {"a": array([0.5]), "b": array([0.5])}
+    discipline.default_input_data = {"a": array([0.5]), "b": array([0.5])}
     discipline.add_measure([
         CalibrationMeasure("y", "MeasureCstr"),
         CalibrationMeasure("z", "MeasureCstr"),
@@ -60,8 +60,8 @@ def test_init_data(adapter):
 
 def test_init_grammars(adapter):
     """Check the value of the input and output grammars after initialization."""
-    assert sorted(adapter.get_input_data_names()) == ["a", "b"]
-    assert sorted(adapter.get_output_data_names()) == [
+    assert sorted(adapter.io.input_grammar.names) == ["a", "b"]
+    assert sorted(adapter.io.output_grammar.names) == [
         "0.5*MeasureCstr[y]+0.5*MeasureCstr[z]",
         "MeasureObj[y]",
     ]
@@ -75,8 +75,11 @@ def test_maximize(adapter):
 def test_set_reference_data(adapter, reference_data):
     """Check that the reference data are correctly passed."""
     adapter.set_reference_data(reference_data)
-    assert adapter.scenario.default_inputs["algo"] == "CustomDOE"
-    assert adapter.scenario.default_inputs["algo_options"]["samples"].shape == (2, 1)
+    assert adapter.scenario.default_input_data["algo"] == "CustomDOE"
+    assert adapter.scenario.default_input_data["algo_options"]["samples"].shape == (
+        2,
+        1,
+    )
     for measure in adapter._Calibrator__measures:
         assert len(measure._reference_data) == 2
 
@@ -87,16 +90,16 @@ def test_execute_default(adapter, reference_data):
     """Check the execution of the Calibrator with default input data."""
     adapter.set_reference_data(reference_data)
     adapter.execute()
-    assert adapter.local_data["MeasureObj[y]"][0] == 0.25
-    assert adapter.local_data[CSTR_NAME][0] == 0.5
+    assert adapter.io.data["MeasureObj[y]"][0] == 0.25
+    assert adapter.io.data[CSTR_NAME][0] == 0.5
 
 
 def test_execute(adapter, reference_data):
     """Check the execution of the Calibrator with custom input data."""
     adapter.set_reference_data(reference_data)
     adapter.execute({"a": array([0.25])})
-    assert adapter.local_data["MeasureObj[y]"][0] == 0.125
-    assert adapter.local_data[CSTR_NAME][0] == 0.25
+    assert adapter.io.data["MeasureObj[y]"][0] == 0.125
+    assert adapter.io.data[CSTR_NAME][0] == 0.25
     adapter.execute({"a": array([0.75])})
-    assert adapter.local_data["MeasureObj[y]"][0] == 0.375
-    assert adapter.local_data[CSTR_NAME][0] == 0.75
+    assert adapter.io.data["MeasureObj[y]"][0] == 0.375
+    assert adapter.io.data[CSTR_NAME][0] == 0.75

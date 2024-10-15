@@ -29,7 +29,7 @@ from gemseo_calibration.post.data_versus_model.post import DataVersusModel
 from gemseo_calibration.scenario import CalibrationScenario
 
 if TYPE_CHECKING:
-    from gemseo.core.discipline import MDODiscipline
+    from gemseo.core.discipline.discipline import Discipline
 
 
 @pytest.fixture(scope="module")
@@ -44,7 +44,7 @@ def calibration_space() -> DesignSpace:
 @pytest.fixture
 def calibration_scenario(
     measure_factory,
-    discipline: MDODiscipline,
+    discipline: Discipline,
     calibration_space: DesignSpace,
 ) -> CalibrationScenario:
     """The scenario to calibrate the discipline with the reference input data."""
@@ -124,11 +124,9 @@ def test_constraint(calibration_scenario):
 
 def test_execute(calibration_scenario, reference_data):
     """Test that the reference data are correctly passed during the execution."""
-    calibration_scenario.execute({
-        "algo": "NLOPT_COBYLA",
-        "reference_data": reference_data,
-        "max_iter": 10,
-    })
+    calibration_scenario.execute(
+        algo="NLOPT_COBYLA", reference_data=reference_data, max_iter=10
+    )
     assert calibration_scenario.prior_parameters == {
         "a": array([0.5]),
         "b": array([0.5]),
@@ -149,11 +147,9 @@ def test_posts(calibration_scenario):
 
 def test_post_process(calibration_scenario, reference_data):
     """Check the post-processing of a calibration scenario."""
-    calibration_scenario.execute({
-        "algo": "NLOPT_COBYLA",
-        "reference_data": reference_data,
-        "max_iter": 2,
-    })
+    calibration_scenario.execute(
+        algo="NLOPT_COBYLA", reference_data=reference_data, max_iter=2
+    )
     post = calibration_scenario.post_process("OptHistoryView", save=False, show=False)
     assert isinstance(post, OptHistoryView)
     post = calibration_scenario.post_process(

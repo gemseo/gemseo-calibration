@@ -20,10 +20,7 @@ Capability to calibrate GEMSEO disciplines from data.
 
 ## Installation
 
-Install the latest stable version with `pip install gemseo-calibration`.
-
-Install the development version with
-`pip install gemseo-calibration@git+https://gitlab.com/gemseo/dev/gemseo-calibration.git@develop`.
+Install the latest version with `pip install gemseo-calibration`.
 
 See [pip](https://pip.pypa.io/en/stable/getting-started/) for more information.
 
