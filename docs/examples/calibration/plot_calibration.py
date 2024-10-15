@@ -53,7 +53,7 @@ prior.add_variable("b", lower_bound=0.0, upper_bound=10.0, value=0.0)
 # %%
 # Secondly,
 # we have reference output data over the input space $[0.,3.]$:
-reference.set_cache_policy(reference.CacheType.MEMORY_FULL)
+reference.set_cache(reference.CacheType.MEMORY_FULL)
 reference.execute({"x": array([1.0])})
 reference.execute({"x": array([2.0])})
 reference_data = reference.cache.to_dataset().to_dict_of_arrays(False)
@@ -68,11 +68,7 @@ reference_data = reference.cache.to_dataset().to_dict_of_arrays(False)
 # taking into account the outputs $y$ and $z$:
 control_outputs = [CalibrationMeasure("y", "MSE"), CalibrationMeasure("z", "MSE")]
 calibration = CalibrationScenario(model, "x", control_outputs, prior)
-calibration.execute({
-    "algo": "NLOPT_COBYLA",
-    "reference_data": reference_data,
-    "max_iter": 100,
-})
+calibration.execute(algo="NLOPT_COBYLA", reference_data=reference_data, max_iter=100)
 
 # %%
 # Lastly,

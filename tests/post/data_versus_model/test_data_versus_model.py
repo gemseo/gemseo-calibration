@@ -42,7 +42,7 @@ def calibration_scenario() -> CalibrationScenario:
     prior.add_variable("a", lower_bound=0.0, upper_bound=10.0, value=0.0)
     prior.add_variable("b", lower_bound=0.0, upper_bound=10.0, value=0.0)
 
-    reference.set_cache_policy("MemoryFullCache")
+    reference.set_cache("MemoryFullCache")
     reference.execute({"x": array([1.0])})
     reference.execute({"x": array([2.0])})
     reference_data = reference.cache.to_dataset().to_dict_of_arrays(False)
@@ -53,11 +53,7 @@ def calibration_scenario() -> CalibrationScenario:
         [CalibrationMeasure("y", "MSE"), CalibrationMeasure("z", "MSE")],
         prior,
     )
-    calibration.execute({
-        "algo": "NLOPT_COBYLA",
-        "reference_data": reference_data,
-        "max_iter": 10,
-    })
+    calibration.execute(algo="NLOPT_COBYLA", reference_data=reference_data, max_iter=10)
     return calibration
 
 

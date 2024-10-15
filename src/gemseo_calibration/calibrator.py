@@ -23,7 +23,7 @@ from typing import NamedTuple
 
 from gemseo.algos.design_space import DesignSpace
 from gemseo.algos.doe.custom_doe.custom_doe import CustomDOE
-from gemseo.core.discipline import MDODiscipline
+from gemseo.core.discipline.discipline import Discipline
 from gemseo.core.grammars.json_grammar import JSONGrammar
 from gemseo.disciplines.scenario_adapters.mdo_scenario_adapter import MDOScenarioAdapter
 from gemseo.scenarios.doe_scenario import DOEScenario
@@ -74,11 +74,11 @@ class Calibrator(MDOScenarioAdapter):
     method.
     """
 
-    __ALGO_OPTIONS = DOEScenario.ALGO_OPTIONS
+    __ALGO_OPTIONS = "algo_options"
 
     def __init__(
         self,
-        disciplines: MDODiscipline | list[MDODiscipline],
+        disciplines: Discipline | list[Discipline],
         input_names: str | Iterable[str],
         control_outputs: CalibrationMeasure | Sequence[CalibrationMeasure],
         parameter_names: str | Iterable[str],
@@ -109,7 +109,7 @@ class Calibrator(MDOScenarioAdapter):
         input_names = self.__to_iterable(input_names, str)
         control_outputs = self.__to_iterable(control_outputs, CalibrationMeasure)
         parameter_names = self.__to_iterable(parameter_names, str)
-        disciplines = self.__to_iterable(disciplines, MDODiscipline)
+        disciplines = self.__to_iterable(disciplines, Discipline)
         control_output = control_outputs[0]
         objective_name = control_output.output
         mesh_name = control_output.mesh
@@ -129,8 +129,8 @@ class Calibrator(MDOScenarioAdapter):
 
         self.__add_observables(control_outputs, doe_scenario)
 
-        doe_scenario.default_inputs = {
-            doe_scenario.ALGO: CustomDOE.__name__,
+        doe_scenario.default_input_data = {
+            "algo": CustomDOE.__name__,
             self.__ALGO_OPTIONS: {"samples": None},
         }
 
@@ -197,7 +197,7 @@ class Calibrator(MDOScenarioAdapter):
             design_space.remove_variable(name)
             design_space.add_variable(name, size=reference_data[name].shape[1])
 
-        self.scenario.default_inputs[self.__ALGO_OPTIONS]["samples"] = hstack([
+        self.scenario.default_input_data[self.__ALGO_OPTIONS]["samples"] = hstack([
             reference_data[name] for name in self.scenario.get_optim_variable_names()
         ])
         for measure in self.__measures:
@@ -213,7 +213,7 @@ class Calibrator(MDOScenarioAdapter):
     def _post_run(self) -> None:
         model_dataset = self.scenario.to_dataset().to_dict_of_arrays(False)
         for name, measure in self.__names_to_measures.items():
-            self.local_data[name] = array([measure.func(model_dataset)])
+            self.io.data[name] = array([measure.func(model_dataset)])
 
     @property
     def maximize_objective_measure(self) -> bool:

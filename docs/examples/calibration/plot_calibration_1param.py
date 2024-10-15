@@ -53,7 +53,7 @@ prior.add_variable("a", lower_bound=0.0, upper_bound=10.0, value=0.0)
 # %%
 # Secondly,
 # we have reference output data over the input space $[0.,3.]$:
-reference.set_cache_policy(reference.CacheType.MEMORY_FULL)
+reference.set_cache(reference.CacheType.MEMORY_FULL)
 reference.execute({"x": array([1.0])})
 reference_data = reference.cache.to_dataset().to_dict_of_arrays(False)
 

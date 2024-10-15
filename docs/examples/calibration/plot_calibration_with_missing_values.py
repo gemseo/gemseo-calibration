@@ -51,8 +51,4 @@ reference_data = Dataset.from_array(
 
 control_outputs = [CalibrationMeasure("y", "MSE"), CalibrationMeasure("z", "MSE")]
 calibration = CalibrationScenario(model, "x", control_outputs, prior)
-calibration.execute({
-    "algo": "NLOPT_COBYLA",
-    "reference_data": reference_data,
-    "max_iter": 100,
-})
+calibration.execute(algo="NLOPT_COBYLA", reference_data=reference_data, max_iter=100)

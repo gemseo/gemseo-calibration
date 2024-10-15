@@ -18,10 +18,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 from typing import Any
-from typing import ClassVar
 
 from gemseo.core.mdo_functions.mdo_function import MDOFunction
 from gemseo.scenarios.mdo_scenario import MDOScenario
+from pydantic import Field
 
 from gemseo_calibration.calibrator import CalibrationMeasure
 from gemseo_calibration.calibrator import Calibrator
@@ -29,11 +29,12 @@ from gemseo_calibration.post.factory import CalibrationPostFactory
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
+    from collections.abc import Mapping
     from collections.abc import Sequence
 
     from gemseo.algos.design_space import DesignSpace
-    from gemseo.core.discipline import MDODiscipline
-    from gemseo.post.opt_post_processor import OptPostProcessor
+    from gemseo.core.discipline.discipline import Discipline
+    from gemseo.post.base_post import BasePost
     from gemseo.typing import RealArray
 
     from gemseo_calibration.measure import DataType
@@ -68,12 +69,12 @@ class CalibrationScenario(MDOScenario):
     posterior_model_data: dict[str, RealArray]
     """The model data after the calibration."""
 
-    __REFERENCE_DATA: ClassVar[str] = "reference_data"
-    """The input of the CalibrationScenario representing the reference data."""
+    class _BaseSettings(MDOScenario._BaseSettings):
+        reference_data: Mapping[str, Any] = Field(description="The reference data.")
 
     def __init__(
         self,
-        disciplines: MDODiscipline | list[MDODiscipline],
+        disciplines: Discipline | list[Discipline],
         input_names: str | Iterable[str],
         control_outputs: CalibrationMeasure | Sequence[CalibrationMeasure],
         calibration_space: DesignSpace,
@@ -126,17 +127,17 @@ class CalibrationScenario(MDOScenario):
         )
         self.__calibration_post_factory = CalibrationPostFactory()
 
-    def _run_algorithm(self) -> None:
-        self.calibrator.set_reference_data(self.local_data[self.__REFERENCE_DATA])
+    def _run(self) -> None:
+        self.calibrator.set_reference_data(self._settings.reference_data)
         self.calibrator.execute()
         self.prior_model_data = self.calibrator.scenario.to_dataset().to_dict_of_arrays(
             False
         )
-        super()._run_algorithm()
+        super()._run()
         self.__posterior_parameters = self.design_space.convert_array_to_dict(
             self.optimization_result.x_opt
         )
-        self.calibrator.default_inputs = self.posterior_parameters
+        self.calibrator.default_input_data = self.posterior_parameters
         self.calibrator.execute()
         self.posterior_model_data = (
             self.calibrator.scenario.to_dataset().to_dict_of_arrays(False)
@@ -201,7 +202,7 @@ class CalibrationScenario(MDOScenario):
             self.post_factory.class_names + self.__calibration_post_factory.class_names
         )
 
-    def post_process(self, post_name: str, **options: Any) -> OptPostProcessor:  # noqa: D102
+    def post_process(self, post_name: str, **options: Any) -> BasePost:  # noqa: D102
         if post_name in self.__calibration_post_factory.class_names:
             return self.__calibration_post_factory.execute(
                 self.formulation.optimization_problem,
