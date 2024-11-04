@@ -16,7 +16,7 @@ check-wheel-contents==0.6.0
     # via -r requirements/dist.in
 click==8.1.7
     # via check-wheel-contents
-cryptography==43.0.1
+cryptography==43.0.3
     # via secretstorage
 docutils==0.21.2
     # via readme-renderer
@@ -34,7 +34,7 @@ jeepney==0.8.0
     # via
     #   keyring
     #   secretstorage
-keyring==25.4.1
+keyring==25.5.0
     # via twine
 markdown-it-py==3.0.0
     # via rich
@@ -74,7 +74,7 @@ requests-toolbelt==1.0.0
     # via twine
 rfc3986==2.0.0
     # via twine
-rich==13.9.2
+rich==13.9.4
     # via twine
 secretstorage==3.3.3
     # via keyring

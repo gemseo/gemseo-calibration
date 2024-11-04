@@ -68,7 +68,9 @@ reference_data = reference.cache.to_dataset().to_dict_of_arrays(False)
 # taking into account the outputs $y$ and $z$:
 control_outputs = [CalibrationMeasure("y", "MSE"), CalibrationMeasure("z", "MSE")]
 calibration = CalibrationScenario(model, "x", control_outputs, prior)
-calibration.execute(algo="NLOPT_COBYLA", reference_data=reference_data, max_iter=100)
+calibration.execute(
+    algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=100
+)
 
 # %%
 # Lastly,
@@ -76,9 +78,9 @@ calibration.execute(algo="NLOPT_COBYLA", reference_data=reference_data, max_iter
 
 # %%
 # plot an optimization history view:
-calibration.post_process("OptHistoryView", save=False, show=True)
+calibration.post_process(post_name="OptHistoryView", save=False, show=True)
 
 # %%
 # as well as the model data versus the reference ones,
 # before and after the calibration:
-calibration.post_process("DataVersusModel", output="z", save=False, show=True)
+calibration.post_process(post_name="DataVersusModel", output="z", save=False, show=True)

@@ -119,9 +119,9 @@ class Calibrator(MDOScenarioAdapter):
 
         doe_scenario = DOEScenario(
             disciplines,
-            formulation,
             objective_name,
             input_space,
+            formulation_name=formulation,
             **formulation_options,
         )
         if mesh_name:
@@ -129,10 +129,7 @@ class Calibrator(MDOScenarioAdapter):
 
         self.__add_observables(control_outputs, doe_scenario)
 
-        doe_scenario.default_input_data = {
-            "algo": CustomDOE.__name__,
-            self.__ALGO_OPTIONS: {"samples": None},
-        }
+        doe_scenario.set_algorithm(algo_name=CustomDOE.__name__)
 
         self.__names_to_measures = {}
         self.__measures = []
@@ -197,9 +194,13 @@ class Calibrator(MDOScenarioAdapter):
             design_space.remove_variable(name)
             design_space.add_variable(name, size=reference_data[name].shape[1])
 
-        self.scenario.default_input_data[self.__ALGO_OPTIONS]["samples"] = hstack([
-            reference_data[name] for name in self.scenario.get_optim_variable_names()
-        ])
+        self.scenario.set_algorithm(
+            algo_name="CustomDOE",
+            samples=hstack([
+                reference_data[name]
+                for name in self.scenario.get_optim_variable_names()
+            ]),
+        )
         for measure in self.__measures:
             measure.set_reference_data(self.__reference_data)
 

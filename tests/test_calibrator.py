@@ -75,8 +75,8 @@ def test_maximize(adapter):
 def test_set_reference_data(adapter, reference_data):
     """Check that the reference data are correctly passed."""
     adapter.set_reference_data(reference_data)
-    assert adapter.scenario.default_input_data["algo"] == "CustomDOE"
-    assert adapter.scenario.default_input_data["algo_options"]["samples"].shape == (
+    assert adapter.scenario._settings.algo_name == "CustomDOE"
+    assert adapter.scenario._settings.algo_settings["samples"].shape == (
         2,
         1,
     )
