@@ -15,14 +15,14 @@
 # WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 """# Calibration scenario with noised observations."""
 
+from __future__ import annotations
+
 # %%
 # Let us consider a function $f(x)=ax^2+bx+c$
 # from $\mathbb{R}$ to $\mathbb{R}$:
-from __future__ import annotations
-
 from gemseo.algos.design_space import DesignSpace
 from gemseo.algos.parameter_space import ParameterSpace
-from gemseo.core.chain import MDOChain
+from gemseo.core.chains.chain import MDOChain
 from gemseo.disciplines.analytic import AnalyticDiscipline
 from gemseo.disciplines.scenario_adapters.mdo_scenario_adapter import MDOScenarioAdapter
 from gemseo.scenarios.doe_scenario import DOEScenario
@@ -42,7 +42,7 @@ model = AnalyticDiscipline({"y": "a*x**2+b*x+c"}, name="model")
 original_model = AnalyticDiscipline({"y": "2*x**2-1.5*x+0.75"}, name="model")
 
 reference = MDOChain([original_model, AnalyticDiscipline({"y": "y+u"}, name="noise")])
-reference.set_cache_policy(reference.CacheType.MEMORY_FULL)
+reference.set_cache(reference.CacheType.MEMORY_FULL)
 
 # %%
 # This reference model contains a random additive term $u$
@@ -90,8 +90,10 @@ noise_space.add_random_variable("u", "OTNormalDistribution", mu=0.0, sigma=0.5)
 # For example, let us imagine a [DOEScenario][gemseo.scenarios.doe_scenario.DOEScenario]
 # evaluating the reference data source at 5 equispaced points $x_1,\ldots,x_5$.
 
-sub_scenario = DOEScenario([reference], "DisciplinaryOpt", "y", input_space)
-sub_scenario.default_inputs = {"algo": "fullfact", "n_samples": 5}
+sub_scenario = DOEScenario(
+    [reference], "y", input_space, formulation_name="DisciplinaryOpt"
+)
+sub_scenario.set_algorithm(algo_name="PYDOE_FULLFACT", n_samples=5)
 
 adapter = MDOScenarioAdapter(sub_scenario, ["u"], ["y"])
 
@@ -102,8 +104,8 @@ adapter = MDOScenarioAdapter(sub_scenario, ["u"], ["y"])
 # is embedded in a
 # [DOEScenario][gemseo.scenarios.doe_scenario.DOEScenario]
 # in charge to sample it over the uncertain space.
-scenario = DOEScenario([adapter], "DisciplinaryOpt", "y", noise_space)
-scenario.execute({"algo": "OT_LHSC", "n_samples": 5})
+scenario = DOEScenario([adapter], "y", noise_space, formulation_name="DisciplinaryOpt")
+scenario.execute(algo_name="OT_LHSC", n_samples=5)
 reference_data = reference.cache.to_dataset().to_dict_of_arrays(False)
 
 # %%
@@ -115,11 +117,9 @@ reference_data = reference.cache.to_dataset().to_dict_of_arrays(False)
 # [CalibrationMeasure][gemseo_calibration.measure.CalibrationMeasure]
 # related to the output $y$:
 calibration = CalibrationScenario(model, "x", CalibrationMeasure("y", "MSE"), prior)
-calibration.execute({
-    "algo": "NLOPT_COBYLA",
-    "reference_data": reference_data,
-    "max_iter": 100,
-})
+calibration.execute(
+    algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=100
+)
 
 # %%
 # Lastly,
@@ -127,7 +127,7 @@ calibration.execute({
 
 # %%
 # plot an optimization history view:
-calibration.post_process("OptHistoryView", save=False, show=True)
+calibration.post_process(post_name="OptHistoryView", save=False, show=True)
 
 # %%
 # as well as the model data versus the reference ones:

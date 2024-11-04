@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.8c3ca2c6.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.0253249f.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
@@ -1532,6 +1532,11 @@
 
 
 
+
+
+
+
+
   <div class="doc doc-children">
 
 
@@ -1558,6 +1563,11 @@
 
 
         <p>A calibration measure.</p>
+
+
+
+
+
 
 
 
@@ -1688,7 +1698,7 @@ collection must be 1.</p>
 
 <a href="#gemseo_calibration.calibrator.Calibrator" class="headerlink" title="Permanent link">&para;</a></h4>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">Calibrator</span><span class="p">(</span>
-    <span class="n">disciplines</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.core.discipline.MDODiscipline" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.core.discipline.html#gemseo.core.discipline.MDODiscipline">MDODiscipline</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" title="gemseo.core.discipline.MDODiscipline" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.core.discipline.html#gemseo.core.discipline.MDODiscipline">MDODiscipline</a></span><span class="p">],</span>
+    <span class="n">disciplines</span><span class="p">:</span> <span class="n"><span title="gemseo.core.discipline.discipline.Discipline">Discipline</span></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></span><span class="p">[</span><span class="n"><span title="gemseo.core.discipline.discipline.Discipline">Discipline</span></span><span class="p">],</span>
     <span class="n">input_names</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">],</span>
     <span class="n">control_outputs</span><span class="p">:</span> <span class="p">(</span>
         <span class="n"><a class="autorefs autorefs-internal" title="gemseo_calibration.calibrator.CalibrationMeasure" href="#gemseo_calibration.calibrator.CalibrationMeasure">CalibrationMeasure</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Sequence" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence">Sequence</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="gemseo_calibration.calibrator.CalibrationMeasure" href="#gemseo_calibration.calibrator.CalibrationMeasure">CalibrationMeasure</a></span><span class="p">]</span>
@@ -1716,8 +1726,8 @@ method.</p>
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-          <b><code>disciplines</code></b>
-              (<code><a class="autorefs autorefs-external" title="gemseo.core.discipline.MDODiscipline" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.core.discipline.html#gemseo.core.discipline.MDODiscipline">MDODiscipline</a> | <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" title="gemseo.core.discipline.MDODiscipline" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.core.discipline.html#gemseo.core.discipline.MDODiscipline">MDODiscipline</a>]</code>)
+            <b><code>disciplines</code></b>
+              (<code><span title="gemseo.core.discipline.discipline.Discipline">Discipline</span> | <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<span title="gemseo.core.discipline.discipline.Discipline">Discipline</span>]</code>)
           –
           <div class="doc-md-description">
             <p>The disciplines
@@ -1725,7 +1735,7 @@ whose parameters must be calibrated from the reference data.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>input_names</code></b>
+            <b><code>input_names</code></b>
               (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>)
           –
           <div class="doc-md-description">
@@ -1733,7 +1743,7 @@ whose parameters must be calibrated from the reference data.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>control_outputs</code></b>
+            <b><code>control_outputs</code></b>
               (<code><a class="autorefs autorefs-internal" title="gemseo_calibration.calibrator.CalibrationMeasure" href="#gemseo_calibration.calibrator.CalibrationMeasure">CalibrationMeasure</a> | <a class="autorefs autorefs-external" title="collections.abc.Sequence" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence">Sequence</a>[<a class="autorefs autorefs-internal" title="gemseo_calibration.calibrator.CalibrationMeasure" href="#gemseo_calibration.calibrator.CalibrationMeasure">CalibrationMeasure</a>]</code>)
           –
           <div class="doc-md-description">
@@ -1750,7 +1760,7 @@ from [gemseo-calibration.calibrator][].</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>parameter_names</code></b>
+            <b><code>parameter_names</code></b>
               (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>)
           –
           <div class="doc-md-description">
@@ -1758,7 +1768,7 @@ from [gemseo-calibration.calibrator][].</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>formulation</code></b>
+            <b><code>formulation</code></b>
               (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>, default:
                   <code>&#39;MDF&#39;</code>
 )
@@ -1769,7 +1779,7 @@ to manage the multidisciplinary coupling.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>**formulation_options</code></b>
+            <b><code>**formulation_options</code></b>
               (<code><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>, default:
                   <code>{}</code>
 )
@@ -1791,6 +1801,11 @@ to manage the multidisciplinary coupling.</p>
           </div>
         </li>
     </ul>
+
+
+
+
+
 
                   <details class="quote">
                     <summary>Source code in <code>src/gemseo_calibration/calibrator.py</code></summary>
@@ -1854,12 +1869,9 @@ to manage the multidisciplinary coupling.</p>
 <span class="normal">136</span>
 <span class="normal">137</span>
 <span class="normal">138</span>
-<span class="normal">139</span>
-<span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">139</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
-    <span class="n">disciplines</span><span class="p">:</span> <span class="n">MDODiscipline</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">MDODiscipline</span><span class="p">],</span>
+    <span class="n">disciplines</span><span class="p">:</span> <span class="n">Discipline</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Discipline</span><span class="p">],</span>
     <span class="n">input_names</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
     <span class="n">control_outputs</span><span class="p">:</span> <span class="n">CalibrationMeasure</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">CalibrationMeasure</span><span class="p">],</span>
     <span class="n">parameter_names</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
@@ -1890,7 +1902,7 @@ to manage the multidisciplinary coupling.</p>
     <span class="n">input_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__to_iterable</span><span class="p">(</span><span class="n">input_names</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
     <span class="n">control_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__to_iterable</span><span class="p">(</span><span class="n">control_outputs</span><span class="p">,</span> <span class="n">CalibrationMeasure</span><span class="p">)</span>
     <span class="n">parameter_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__to_iterable</span><span class="p">(</span><span class="n">parameter_names</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
-    <span class="n">disciplines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__to_iterable</span><span class="p">(</span><span class="n">disciplines</span><span class="p">,</span> <span class="n">MDODiscipline</span><span class="p">)</span>
+    <span class="n">disciplines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__to_iterable</span><span class="p">(</span><span class="n">disciplines</span><span class="p">,</span> <span class="n">Discipline</span><span class="p">)</span>
     <span class="n">control_output</span> <span class="o">=</span> <span class="n">control_outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">objective_name</span> <span class="o">=</span> <span class="n">control_output</span><span class="o">.</span><span class="n">output</span>
     <span class="n">mesh_name</span> <span class="o">=</span> <span class="n">control_output</span><span class="o">.</span><span class="n">mesh</span>
@@ -1900,9 +1912,9 @@ to manage the multidisciplinary coupling.</p>
 
     <span class="n">doe_scenario</span> <span class="o">=</span> <span class="n">DOEScenario</span><span class="p">(</span>
         <span class="n">disciplines</span><span class="p">,</span>
-        <span class="n">formulation</span><span class="p">,</span>
         <span class="n">objective_name</span><span class="p">,</span>
         <span class="n">input_space</span><span class="p">,</span>
+        <span class="n">formulation_name</span><span class="o">=</span><span class="n">formulation</span><span class="p">,</span>
         <span class="o">**</span><span class="n">formulation_options</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="n">mesh_name</span><span class="p">:</span>
@@ -1910,10 +1922,7 @@ to manage the multidisciplinary coupling.</p>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">__add_observables</span><span class="p">(</span><span class="n">control_outputs</span><span class="p">,</span> <span class="n">doe_scenario</span><span class="p">)</span>
 
-    <span class="n">doe_scenario</span><span class="o">.</span><span class="n">default_inputs</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">doe_scenario</span><span class="o">.</span><span class="n">ALGO</span><span class="p">:</span> <span class="n">CustomDOE</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__ALGO_OPTIONS</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;samples&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
-    <span class="p">}</span>
+    <span class="n">doe_scenario</span><span class="o">.</span><span class="n">set_algorithm</span><span class="p">(</span><span class="n">algo_name</span><span class="o">=</span><span class="n">CustomDOE</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">__names_to_measures</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">__measures</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2005,7 +2014,7 @@ to manage the multidisciplinary coupling.</p>
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-          <b><code>control_outputs</code></b>
+            <b><code>control_outputs</code></b>
               (<code><a class="autorefs autorefs-internal" title="gemseo_calibration.calibrator.CalibrationMeasure" href="#gemseo_calibration.calibrator.CalibrationMeasure">CalibrationMeasure</a> | <a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a>[<a class="autorefs autorefs-internal" title="gemseo_calibration.calibrator.CalibrationMeasure" href="#gemseo_calibration.calibrator.CalibrationMeasure">CalibrationMeasure</a>]</code>)
           –
           <div class="doc-md-description">
@@ -2037,8 +2046,7 @@ from :mod:<code>gemseo-calibration.scenario</code>.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/gemseo_calibration/calibrator.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">290</span>
-<span class="normal">291</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">291</span>
 <span class="normal">292</span>
 <span class="normal">293</span>
 <span class="normal">294</span>
@@ -2062,7 +2070,8 @@ from :mod:<code>gemseo-calibration.scenario</code>.</p>
 <span class="normal">312</span>
 <span class="normal">313</span>
 <span class="normal">314</span>
-<span class="normal">315</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">add_measure</span><span class="p">(</span>
+<span class="normal">315</span>
+<span class="normal">316</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">add_measure</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">control_outputs</span><span class="p">:</span> <span class="n">CalibrationMeasure</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">CalibrationMeasure</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
@@ -2113,7 +2122,7 @@ from :mod:<code>gemseo-calibration.scenario</code>.</p>
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-          <b><code>reference_data</code></b>
+            <b><code>reference_data</code></b>
               (<code><a class="autorefs autorefs-internal" title="gemseo_calibration.measure.DataType" href="../measure/#gemseo_calibration.measure.DataType">DataType</a></code>)
           –
           <div class="doc-md-description">
@@ -2124,7 +2133,10 @@ from :mod:<code>gemseo-calibration.scenario</code>.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/gemseo_calibration/calibrator.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">188</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
 <span class="normal">189</span>
 <span class="normal">190</span>
 <span class="normal">191</span>
@@ -2140,7 +2152,8 @@ from :mod:<code>gemseo-calibration.scenario</code>.</p>
 <span class="normal">201</span>
 <span class="normal">202</span>
 <span class="normal">203</span>
-<span class="normal">204</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">set_reference_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference_data</span><span class="p">:</span> <span class="n">DataType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">204</span>
+<span class="normal">205</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">set_reference_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference_data</span><span class="p">:</span> <span class="n">DataType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Pass the reference data to the scenario and to the measures.</span>
 
 <span class="sd">    Args:</span>
@@ -2152,9 +2165,13 @@ from :mod:<code>gemseo-calibration.scenario</code>.</p>
         <span class="n">design_space</span><span class="o">.</span><span class="n">remove_variable</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="n">design_space</span><span class="o">.</span><span class="n">add_variable</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">reference_data</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">scenario</span><span class="o">.</span><span class="n">default_inputs</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__ALGO_OPTIONS</span><span class="p">][</span><span class="s2">&quot;samples&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hstack</span><span class="p">([</span>
-        <span class="n">reference_data</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scenario</span><span class="o">.</span><span class="n">get_optim_variable_names</span><span class="p">()</span>
-    <span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">scenario</span><span class="o">.</span><span class="n">set_algorithm</span><span class="p">(</span>
+        <span class="n">algo_name</span><span class="o">=</span><span class="s2">&quot;CustomDOE&quot;</span><span class="p">,</span>
+        <span class="n">samples</span><span class="o">=</span><span class="n">hstack</span><span class="p">([</span>
+            <span class="n">reference_data</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scenario</span><span class="o">.</span><span class="n">get_optim_variable_names</span><span class="p">()</span>
+        <span class="p">]),</span>
+    <span class="p">)</span>
     <span class="k">for</span> <span class="n">measure</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__measures</span><span class="p">:</span>
         <span class="n">measure</span><span class="o">.</span><span class="n">set_reference_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__reference_data</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -2228,7 +2245,7 @@ from :mod:<code>gemseo-calibration.scenario</code>.</p>
     <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.instant", "navigation.indexes"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.525ec568.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../../assets/_markdown_exec_pyodide.js"></script>
       

@@ -14,7 +14,7 @@
       
       
       <link rel="icon" href="../../../../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.8c3ca2c6.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.0253249f.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
@@ -1154,7 +1154,7 @@ we have a prior information about the parameters, that is <span class="arithmate
 we have reference output data over the input space <span class="arithmatex">\([0.,3.]\)</span>:</p>
 <!-- GENERATED FROM PYTHON SOURCE LINES 56-61 -->
 
-<div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="o">.</span><span class="n">set_cache_policy</span><span class="p">(</span><span class="n">reference</span><span class="o">.</span><span class="n">CacheType</span><span class="o">.</span><span class="n">MEMORY_FULL</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">reference</span><span class="o">.</span><span class="n">set_cache</span><span class="p">(</span><span class="n">reference</span><span class="o">.</span><span class="n">CacheType</span><span class="o">.</span><span class="n">MEMORY_FULL</span><span class="p">)</span>
 <span class="n">reference</span><span class="o">.</span><span class="n">execute</span><span class="p">({</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">])})</span>
 <span class="n">reference</span><span class="o">.</span><span class="n">execute</span><span class="p">({</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">array</span><span class="p">([</span><span class="mf">2.0</span><span class="p">])})</span>
 <span class="n">reference_data</span> <span class="o">=</span> <span class="n">reference</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict_of_arrays</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
@@ -1168,53 +1168,45 @@ to find the value of the parameters <span class="arithmatex">\(a\)</span> and <s
 which minimizes a
 <a class="autorefs autorefs-internal" href="../../../../reference/gemseo_calibration/measure/#gemseo_calibration.measure.CalibrationMeasure">CalibrationMeasure</a>
 taking into account the outputs <span class="arithmatex">\(y\)</span> and <span class="arithmatex">\(z\)</span>:</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 69-77 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 69-75 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">control_outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">CalibrationMeasure</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;MSE&quot;</span><span class="p">),</span> <span class="n">CalibrationMeasure</span><span class="p">(</span><span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="s2">&quot;MSE&quot;</span><span class="p">)]</span>
 <span class="n">calibration</span> <span class="o">=</span> <span class="n">CalibrationScenario</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">control_outputs</span><span class="p">,</span> <span class="n">prior</span><span class="p">)</span>
-<span class="n">calibration</span><span class="o">.</span><span class="n">execute</span><span class="p">({</span>
-    <span class="s2">&quot;algo&quot;</span><span class="p">:</span> <span class="s2">&quot;NLOPT_COBYLA&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;reference_data&quot;</span><span class="p">:</span> <span class="n">reference_data</span><span class="p">,</span>
-    <span class="s2">&quot;max_iter&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-<span class="p">})</span>
+<span class="n">calibration</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+    <span class="n">algo_name</span><span class="o">=</span><span class="s2">&quot;NLOPT_COBYLA&quot;</span><span class="p">,</span> <span class="n">reference_data</span><span class="o">=</span><span class="n">reference_data</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span>
+<span class="p">)</span>
 </code></pre></div>
-<p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><span class="o">{</span><span class="s1">&#39;reference_data&#39;</span>:<span class="w"> </span><span class="o">{</span><span class="s1">&#39;x&#39;</span>:<span class="w"> </span>array<span class="o">([[</span><span class="m">1</span>.<span class="o">]</span>,
-<span class="w">       </span><span class="o">[</span><span class="m">2</span>.<span class="o">]])</span>,<span class="w"> </span><span class="s1">&#39;y&#39;</span>:<span class="w"> </span>array<span class="o">([[</span><span class="m">2</span>.<span class="o">]</span>,
-<span class="w">       </span><span class="o">[</span><span class="m">4</span>.<span class="o">]])</span>,<span class="w"> </span><span class="s1">&#39;z&#39;</span>:<span class="w"> </span>array<span class="o">([[</span><span class="m">3</span>.<span class="o">]</span>,
-<span class="w">       </span><span class="o">[</span><span class="m">6</span>.<span class="o">]])}</span>,<span class="w"> </span><span class="s1">&#39;max_iter&#39;</span>:<span class="w"> </span><span class="m">100</span>,<span class="w"> </span><span class="s1">&#39;algo&#39;</span>:<span class="w"> </span><span class="s1">&#39;NLOPT_COBYLA&#39;</span><span class="o">}</span>
-</code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 78-80 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 76-78 -->
 
 <p>Lastly,
 we get the calibrated parameters:</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 82-83 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 80-81 -->
 
 <p>plot an optimization history view:</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 83-85 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 81-83 -->
 
-<div class="highlight"><pre><span></span><code><span class="n">calibration</span><span class="o">.</span><span class="n">post_process</span><span class="p">(</span><span class="s2">&quot;OptHistoryView&quot;</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">calibration</span><span class="o">.</span><span class="n">post_process</span><span class="p">(</span><span class="n">post_name</span><span class="o">=</span><span class="s2">&quot;OptHistoryView&quot;</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
 <ul class="mkd-glr-horizontal">
 <img alt="Evolution of the optimization variables" src="../images/mkd_glr_plot_calibration_001.png" srcset="../images/mkd_glr_plot_calibration_001.png", class="sphx-glr-single-img" /><img alt="Evolution of the objective value" src="../images/mkd_glr_plot_calibration_002.png" srcset="../images/mkd_glr_plot_calibration_002.png", class="sphx-glr-single-img" /><img alt="Evolution of the distance to the optimum" src="../images/mkd_glr_plot_calibration_003.png" srcset="../images/mkd_glr_plot_calibration_003.png", class="sphx-glr-single-img" />
 </ul>
 
 <p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>&lt;gemseo.post.opt_history_view.OptHistoryView<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>0x78c66fd6b490&gt;
+<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>&lt;gemseo.post.opt_history_view.OptHistoryView<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>0x7de192944100&gt;
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 86-88 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 84-86 -->
 
 <p>as well as the model data versus the reference ones,
 before and after the calibration:</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 88-89 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 86-87 -->
 
-<div class="highlight"><pre><span></span><code><span class="n">calibration</span><span class="o">.</span><span class="n">post_process</span><span class="p">(</span><span class="s2">&quot;DataVersusModel&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">calibration</span><span class="o">.</span><span class="n">post_process</span><span class="p">(</span><span class="n">post_name</span><span class="o">=</span><span class="s2">&quot;DataVersusModel&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
 <p><img alt="plot calibration" class="mkd-glr-single-img" src="../images/mkd_glr_plot_calibration_004.png" srcset="../images/mkd_glr_plot_calibration_004.png" /></p>
 <p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>&lt;gemseo_calibration.post.data_versus_model.post.DataVersusModel<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>0x78c66ff21b20&gt;
+<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>&lt;gemseo_calibration.post.data_versus_model.post.DataVersusModel<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>0x7de192b539a0&gt;
 </code></pre></div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  1.946 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  1.804 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../plot_calibration.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v242.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48"/></svg></span> Download Python source code: plot_calibration.py</a></p>
@@ -1269,7 +1261,7 @@ before and after the calibration:</p>
     <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.instant", "navigation.indexes"], "search": "../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.525ec568.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../../../assets/_markdown_exec_pyodide.js"></script>
       

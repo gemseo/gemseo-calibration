@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.8c3ca2c6.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.0253249f.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
@@ -753,6 +753,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#gemseo_calibration.scenario.CalibrationScenario.reference_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;reference_data
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -781,6 +790,15 @@
   <a href="#gemseo_calibration.scenario.CalibrationScenario.post_process" class="md-nav__link">
     <span class="md-ellipsis">
       <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;post_process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gemseo_calibration.scenario.CalibrationScenario.set_algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;set_algorithm
     </span>
   </a>
   
@@ -1365,6 +1383,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#gemseo_calibration.scenario.CalibrationScenario.reference_data" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;reference_data
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1393,6 +1420,15 @@
   <a href="#gemseo_calibration.scenario.CalibrationScenario.post_process" class="md-nav__link">
     <span class="md-ellipsis">
       <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;post_process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gemseo_calibration.scenario.CalibrationScenario.set_algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;set_algorithm
     </span>
   </a>
   
@@ -1454,6 +1490,11 @@
 
 
 
+
+
+
+
+
   <div class="doc doc-children">
 
 
@@ -1473,7 +1514,7 @@
 
 <a href="#gemseo_calibration.scenario.CalibrationScenario" class="headerlink" title="Permanent link">&para;</a></h4>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">CalibrationScenario</span><span class="p">(</span>
-    <span class="n">disciplines</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.core.discipline.MDODiscipline" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.core.discipline.html#gemseo.core.discipline.MDODiscipline">MDODiscipline</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" title="gemseo.core.discipline.MDODiscipline" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.core.discipline.html#gemseo.core.discipline.MDODiscipline">MDODiscipline</a></span><span class="p">],</span>
+    <span class="n">disciplines</span><span class="p">:</span> <span class="n"><span title="gemseo.core.discipline.discipline.Discipline">Discipline</span></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></span><span class="p">[</span><span class="n"><span title="gemseo.core.discipline.discipline.Discipline">Discipline</span></span><span class="p">],</span>
     <span class="n">input_names</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">],</span>
     <span class="n">control_outputs</span><span class="p">:</span> <span class="p">(</span>
         <span class="n"><a class="autorefs autorefs-internal" title="gemseo_calibration.calibrator.CalibrationMeasure" href="../calibrator/#gemseo_calibration.calibrator.CalibrationMeasure">CalibrationMeasure</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Sequence" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence">Sequence</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="gemseo_calibration.calibrator.CalibrationMeasure" href="../calibrator/#gemseo_calibration.calibrator.CalibrationMeasure">CalibrationMeasure</a></span><span class="p">]</span>
@@ -1516,8 +1557,8 @@ from an optimizer and a reference
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-          <b><code>disciplines</code></b>
-              (<code><a class="autorefs autorefs-external" title="gemseo.core.discipline.MDODiscipline" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.core.discipline.html#gemseo.core.discipline.MDODiscipline">MDODiscipline</a> | <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" title="gemseo.core.discipline.MDODiscipline" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.core.discipline.html#gemseo.core.discipline.MDODiscipline">MDODiscipline</a>]</code>)
+            <b><code>disciplines</code></b>
+              (<code><span title="gemseo.core.discipline.discipline.Discipline">Discipline</span> | <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<span title="gemseo.core.discipline.discipline.Discipline">Discipline</span>]</code>)
           –
           <div class="doc-md-description">
             <p>The disciplines
@@ -1525,7 +1566,7 @@ whose parameters must be calibrated from the reference data.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>input_names</code></b>
+            <b><code>input_names</code></b>
               (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>)
           –
           <div class="doc-md-description">
@@ -1533,7 +1574,7 @@ whose parameters must be calibrated from the reference data.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>control_outputs</code></b>
+            <b><code>control_outputs</code></b>
               (<code><a class="autorefs autorefs-internal" title="gemseo_calibration.calibrator.CalibrationMeasure" href="../calibrator/#gemseo_calibration.calibrator.CalibrationMeasure">CalibrationMeasure</a> | <a class="autorefs autorefs-external" title="collections.abc.Sequence" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence">Sequence</a>[<a class="autorefs autorefs-internal" title="gemseo_calibration.calibrator.CalibrationMeasure" href="../calibrator/#gemseo_calibration.calibrator.CalibrationMeasure">CalibrationMeasure</a>]</code>)
           –
           <div class="doc-md-description">
@@ -1550,7 +1591,7 @@ from :mod:<code>gemseo-calibration.scenario</code>.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>calibration_space</code></b>
+            <b><code>calibration_space</code></b>
               (<code><a class="autorefs autorefs-external" title="gemseo.algos.design_space.DesignSpace" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.algos.design_space.html#gemseo.algos.design_space.DesignSpace">DesignSpace</a></code>)
           –
           <div class="doc-md-description">
@@ -1559,7 +1600,7 @@ whose current values are consider as a prior for calibration.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>formulation</code></b>
+            <b><code>formulation</code></b>
               (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>, default:
                   <code>&#39;MDF&#39;</code>
 )
@@ -1570,7 +1611,7 @@ to manage the multidisciplinary coupling.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>name</code></b>
+            <b><code>name</code></b>
               (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>, default:
                   <code>&#39;&#39;</code>
 )
@@ -1581,7 +1622,7 @@ If empty, use the name of the class.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>**formulation_options</code></b>
+            <b><code>**formulation_options</code></b>
               (<code><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>, default:
                   <code>{}</code>
 )
@@ -1592,10 +1633,14 @@ If empty, use the name of the class.</p>
         </li>
     </ul>
 
+
+
+
+
+
                   <details class="quote">
                     <summary>Source code in <code>src/gemseo_calibration/scenario.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 74</span>
-<span class="normal"> 75</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 75</span>
 <span class="normal"> 76</span>
 <span class="normal"> 77</span>
 <span class="normal"> 78</span>
@@ -1647,9 +1692,11 @@ If empty, use the name of the class.</p>
 <span class="normal">124</span>
 <span class="normal">125</span>
 <span class="normal">126</span>
-<span class="normal">127</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
-    <span class="n">disciplines</span><span class="p">:</span> <span class="n">MDODiscipline</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">MDODiscipline</span><span class="p">],</span>
+    <span class="n">disciplines</span><span class="p">:</span> <span class="n">Discipline</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Discipline</span><span class="p">],</span>
     <span class="n">input_names</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
     <span class="n">control_outputs</span><span class="p">:</span> <span class="n">CalibrationMeasure</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">CalibrationMeasure</span><span class="p">],</span>
     <span class="n">calibration_space</span><span class="p">:</span> <span class="n">DesignSpace</span><span class="p">,</span>
@@ -1684,6 +1731,7 @@ If empty, use the name of the class.</p>
     <span class="bp">self</span><span class="o">.</span><span class="n">__posterior_parameters</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">prior_model_data</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">posterior_model_data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__reference_data</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">calibrator</span> <span class="o">=</span> <span class="n">Calibrator</span><span class="p">(</span>
         <span class="n">disciplines</span><span class="p">,</span>
         <span class="n">input_names</span><span class="p">,</span>
@@ -1694,10 +1742,10 @@ If empty, use the name of the class.</p>
     <span class="p">)</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
         <span class="p">[</span><span class="n">calibrator</span><span class="p">],</span>
-        <span class="s2">&quot;DisciplinaryOpt&quot;</span><span class="p">,</span>
         <span class="n">calibrator</span><span class="o">.</span><span class="n">objective_name</span><span class="p">,</span>
         <span class="n">calibration_space</span><span class="p">,</span>
         <span class="n">name</span><span class="o">=</span><span class="n">name</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+        <span class="n">formulation_name</span><span class="o">=</span><span class="s2">&quot;DisciplinaryOpt&quot;</span><span class="p">,</span>
         <span class="n">maximize_objective</span><span class="o">=</span><span class="n">calibrator</span><span class="o">.</span><span class="n">maximize_objective_measure</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">__calibration_post_factory</span> <span class="o">=</span> <span class="n">CalibrationPostFactory</span><span class="p">()</span>
@@ -1829,6 +1877,29 @@ If empty, use the name of the class.</p>
 
 </div>
 
+<div class="doc doc-object doc-attribute">
+
+
+
+<h6 id="gemseo_calibration.scenario.CalibrationScenario.reference_data" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">reference_data</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#gemseo_calibration.scenario.CalibrationScenario.reference_data" class="headerlink" title="Permanent link">&para;</a></h6>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">reference_data</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Mapping" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping">Mapping</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span><span class="p">]</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>The reference data, if defined.</p>
+    </div>
+
+</div>
+
 <h5 id="gemseo_calibration.scenario.CalibrationScenario-functions">Functions<a href="#gemseo_calibration.scenario.CalibrationScenario-functions" class="headerlink" title="Permanent link">&para;</a></h5>
 
 <div class="doc doc-object doc-function">
@@ -1843,7 +1914,7 @@ If empty, use the name of the class.</p>
     <span class="n">control_outputs</span><span class="p">:</span> <span class="p">(</span>
         <span class="n"><a class="autorefs autorefs-internal" title="gemseo_calibration.calibrator.CalibrationMeasure" href="../calibrator/#gemseo_calibration.calibrator.CalibrationMeasure">CalibrationMeasure</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="gemseo_calibration.calibrator.CalibrationMeasure" href="../calibrator/#gemseo_calibration.calibrator.CalibrationMeasure">CalibrationMeasure</a></span><span class="p">]</span>
     <span class="p">),</span>
-    <span class="n">constraint_type</span><span class="p">:</span> <span class="n"><span title="gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType">ConstraintType</span></span> <span class="o">=</span> <span class="n">MDOFunction</span><span class="o">.</span><span class="n">ConstraintType</span><span class="o">.</span><span class="n">EQ</span><span class="p">,</span>
+    <span class="n">constraint_type</span><span class="p">:</span> <span class="n"><span title="gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType">ConstraintType</span></span> <span class="o">=</span> <span class="n"><span title="gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType.EQ">EQ</span></span><span class="p">,</span>
     <span class="n">constraint_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="n">value</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
     <span class="n">positive</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -1858,7 +1929,7 @@ If empty, use the name of the class.</p>
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-          <b><code>control_outputs</code></b>
+            <b><code>control_outputs</code></b>
               (<code><a class="autorefs autorefs-internal" title="gemseo_calibration.calibrator.CalibrationMeasure" href="../calibrator/#gemseo_calibration.calibrator.CalibrationMeasure">CalibrationMeasure</a> | <a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a>[<a class="autorefs autorefs-internal" title="gemseo_calibration.calibrator.CalibrationMeasure" href="../calibrator/#gemseo_calibration.calibrator.CalibrationMeasure">CalibrationMeasure</a>]</code>)
           –
           <div class="doc-md-description">
@@ -1875,7 +1946,7 @@ from :mod:<code>gemseo-calibration.scenario</code>.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>constraint_type</code></b>
+            <b><code>constraint_type</code></b>
               (<code><span title="gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType">ConstraintType</span></code>, default:
                   <code><span title="gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType.EQ">EQ</span></code>
 )
@@ -1887,7 +1958,7 @@ from :mod:<code>gemseo-calibration.scenario</code>.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>constraint_name</code></b>
+            <b><code>constraint_name</code></b>
               (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>, default:
                   <code>&#39;&#39;</code>
 )
@@ -1899,7 +1970,7 @@ the name of the constraint is generated from the output name.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>value</code></b>
+            <b><code>value</code></b>
               (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>, default:
                   <code>0.0</code>
 )
@@ -1909,7 +1980,7 @@ the name of the constraint is generated from the output name.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>positive</code></b>
+            <b><code>positive</code></b>
               (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
                   <code>False</code>
 )
@@ -1934,18 +2005,7 @@ the name of the constraint is generated from the output name.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/gemseo_calibration/scenario.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">160</span>
-<span class="normal">161</span>
-<span class="normal">162</span>
-<span class="normal">163</span>
-<span class="normal">164</span>
-<span class="normal">165</span>
-<span class="normal">166</span>
-<span class="normal">167</span>
-<span class="normal">168</span>
-<span class="normal">169</span>
-<span class="normal">170</span>
-<span class="normal">171</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">171</span>
 <span class="normal">172</span>
 <span class="normal">173</span>
 <span class="normal">174</span>
@@ -1970,7 +2030,18 @@ the name of the constraint is generated from the output name.</p>
 <span class="normal">193</span>
 <span class="normal">194</span>
 <span class="normal">195</span>
-<span class="normal">196</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">add_constraint</span><span class="p">(</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">add_constraint</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">control_outputs</span><span class="p">:</span> <span class="n">CalibrationMeasure</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">CalibrationMeasure</span><span class="p">],</span>
     <span class="n">constraint_type</span><span class="p">:</span> <span class="n">MDOFunction</span><span class="o">.</span><span class="n">ConstraintType</span> <span class="o">=</span> <span class="n">MDOFunction</span><span class="o">.</span><span class="n">ConstraintType</span><span class="o">.</span><span class="n">EQ</span><span class="p">,</span>
@@ -2021,9 +2092,7 @@ the name of the constraint is generated from the output name.</p>
 
 
 <a href="#gemseo_calibration.scenario.CalibrationScenario.post_process" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">post_process</span><span class="p">(</span>
-    <span class="n">post_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.post.opt_post_processor.OptPostProcessor" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.post.opt_post_processor.html#gemseo.post.opt_post_processor.OptPostProcessor">OptPostProcessor</a></span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">post_process</span><span class="p">(</span><span class="n">post_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="gemseo.post.base_post.BasePost">BasePost</span></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2034,22 +2103,21 @@ the name of the constraint is generated from the output name.</p>
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-          <b><code>post_name</code></b>
+            <b><code>post_name</code></b>
               (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
           –
           <div class="doc-md-description">
-            <p>The name of the post-processor,
-i.e. the name of a class inheriting from :class:<code>.BasePost</code>.</p>
+            <p>The description is missing.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>**options</code></b>
+            <b><code>**options</code></b>
               (<code><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>, default:
                   <code>{}</code>
 )
           –
           <div class="doc-md-description">
-            <p>The options for the post-processor.</p>
+            <p>The description is missing.</p>
           </div>
         </li>
     </ul>
@@ -2058,28 +2126,28 @@ i.e. the name of a class inheriting from :class:<code>.BasePost</code>.</p>
 <p><span class="doc-section-title">Returns:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-              <code><a class="autorefs autorefs-external" title="gemseo.post.opt_post_processor.OptPostProcessor" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.post.opt_post_processor.html#gemseo.post.opt_post_processor.OptPostProcessor">OptPostProcessor</a></code>
+              <code><span title="gemseo.post.base_post.BasePost">BasePost</span></code>
           –
           <div class="doc-md-description">
-            <p>The post-processing instance related to the optimization scenario.</p>
+            <p>The post-processor.</p>
           </div>
         </li>
     </ul>
 
             <details class="quote">
               <summary>Source code in <code>src/gemseo_calibration/scenario.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">204</span>
-<span class="normal">205</span>
-<span class="normal">206</span>
-<span class="normal">207</span>
-<span class="normal">208</span>
-<span class="normal">209</span>
-<span class="normal">210</span>
-<span class="normal">211</span>
-<span class="normal">212</span>
-<span class="normal">213</span>
-<span class="normal">214</span>
-<span class="normal">215</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">post_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OptPostProcessor</span><span class="p">:</span>  <span class="c1"># noqa: D102</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">post_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">post_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BasePost</span><span class="p">:</span>  <span class="c1"># noqa: D102</span>
     <span class="k">if</span> <span class="n">post_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__calibration_post_factory</span><span class="o">.</span><span class="n">class_names</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__calibration_post_factory</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">formulation</span><span class="o">.</span><span class="n">optimization_problem</span><span class="p">,</span>
@@ -2090,7 +2158,85 @@ i.e. the name of a class inheriting from :class:<code>.BasePost</code>.</p>
             <span class="o">**</span><span class="n">options</span><span class="p">,</span>
         <span class="p">)</span>
 
-    <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">post_process</span><span class="p">(</span><span class="n">post_name</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">post_process</span><span class="p">(</span><span class="n">post_name</span><span class="o">=</span><span class="n">post_name</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h6 id="gemseo_calibration.scenario.CalibrationScenario.set_algorithm" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">set_algorithm</span>
+
+
+<a href="#gemseo_calibration.scenario.CalibrationScenario.set_algorithm" class="headerlink" title="Permanent link">&para;</a></h6>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">set_algorithm</span><span class="p">(</span>
+    <span class="n">reference_data</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Mapping" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping">Mapping</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span><span class="p">],</span>
+    <span class="n">algo_settings_model</span><span class="p">:</span> <span class="n"><span title="gemseo.algos.base_driver_settings.BaseDriverSettings">BaseDriverSettings</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">algo_settings</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Define the algorithm to execute the scenario.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>reference_data</code></b>
+              (<code><a class="autorefs autorefs-external" title="collections.abc.Mapping" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping">Mapping</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>)
+          –
+          <div class="doc-md-description">
+            <p>The description is missing.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>algo_settings_model</code></b>
+              (<code><span title="gemseo.algos.base_driver_settings.BaseDriverSettings">BaseDriverSettings</span> | None</code>, default:
+                  <code>None</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>The algorithm settings as a Pydantic model.
+If <code>None</code>, use <code>**settings</code>.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>**algo_settings</code></b>
+              (<code><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>, default:
+                  <code>{}</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>The algorithm settings,
+including the algorithm name (use the keyword <code>"algo_name"</code>).
+These arguments are ignored when <code>settings_model</code> is not <code>None</code>.</p>
+          </div>
+        </li>
+    </ul>
+
+            <details class="quote">
+              <summary>Source code in <code>src/gemseo_calibration/scenario.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">set_algorithm</span><span class="p">(</span>  <span class="c1"># noqa:D102</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">reference_data</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="n">algo_settings_model</span><span class="p">:</span> <span class="n">BaseDriverSettings</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">algo_settings</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__reference_data</span> <span class="o">=</span> <span class="n">reference_data</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">set_algorithm</span><span class="p">(</span><span class="n">algo_settings_model</span><span class="o">=</span><span class="n">algo_settings_model</span><span class="p">,</span> <span class="o">**</span><span class="n">algo_settings</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -2162,7 +2308,7 @@ i.e. the name of a class inheriting from :class:<code>.BasePost</code>.</p>
     <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.instant", "navigation.indexes"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.525ec568.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../../assets/_markdown_exec_pyodide.js"></script>
       
