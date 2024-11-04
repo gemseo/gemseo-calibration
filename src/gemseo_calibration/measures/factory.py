@@ -26,7 +26,7 @@ class CalibrationMeasureFactory(BaseFactory):
     """A factory of calibration measures."""
 
     _CLASS = CalibrationMeasure
-    _MODULE_NAMES = ("gemseo_calibration.measures",)
+    _PACKAGE_NAMES = ("gemseo_calibration.measures",)
 
     def is_integrated_measure(self, name: str) -> bool:
         """Return whether a calibration measure is an integrated measure.

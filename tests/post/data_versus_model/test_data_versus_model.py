@@ -53,7 +53,9 @@ def calibration_scenario() -> CalibrationScenario:
         [CalibrationMeasure("y", "MSE"), CalibrationMeasure("z", "MSE")],
         prior,
     )
-    calibration.execute(algo="NLOPT_COBYLA", reference_data=reference_data, max_iter=10)
+    calibration.execute(
+        algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=10
+    )
     return calibration
 
 

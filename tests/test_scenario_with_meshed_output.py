@@ -92,7 +92,7 @@ def test_execute(reference_data, calibration_space):
     ]
     calibration = CalibrationScenario(Model(), "x", outputs, calibration_space)
     calibration.execute(
-        algo="NLOPT_COBYLA", reference_data=reference_data, max_iter=100
+        algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=100
     )
 
     assert calibration.posterior_parameters["a"][0] == pytest.approx(2.0, 0.1)

@@ -21,7 +21,6 @@ from typing import Any
 
 from gemseo.core.mdo_functions.mdo_function import MDOFunction
 from gemseo.scenarios.mdo_scenario import MDOScenario
-from pydantic import Field
 
 from gemseo_calibration.calibrator import CalibrationMeasure
 from gemseo_calibration.calibrator import Calibrator
@@ -32,6 +31,7 @@ if TYPE_CHECKING:
     from collections.abc import Mapping
     from collections.abc import Sequence
 
+    from gemseo.algos.base_driver_settings import BaseDriverSettings
     from gemseo.algos.design_space import DesignSpace
     from gemseo.core.discipline.discipline import Discipline
     from gemseo.post.base_post import BasePost
@@ -69,8 +69,8 @@ class CalibrationScenario(MDOScenario):
     posterior_model_data: dict[str, RealArray]
     """The model data after the calibration."""
 
-    class _BaseSettings(MDOScenario._BaseSettings):
-        reference_data: Mapping[str, Any] = Field(description="The reference data.")
+    reference_data: Mapping[str, Any]
+    """The reference data, if defined."""
 
     def __init__(
         self,
@@ -109,6 +109,7 @@ class CalibrationScenario(MDOScenario):
         self.__posterior_parameters = {}
         self.prior_model_data = {}
         self.posterior_model_data = {}
+        self.__reference_data = {}
         calibrator = Calibrator(
             disciplines,
             input_names,
@@ -119,16 +120,25 @@ class CalibrationScenario(MDOScenario):
         )
         super().__init__(
             [calibrator],
-            "DisciplinaryOpt",
             calibrator.objective_name,
             calibration_space,
             name=name or self.__class__.__name__,
+            formulation_name="DisciplinaryOpt",
             maximize_objective=calibrator.maximize_objective_measure,
         )
         self.__calibration_post_factory = CalibrationPostFactory()
 
+    def set_algorithm(  # noqa:D102
+        self,
+        reference_data: Mapping[str, Any],
+        algo_settings_model: BaseDriverSettings | None = None,
+        **algo_settings: Any,
+    ) -> None:
+        self.__reference_data = reference_data
+        super().set_algorithm(algo_settings_model=algo_settings_model, **algo_settings)
+
     def _run(self) -> None:
-        self.calibrator.set_reference_data(self._settings.reference_data)
+        self.calibrator.set_reference_data(self.__reference_data)
         self.calibrator.execute()
         self.prior_model_data = self.calibrator.scenario.to_dataset().to_dict_of_arrays(
             False
@@ -213,4 +223,4 @@ class CalibrationScenario(MDOScenario):
                 **options,
             )
 
-        return super().post_process(post_name, **options)
+        return super().post_process(post_name=post_name, **options)

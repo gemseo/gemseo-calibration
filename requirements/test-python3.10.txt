@@ -10,7 +10,7 @@ contourpy==1.3.0
     # via matplotlib
 covdefaults==2.3.0
     # via gemseo-calibration (pyproject.toml)
-coverage==7.6.3
+coverage==7.6.4
     # via
     #   covdefaults
     #   pytest-cov
@@ -20,7 +20,7 @@ dill==0.3.9
     # via openturns
 docstring-inheritance==2.2.1
     # via gemseo
-et-xmlfile==1.1.0
+et-xmlfile==2.0.0
     # via openpyxl
 exceptiongroup==1.2.2
     # via pytest
@@ -30,7 +30,7 @@ fastjsonschema==2.20.0
     # via gemseo
 fonttools==4.54.1
     # via matplotlib
-gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@646060e3c46bd5772c579c28c322a68f87845bc5
+gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@79174e7563e97a251877194502cacb7db2600c2d
     # via
     #   -c requirements/test-constraints.in
     #   gemseo-calibration (pyproject.toml)
@@ -50,7 +50,7 @@ joblib==1.4.2
     # via scikit-learn
 kiwisolver==1.4.7
     # via matplotlib
-markupsafe==3.0.1
+markupsafe==3.0.2
     # via jinja2
 matplotlib==3.9.2
     # via
@@ -95,7 +95,7 @@ plotly==5.24.0
     # via gemseo
 pluggy==1.5.0
     # via pytest
-psutil==6.0.0
+psutil==6.1.0
     # via openturns
 pydantic==2.9.1
     # via gemseo
@@ -110,7 +110,7 @@ pytest==8.3.3
     #   gemseo-calibration (pyproject.toml)
     #   pytest-cov
     #   pytest-xdist
-pytest-cov==5.0.0
+pytest-cov==6.0.0
     # via gemseo-calibration (pyproject.toml)
 pytest-xdist==3.6.1
     # via gemseo-calibration (pyproject.toml)

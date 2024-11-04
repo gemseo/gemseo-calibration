@@ -74,7 +74,10 @@ def test_init(calibration_scenario):
     assert calibration_scenario.design_space.variable_names == ["a", "b"]
     assert calibration_scenario.name == "calib"
     assert isinstance(calibration_scenario.calibrator, Calibrator)
-    assert calibration_scenario.formulation._maximize_objective is True
+    assert (
+        calibration_scenario.formulation.optimization_problem.minimize_objective
+        is False
+    )
 
 
 @pytest.mark.parametrize("list_of_disciplines", [False, True])
@@ -125,7 +128,7 @@ def test_constraint(calibration_scenario):
 def test_execute(calibration_scenario, reference_data):
     """Test that the reference data are correctly passed during the execution."""
     calibration_scenario.execute(
-        algo="NLOPT_COBYLA", reference_data=reference_data, max_iter=10
+        algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=10
     )
     assert calibration_scenario.prior_parameters == {
         "a": array([0.5]),
@@ -148,11 +151,13 @@ def test_posts(calibration_scenario):
 def test_post_process(calibration_scenario, reference_data):
     """Check the post-processing of a calibration scenario."""
     calibration_scenario.execute(
-        algo="NLOPT_COBYLA", reference_data=reference_data, max_iter=2
+        algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=2
     )
-    post = calibration_scenario.post_process("OptHistoryView", save=False, show=False)
+    post = calibration_scenario.post_process(
+        post_name="OptHistoryView", save=False, show=False
+    )
     assert isinstance(post, OptHistoryView)
     post = calibration_scenario.post_process(
-        "DataVersusModel", output="y", save=False, show=False
+        post_name="DataVersusModel", output="y", save=False, show=False
     )
     assert isinstance(post, DataVersusModel)

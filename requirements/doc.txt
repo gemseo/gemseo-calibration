@@ -29,7 +29,7 @@ dill==0.3.9
     # via openturns
 docstring-inheritance==2.2.1
     # via gemseo
-et-xmlfile==1.1.0
+et-xmlfile==2.0.0
     # via openpyxl
 eval-type-backport==0.2.0
     # via gemseo
@@ -37,7 +37,7 @@ fastjsonschema==2.20.0
     # via gemseo
 fonttools==4.54.1
     # via matplotlib
-gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@646060e3c46bd5772c579c28c322a68f87845bc5
+gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@79174e7563e97a251877194502cacb7db2600c2d
     # via
     #   -c requirements/test-constraints.in
     #   gemseo-calibration (pyproject.toml)
@@ -47,11 +47,11 @@ ghp-import==2.1.0
     # via mkdocs
 graphviz==0.20.3
     # via gemseo
-griffe==1.4.1
+griffe==1.5.1
     # via
     #   griffe-inherited-docstrings
     #   mkdocstrings-python
-griffe-inherited-docstrings==1.0.1
+griffe-inherited-docstrings==1.1.0
     # via gemseo-calibration (pyproject.toml)
 h5py==3.11.0
     # via gemseo
@@ -91,7 +91,7 @@ markdown==3.7
     #   pymdown-extensions
 markdown-exec==1.9.3
     # via gemseo-calibration (pyproject.toml)
-markupsafe==3.0.1
+markupsafe==3.0.2
     # via
     #   jinja2
     #   mkdocs
@@ -131,11 +131,11 @@ mkdocs-gen-files==0.5.0
     # via gemseo-calibration (pyproject.toml)
 mkdocs-get-deps==0.2.0
     # via mkdocs
-mkdocs-include-markdown-plugin==6.2.2
+mkdocs-include-markdown-plugin==7.0.0
     # via gemseo-calibration (pyproject.toml)
 mkdocs-literate-nav==0.6.1
     # via gemseo-calibration (pyproject.toml)
-mkdocs-material==9.5.41
+mkdocs-material==9.5.43
     # via
     #   gemseo-calibration (pyproject.toml)
     #   mkdocs-gallery
@@ -147,7 +147,7 @@ mkdocstrings==0.26.2
     # via
     #   gemseo-calibration (pyproject.toml)
     #   mkdocstrings-python
-mkdocstrings-python==1.12.1
+mkdocstrings-python==1.12.2
     # via mkdocstrings
 mpmath==1.3.0
     # via sympy
@@ -201,7 +201,7 @@ platformdirs==4.3.6
     #   mkdocstrings
 plotly==5.24.0
     # via gemseo
-psutil==6.0.0
+psutil==6.1.0
     # via openturns
 pybtex==0.24.0
     # via mkdocs-bibtex
@@ -217,7 +217,7 @@ pygments==2.18.0
     #   pygments-ansi-color
 pygments-ansi-color==0.3.0
     # via markdown-exec
-pymdown-extensions==10.11.2
+pymdown-extensions==10.12
     # via
     #   markdown-exec
     #   mkdocs-material
@@ -263,7 +263,7 @@ scipy==1.13.1
     #   gemseo
     #   pydoe3
     #   scikit-learn
-setuptools==75.2.0
+setuptools==75.3.0
     # via mkdocs-bibtex
 six==1.16.0
     # via
@@ -298,7 +298,7 @@ validators==0.34.0
     # via mkdocs-bibtex
 verspec==0.1.0
     # via mike
-watchdog==5.0.3
+watchdog==6.0.0
     # via mkdocs
 wcmatch==10.0
     # via mkdocs-include-markdown-plugin
