@@ -20,9 +20,6 @@ from typing import ClassVar
 
 from gemseo.core.mdo_functions.mdo_function import MDOFunction
 from gemseo.typing import RealArray
-from numpy import inf
-from numpy import nanmax
-from numpy import nanmin
 
 DataType = dict[str, RealArray]
 """The type of data.
@@ -56,8 +53,6 @@ class CalibrationMeasure(MDOFunction):
         super().__init__(
             self._evaluate_measure, name or self._compute_name(), f_type=f_type
         )
-        self._lower_bound = -inf
-        self._upper_bound = inf
         self._reference_data = []
 
     @property
@@ -76,17 +71,6 @@ class CalibrationMeasure(MDOFunction):
             reference_dataset: The reference input-output data set.
         """
         self._reference_data = reference_dataset[self.output_name]
-        self._lower_bound = nanmin(self._reference_data)
-        self._upper_bound = nanmax(self._reference_data)
-
-    def _update_bounds(self, data: RealArray) -> None:
-        """Update the lower and upper bounds of the output.
-
-        Args:
-            data: The value of the output.
-        """
-        self._lower_bound = min(data.min(), self._lower_bound)
-        self._upper_bound = max(data.max(), self._upper_bound)
 
     def _evaluate_measure(self, model_dataset: DataType) -> float:
         """Measure the (in)consistency between the model dataset and the reference one.
