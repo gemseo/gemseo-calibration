@@ -51,9 +51,8 @@ class IntegratedMeasure(CalibrationMeasure):
     def _evaluate_measure(self, model_dataset: DataType) -> float:  # noqa: D102
         model_data = model_dataset[self.output_name]
         model_mesh = model_dataset[self.mesh_name]
-        self._update_bounds(model_data)
         return mean([
-            integrate(
+            integrate(  # noqa: NPY201
                 self._compare_data(
                     self._reference_data[i],
                     interp(self.__reference_mesh[i], model_mesh[i], model_data[i]),
