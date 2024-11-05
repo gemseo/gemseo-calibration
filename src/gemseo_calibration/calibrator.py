@@ -36,7 +36,7 @@ if TYPE_CHECKING:
     from collections.abc import Iterable
     from collections.abc import Sequence
 
-    from gemseo.scenarios.scenario import Scenario
+    from gemseo.scenarios.base_scenario import BaseScenario
 
     from gemseo_calibration.measure import CalibrationMeasure as CalibrationMeasure_
     from gemseo_calibration.measure import DataType
@@ -140,7 +140,7 @@ class Calibrator(MDOScenarioAdapter):
 
     @staticmethod
     def __add_observables(
-        calibration_measures: Iterable[CalibrationMeasure], scenario: Scenario
+        calibration_measures: Iterable[CalibrationMeasure], scenario: BaseScenario
     ) -> None:
         """Add observables to a scenario.
 

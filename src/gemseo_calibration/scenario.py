@@ -28,7 +28,6 @@ from gemseo_calibration.post.factory import CalibrationPostFactory
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
-    from collections.abc import Mapping
     from collections.abc import Sequence
 
     from gemseo.algos.base_driver_settings import BaseDriverSettings
@@ -36,6 +35,7 @@ if TYPE_CHECKING:
     from gemseo.core.discipline.discipline import Discipline
     from gemseo.post.base_post import BasePost
     from gemseo.typing import RealArray
+    from gemseo.typing import StrKeyMapping
 
     from gemseo_calibration.measure import DataType
 
@@ -69,7 +69,7 @@ class CalibrationScenario(MDOScenario):
     posterior_model_data: dict[str, RealArray]
     """The model data after the calibration."""
 
-    reference_data: Mapping[str, Any]
+    reference_data: StrKeyMapping
     """The reference data, if defined."""
 
     def __init__(
@@ -130,7 +130,7 @@ class CalibrationScenario(MDOScenario):
 
     def set_algorithm(  # noqa:D102
         self,
-        reference_data: Mapping[str, Any],
+        reference_data: StrKeyMapping,
         algo_settings_model: BaseDriverSettings | None = None,
         **algo_settings: Any,
     ) -> None:
