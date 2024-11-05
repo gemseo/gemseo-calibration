@@ -17,6 +17,8 @@
 
 from __future__ import annotations
 
+from gemseo import sample_disciplines
+from gemseo.algos.design_space import DesignSpace
 from gemseo.algos.parameter_space import ParameterSpace
 from gemseo.core.discipline.discipline import Discipline
 from numpy import array
@@ -77,7 +79,7 @@ class ReferenceModel(Discipline):
 
 # %%
 # However in this pedagogical example,
-# the mathematical relationship is known and we can see that
+# the mathematical relationship is known, and we can see that
 # the parameters $a$ and $b$ must be equal to 2 and 3 respectively
 # so that the model and the reference are identical.
 #
@@ -86,19 +88,24 @@ class ReferenceModel(Discipline):
 
 # %%
 # Firstly,
-# we have a prior information about the parameters, that is $[a,b]\in[0,10]^2$:
+# we have prior knowledge of the parameter values, that is $[a,b]\in[0,10]^2$:
 prior = ParameterSpace()
 prior.add_variable("a", lower_bound=0.0, upper_bound=10.0, value=0.0)
 prior.add_variable("b", lower_bound=0.0, upper_bound=10.0, value=0.0)
 
 # %%
 # Secondly,
-# we have reference output data over the input space $[0.,3.]$:
+# given an input space $[0.,3.]$:
+input_space = DesignSpace()
+input_space.add_variable("x", lower_bound=0.0, upper_bound=3.0)
+
+# %%
+# we generate reference output data by sampling the reference discipline:
 reference = ReferenceModel()
-reference.set_cache(reference.CacheType.MEMORY_FULL)
-reference.execute({"x": array([1.0])})
-reference.execute({"x": array([2.0])})
-reference_data = reference.cache.to_dataset().to_dict_of_arrays(False)
+reference_dataset = sample_disciplines(
+    [reference], input_space, ["y", "z"], "CustomDOE", samples=array([[1.0], [2.0]])
+)
+reference_data = reference_dataset.to_dict_of_arrays(False)
 
 # %%
 # From these information sources,
