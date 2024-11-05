@@ -85,7 +85,7 @@ nav:
   - Credits: credits.md
   - Licenses: licenses.md
 - User guide: user_guide/
-# - Examples:
+- Examples: generated/examples/calibration
 - API documentation: reference/gemseo_calibration/
 
 markdown_extensions:
