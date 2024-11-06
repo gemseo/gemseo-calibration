@@ -241,7 +241,7 @@ class Calibrator(MDOScenarioAdapter):
                 `CalibrationMeasure(output="z", measure="MSE", weight=0.3)`
                 or `CalibrationMeasure(output="z", measure="MSE", mesh="z_mesh")`
                 Lastly, `CalibrationMeasure` can be imported
-                from [gemseo-calibration.calibrator][gemseo-calibration.calibrator].
+                from [gemseo_calibration.calibrator][gemseo_calibration.calibrator].
 
         Returns:
             The name of the calibration measure applied to the outputs.
