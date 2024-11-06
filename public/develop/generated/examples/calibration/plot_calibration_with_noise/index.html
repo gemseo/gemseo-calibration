@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.43">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
     
     
       
@@ -577,6 +577,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../plot_calibration_with_missing_values/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Calibration scenario with missing values.
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../plot_calibration_1param/" class="md-nav__link">
         
   
@@ -603,27 +624,6 @@
   
   <span class="md-ellipsis">
     Calibration with constraints.
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../plot_calibration_with_missing_values/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Calibration scenario with missing values.
   </span>
   
 
@@ -1388,7 +1388,7 @@ This means that the observations of <span class="arithmatex">\(f:x\mapsto 2*x^2-
 <!-- GENERATED FROM PYTHON SOURCE LINES 53-61 -->
 
 <p>In this pedagogical example,
-the mathematical relationship is known
+the mathematical relationship is known,
 and we can see that the parameters <span class="arithmatex">\(a\)</span>, <span class="arithmatex">\(b\)</span> and <span class="arithmatex">\(c\)</span>
 must be equal to 2, 0.5 and 0.75 respectively
 so that the model and the reference are identical.</p>
@@ -1397,7 +1397,7 @@ we will try to find these values from several information sources.</p>
 <!-- GENERATED FROM PYTHON SOURCE LINES 63-65 -->
 
 <p>Firstly,
-we have a prior information about the parameters, that is <span class="arithmatex">\([a,b,c]\in[-5,5]^2\)</span>:</p>
+we have prior knowledge of the parameter values, that is <span class="arithmatex">\([a,b,c]\in[-5,5]^2\)</span>:</p>
 <!-- GENERATED FROM PYTHON SOURCE LINES 65-70 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">prior</span> <span class="o">=</span> <span class="n">ParameterSpace</span><span class="p">()</span>
@@ -1482,10 +1482,17 @@ related to the output <span class="arithmatex">\(y\)</span>:</p>
 
 <p>Lastly,
 we get the calibrated parameters:</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 129-130 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 127-129 -->
+
+<div class="highlight"><pre><span></span><code><span class="n">calibration</span><span class="o">.</span><span class="n">optimization_result</span><span class="o">.</span><span class="n">x_opt</span>
+</code></pre></div>
+<p class="mkd-glr-script-out">Out:</p>
+<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>array<span class="o">([</span><span class="w"> </span><span class="m">1</span>.70873836,<span class="w"> </span>-0.51281766,<span class="w">  </span><span class="m">0</span>.21239429<span class="o">])</span>
+</code></pre></div>
+<!-- GENERATED FROM PYTHON SOURCE LINES 130-131 -->
 
 <p>plot an optimization history view:</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 130-132 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 131-133 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">calibration</span><span class="o">.</span><span class="n">post_process</span><span class="p">(</span><span class="n">post_name</span><span class="o">=</span><span class="s2">&quot;OptHistoryView&quot;</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
@@ -1494,12 +1501,12 @@ we get the calibrated parameters:</p>
 </ul>
 
 <p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>&lt;gemseo.post.opt_history_view.OptHistoryView<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>0x7807db630dc0&gt;
+<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>&lt;gemseo.post.opt_history_view.OptHistoryView<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>0x786ca40598e0&gt;
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 133-134 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 134-135 -->
 
 <p>as well as the model data versus the reference ones:</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 134-161 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 135-162 -->
 
 <div class="highlight"><pre><span></span><code><span class="n">expression</span> <span class="o">=</span> <span class="s2">&quot;a*x**2+b*x+c&quot;</span>
 <span class="k">for</span> <span class="n">parameter_name</span><span class="p">,</span> <span class="n">parameter_value</span> <span class="ow">in</span> <span class="n">calibration</span><span class="o">.</span><span class="n">posterior_parameters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -1530,7 +1537,7 @@ we get the calibrated parameters:</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 <p><img alt="plot calibration with noise" class="mkd-glr-single-img" src="../images/mkd_glr_plot_calibration_with_noise_004.png" srcset="../images/mkd_glr_plot_calibration_with_noise_004.png" /></p>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  2.584 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  2.827 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../plot_calibration_with_noise.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v242.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h384c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48"/></svg></span> Download Python source code: plot_calibration_with_noise.py</a></p>

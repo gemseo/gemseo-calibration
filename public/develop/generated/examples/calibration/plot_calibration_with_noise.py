@@ -51,7 +51,7 @@ reference.set_cache(reference.CacheType.MEMORY_FULL)
 
 # %%
 # In this pedagogical example,
-# the mathematical relationship is known
+# the mathematical relationship is known,
 # and we can see that the parameters $a$, $b$ and $c$
 # must be equal to 2, 0.5 and 0.75 respectively
 # so that the model and the reference are identical.
@@ -61,7 +61,7 @@ reference.set_cache(reference.CacheType.MEMORY_FULL)
 
 # %%
 # Firstly,
-# we have a prior information about the parameters, that is $[a,b,c]\in[-5,5]^2$:
+# we have prior knowledge of the parameter values, that is $[a,b,c]\in[-5,5]^2$:
 prior = ParameterSpace()
 prior.add_variable("a", lower_bound=-5.0, upper_bound=5.0, value=0.0)
 prior.add_variable("b", lower_bound=-5.0, upper_bound=5.0, value=0.0)
@@ -124,6 +124,7 @@ calibration.execute(
 # %%
 # Lastly,
 # we get the calibrated parameters:
+calibration.optimization_result.x_opt
 
 # %%
 # plot an optimization history view:
