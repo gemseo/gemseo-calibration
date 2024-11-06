@@ -137,13 +137,13 @@ class CalibrationScenario(MDOScenario):
         self.__reference_data = reference_data
         super().set_algorithm(algo_settings_model=algo_settings_model, **algo_settings)
 
-    def _run(self) -> None:
+    def _execute(self) -> None:
         self.calibrator.set_reference_data(self.__reference_data)
         self.calibrator.execute()
         self.prior_model_data = self.calibrator.scenario.to_dataset().to_dict_of_arrays(
             False
         )
-        super()._run()
+        super()._execute()
         self.__posterior_parameters = self.design_space.convert_array_to_dict(
             self.optimization_result.x_opt
         )
