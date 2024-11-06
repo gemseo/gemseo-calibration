@@ -17,6 +17,8 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 from gemseo import sample_disciplines
 from gemseo.algos.design_space import DesignSpace
 from gemseo.algos.parameter_space import ParameterSpace
@@ -26,6 +28,9 @@ from numpy import linspace
 
 from gemseo_calibration.scenario import CalibrationMeasure
 from gemseo_calibration.scenario import CalibrationScenario
+
+if TYPE_CHECKING:
+    from gemseo.typing import StrKeyMapping
 
 # %%
 # Let us consider a function $f(x)=[ax,\gamma bx, \gamma]$
@@ -48,14 +53,14 @@ class Model(Discipline):
             "b": array([0.0]),
         }
 
-    def _run(self) -> None:
-        x_input = self.io.data["x"]
-        a_parameter = self.io.data["a"]
-        b_parameter = self.io.data["b"]
+    def _run(self, input_data: StrKeyMapping) -> StrKeyMapping | None:
+        x_input = input_data["x"]
+        a_parameter = input_data["a"]
+        b_parameter = input_data["b"]
         y_output = a_parameter * x_input
         z_mesh = linspace(0, 1, 5)
         z_output = b_parameter * x_input[0] * z_mesh
-        self.io.update_output_data({"y": y_output, "z": z_output, "mesh": z_mesh})
+        return {"y": y_output, "z": z_output, "mesh": z_mesh}
 
 
 # %%
@@ -69,12 +74,12 @@ class ReferenceModel(Discipline):
         self.output_grammar.update_from_names(["y", "z", "mesh"])
         self.default_input_data = {"x": array([0.0])}
 
-    def _run(self) -> None:
-        x_input = self.io.data["x"]
+    def _run(self, input_data: StrKeyMapping) -> StrKeyMapping | None:
+        x_input = input_data["x"]
         y_output = 2 * x_input
         z_mesh = linspace(0, 1, 5)
         z_output = 3 * x_input[0] * z_mesh
-        self.io.update_output_data({"y": y_output, "z": z_output, "mesh": z_mesh})
+        return {"y": y_output, "z": z_output, "mesh": z_mesh}
 
 
 # %%

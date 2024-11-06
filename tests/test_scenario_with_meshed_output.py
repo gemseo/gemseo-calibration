@@ -14,6 +14,8 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import pytest
 from gemseo.algos.parameter_space import ParameterSpace
 from gemseo.core.discipline.discipline import Discipline
@@ -23,6 +25,9 @@ from numpy import ndarray
 
 from gemseo_calibration.calibrator import CalibrationMeasure
 from gemseo_calibration.scenario import CalibrationScenario
+
+if TYPE_CHECKING:
+    from gemseo.typing import StrKeyMapping
 
 
 class Model(Discipline):
@@ -38,7 +43,7 @@ class Model(Discipline):
             "b": array([0.0]),
         }
 
-    def _run(self):  # noqa: D107
+    def _run(self, input_data: StrKeyMapping) -> StrKeyMapping | None:
         x_input = self.io.data["x"]
         a_parameter = self.io.data["a"]
         b_parameter = self.io.data["b"]
@@ -57,7 +62,7 @@ class ReferenceModel(Discipline):
         self.output_grammar.update_from_names(["y", "z", "mesh"])
         self.default_input_data = {"x": array([0.0])}
 
-    def _run(self):  # noqa: D107
+    def _run(self, input_data: StrKeyMapping) -> StrKeyMapping | None:
         x_input = self.io.data["x"]
         z_mesh = linspace(0, 1, 5)
         y_output = 2 * x_input * z_mesh

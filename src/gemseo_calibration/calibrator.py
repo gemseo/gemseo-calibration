@@ -204,11 +204,11 @@ class Calibrator(MDOScenarioAdapter):
         for measure in self.__measures:
             measure.set_reference_data(self.__reference_data)
 
-    def _run(self) -> None:
+    def _execute(self) -> None:
         root_logger = logging.getLogger()
         saved_level = root_logger.level
         root_logger.setLevel(logging.WARNING)
-        super()._run()
+        super()._execute()
         root_logger.setLevel(saved_level)
 
     def _post_run(self) -> None:
