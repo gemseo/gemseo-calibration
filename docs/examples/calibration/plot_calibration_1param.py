@@ -81,6 +81,7 @@ calibration.execute(
 # %%
 # Lastly,
 # we get the calibrated parameters:
+calibration.optimization_result.x_opt
 
 # %%
 # plot an optimization history view:
