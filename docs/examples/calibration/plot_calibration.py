@@ -61,7 +61,11 @@ input_space.add_variable("x", lower_bound=0.0, upper_bound=3.0)
 # %%
 # we generate reference output data by sampling the reference discipline:
 reference_dataset = sample_disciplines(
-    [reference], input_space, ["y", "z"], "CustomDOE", samples=array([[1.0], [2.0]])
+    [reference],
+    input_space,
+    ["y", "z"],
+    algo_name="CustomDOE",
+    samples=array([[1.0], [2.0]]),
 )
 reference_data = reference_dataset.to_dict_of_arrays(False)
 
