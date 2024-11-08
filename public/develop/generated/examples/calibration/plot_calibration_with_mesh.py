@@ -111,7 +111,7 @@ reference_dataset = sample_disciplines(
     [reference],
     input_space,
     ["mesh", "y", "z"],
-    "CustomDOE",
+    algo_name="CustomDOE",
     samples=array([[1.0], [2.0]]),
 )
 reference_data = reference_dataset.to_dict_of_arrays(False)
