@@ -12,16 +12,15 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-"""A factory to post-process  a :class:`.CalibrationScenario`."""
+"""A factory to post-process a `CalibrationScenario`."""
 
 from __future__ import annotations
 
-import logging
 from typing import TYPE_CHECKING
 from typing import Any
 
-from gemseo.algos.opt_problem import OptimizationProblem
-from gemseo.post.post_factory import PostFactory
+from gemseo.algos.optimization_problem import OptimizationProblem
+from gemseo.post.factory import PostFactory
 
 from gemseo_calibration.post_processor import CalibrationPostProcessor
 
@@ -29,8 +28,6 @@ if TYPE_CHECKING:
     from pathlib import Path
 
     from gemseo.datasets.dataset import Dataset
-
-LOGGER = logging.getLogger(__name__)
 
 
 class CalibrationPostFactory(PostFactory):
@@ -65,10 +62,10 @@ class CalibrationPostFactory(PostFactory):
             save: Whether to save the figure.
             show: Whether to display the figure.
             file_path: The path of the file to save the figures.
-                If the extension is missing, use ``file_extension``.
+                If the extension is missing, use `file_extension`.
                 If empty,
                 create a file path
-                from ``directory_path``, ``file_name`` and ``file_extension``.
+                from `directory_path`, `file_name` and `file_extension`.
             directory_path: The path of the directory to save the figures.
                 If empty, use the current working directory.
             file_name: The name of the file to save the figures.
@@ -92,13 +89,12 @@ class CalibrationPostFactory(PostFactory):
         post.execute(
             save=save,
             show=show,
-            file_path=file_path or None,
-            directory_path=directory_path or None,
-            file_name=file_name or None,
-            file_extension=file_extension or None,
+            file_path=file_path,
+            directory_path=directory_path,
+            file_name=file_name,
+            file_extension=file_extension,
             **options,
         )
-        self.executed_post.append(post)
         return post
 
     def create(

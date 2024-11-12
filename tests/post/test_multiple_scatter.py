@@ -97,4 +97,4 @@ def test_plot(
     for name, value in properties.items():
         setattr(plot, name, value)
 
-    plot.execute(save=False, show=False, fig=fig, axes=axes)
+    plot.execute(save=False, show=False, fig=fig, ax=axes)

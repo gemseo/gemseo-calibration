@@ -13,6 +13,8 @@
 # FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
 # NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
 # WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+"""# Calibration scenario with missing values."""
+
 from __future__ import annotations
 
 from gemseo.algos.parameter_space import ParameterSpace
@@ -27,8 +29,8 @@ from gemseo_calibration.scenario import CalibrationScenario
 model = AnalyticDiscipline({"y": "a*x", "z": "b*x"}, name="model")
 
 prior = ParameterSpace()
-prior.add_variable("a", l_b=0.0, u_b=10.0, value=0.0)
-prior.add_variable("b", l_b=0.0, u_b=10.0, value=0.0)
+prior.add_variable("a", lower_bound=0.0, upper_bound=10.0, value=0.0)
+prior.add_variable("b", lower_bound=0.0, upper_bound=10.0, value=0.0)
 
 data = array([
     [1, 1.0, 2.0, nan],
@@ -49,10 +51,6 @@ reference_data = Dataset.from_array(
 
 control_outputs = [CalibrationMeasure("y", "MSE"), CalibrationMeasure("z", "MSE")]
 calibration = CalibrationScenario(model, "x", control_outputs, prior)
-calibration.execute({
-    "algo": "NLOPT_COBYLA",
-    "reference_data": reference_data,
-    "max_iter": 100,
-})
-
-print(calibration.posterior_parameters)
+calibration.execute(
+    algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=100
+)

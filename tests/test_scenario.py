@@ -16,7 +16,6 @@
 
 from __future__ import annotations
 
-from pathlib import Path
 from typing import TYPE_CHECKING
 
 import pytest
@@ -30,30 +29,25 @@ from gemseo_calibration.post.data_versus_model.post import DataVersusModel
 from gemseo_calibration.scenario import CalibrationScenario
 
 if TYPE_CHECKING:
-    from collections.abc import Generator
-
-    from gemseo.core.discipline import MDODiscipline
-
-DATA = Path(__file__).parent / "data"
+    from gemseo.core.discipline.discipline import Discipline
 
 
 @pytest.fixture(scope="module")
 def calibration_space() -> DesignSpace:
     """The space of the parameters to calibrate."""
     space = DesignSpace()
-    space.add_variable("a", l_b=0.0, u_b=1.0, value=0.5)
-    space.add_variable("b", l_b=0.0, u_b=1.0, value=0.5)
+    space.add_variable("a", lower_bound=0.0, upper_bound=1.0, value=0.5)
+    space.add_variable("b", lower_bound=0.0, upper_bound=1.0, value=0.5)
     return space
 
 
-@pytest.fixture()
+@pytest.fixture
 def calibration_scenario(
-    discipline: MDODiscipline,
+    measure_factory,
+    discipline: Discipline,
     calibration_space: DesignSpace,
-    monkeypatch: Generator[MonkeyPatch, None, None],  # noqa: F821
 ) -> CalibrationScenario:
     """The scenario to calibrate the discipline with the reference input data."""
-    monkeypatch.setenv("GEMSEO_PATH", DATA)
     scenario = CalibrationScenario(
         discipline,
         "x",
@@ -80,7 +74,10 @@ def test_init(calibration_scenario):
     assert calibration_scenario.design_space.variable_names == ["a", "b"]
     assert calibration_scenario.name == "calib"
     assert isinstance(calibration_scenario.calibrator, Calibrator)
-    assert calibration_scenario.formulation._maximize_objective is True
+    assert (
+        calibration_scenario.formulation.optimization_problem.minimize_objective
+        is False
+    )
 
 
 @pytest.mark.parametrize("list_of_disciplines", [False, True])
@@ -88,7 +85,7 @@ def test_init(calibration_scenario):
 @pytest.mark.parametrize("list_of_outputs", [False, True])
 @pytest.mark.parametrize("list_of_constraints", [False, True])
 def test_init_list(
-    monkeypatch,
+    measure_factory,
     discipline,
     calibration_space,
     list_of_disciplines,
@@ -103,7 +100,6 @@ def test_init_list(
     outputs = [output] if list_of_outputs else output
     constraint = CalibrationMeasure("z", "MeasureCstr")
     constraints = [constraint] if list_of_constraints else constraint
-    monkeypatch.setenv("GEMSEO_PATH", DATA)
     scenario = CalibrationScenario(disciplines, inputs, outputs, calibration_space)
     scenario.add_constraint(constraints)
     assert scenario.calibrator.scenario.design_space.variable_names == ["x"]
@@ -124,18 +120,16 @@ def test_constraint(calibration_scenario):
 
     with the reference input data.
     """
-    constraints = calibration_scenario.formulation.opt_problem.constraints
+    constraints = calibration_scenario.formulation.optimization_problem.constraints
     assert len(constraints) == 1
     assert str(constraints[0]) == "0.5*MeasureCstr[y]+0.5*MeasureCstr[z](a, b) <= 0.05"
 
 
 def test_execute(calibration_scenario, reference_data):
     """Test that the reference data are correctly passed during the execution."""
-    calibration_scenario.execute({
-        "algo": "NLOPT_COBYLA",
-        "reference_data": reference_data,
-        "max_iter": 10,
-    })
+    calibration_scenario.execute(
+        algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=10
+    )
     assert calibration_scenario.prior_parameters == {
         "a": array([0.5]),
         "b": array([0.5]),
@@ -156,14 +150,14 @@ def test_posts(calibration_scenario):
 
 def test_post_process(calibration_scenario, reference_data):
     """Check the post-processing of a calibration scenario."""
-    calibration_scenario.execute({
-        "algo": "NLOPT_COBYLA",
-        "reference_data": reference_data,
-        "max_iter": 2,
-    })
-    post = calibration_scenario.post_process("OptHistoryView", save=False, show=False)
+    calibration_scenario.execute(
+        algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=2
+    )
+    post = calibration_scenario.post_process(
+        post_name="OptHistoryView", save=False, show=False
+    )
     assert isinstance(post, OptHistoryView)
     post = calibration_scenario.post_process(
-        "DataVersusModel", output="y", save=False, show=False
+        post_name="DataVersusModel", output="y", save=False, show=False
     )
     assert isinstance(post, DataVersusModel)

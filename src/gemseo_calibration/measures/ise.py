@@ -21,12 +21,12 @@ from typing import TYPE_CHECKING
 from gemseo_calibration.measures.integrated_measure import IntegratedMeasure
 
 if TYPE_CHECKING:
-    from numpy import ndarray
+    from gemseo.typing import RealArray
 
 
 class ISE(IntegratedMeasure):
     """The integrated square error between the model and reference output data."""
 
     @staticmethod
-    def _compare_data(data: ndarray, other_data: ndarray) -> ndarray:
+    def _compare_data(data: RealArray, other_data: RealArray) -> RealArray:
         return (data - other_data) ** 2

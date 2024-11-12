@@ -12,13 +12,13 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-"""A matplotlib-based implementation of :class:`.MultipleScatter`."""
+"""A matplotlib-based implementation of `MultipleScatter`.."""
 
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from gemseo.post.dataset._matplotlib.plot import MatplotlibPlot
+from gemseo.post.dataset.plots._matplotlib.plot import MatplotlibPlot
 from gemseo.utils.compatibility.matplotlib import get_color_map
 from numpy import linspace
 
@@ -26,9 +26,9 @@ if TYPE_CHECKING:
     from collections.abc import Iterable
     from collections.abc import Mapping
 
+    from gemseo.typing import RealArray
     from matplotlib.axes import Axes
     from matplotlib.figure import Figure
-    from numpy import ndarray
 
 
 class MultipleScatter(MatplotlibPlot):
@@ -39,7 +39,7 @@ class MultipleScatter(MatplotlibPlot):
         fig: Figure | None,
         axes: Axes | None,
         bounds: tuple[float, float],
-        reference: ndarray,
+        reference: RealArray,
         y: Iterable[str],
         y_comp: Mapping[str, int],
     ) -> list[Figure]:

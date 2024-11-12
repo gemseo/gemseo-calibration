@@ -17,16 +17,16 @@
 from __future__ import annotations
 
 import logging
-from collections import namedtuple
 from typing import TYPE_CHECKING
 from typing import Any
+from typing import NamedTuple
 
 from gemseo.algos.design_space import DesignSpace
-from gemseo.algos.doe.lib_custom import CustomDOE
-from gemseo.core.discipline import MDODiscipline
-from gemseo.core.doe_scenario import DOEScenario
+from gemseo.algos.doe.custom_doe.custom_doe import CustomDOE
+from gemseo.core.discipline.discipline import Discipline
 from gemseo.core.grammars.json_grammar import JSONGrammar
 from gemseo.disciplines.scenario_adapters.mdo_scenario_adapter import MDOScenarioAdapter
+from gemseo.scenarios.doe_scenario import DOEScenario
 from numpy import array
 from numpy import hstack
 
@@ -36,14 +36,33 @@ if TYPE_CHECKING:
     from collections.abc import Iterable
     from collections.abc import Sequence
 
+    from gemseo.scenarios.base_scenario import BaseScenario
+
     from gemseo_calibration.measure import CalibrationMeasure as CalibrationMeasure_
     from gemseo_calibration.measure import DataType
 
-CalibrationMeasure = namedtuple(
-    "CalibrationMeasure", "output,measure,mesh,weight", defaults=["MSE", None, None]
-)
 
-LOGGER = logging.getLogger(__name__)
+class CalibrationMeasure(NamedTuple):
+    """A calibration measure."""
+
+    output: str
+    """The name of the output."""
+
+    measure: str = "MSE"
+    """The name of the measure to compare the observed and simulated outputs."""
+
+    mesh: str | None = None
+    """The name of the irregular mesh associated with the output if any.
+
+    To be used when the output is a 1D function discretized over an irregular mesh.
+    """
+
+    weight: float | None = None
+    """The weight of this measure when the measure is an element of a collection.
+
+    The weight must be between 0 and 1. The sum of the weights of the elements in the
+    collection must be 1.
+    """
 
 
 class Calibrator(MDOScenarioAdapter):
@@ -51,15 +70,15 @@ class Calibrator(MDOScenarioAdapter):
 
     When it is executed from parameters values, it computes the calibration measure with
     respect to the reference data, provided through the
-    :meth:`.CalibrationDiscipline.set_reference_data` method.
+    [set_reference_data][gemseo_calibration.calibrator.Calibrator.set_reference_data]
+    method.
     """
 
-    __ALGO_OPTIONS = DOEScenario.ALGO_OPTIONS
-    __SAMPLES = CustomDOE.SAMPLES
+    __ALGO_OPTIONS = "algo_options"
 
     def __init__(
         self,
-        disciplines: MDODiscipline | list[MDODiscipline],
+        disciplines: Discipline | list[Discipline],
         input_names: str | Iterable[str],
         control_outputs: CalibrationMeasure | Sequence[CalibrationMeasure],
         parameter_names: str | Iterable[str],
@@ -76,11 +95,11 @@ class Calibrator(MDOScenarioAdapter):
                 comprised between 0 and 1 (the weights must sum to 1).
                 When the output is a 1D function discretized over an irregular mesh,
                 the name of the mesh can be provided.
-                E.g. ``CalibrationMeasure(output="z", measure="MSE")``
-                ``CalibrationMeasure(output="z", measure="MSE", weight=0.3)``
-                or ``CalibrationMeasure(output="z", measure="MSE", mesh="z_mesh")``
-                Lastly, ``CalibrationMeasure`` can be imported
-                from :mod:`gemseo-calibration.scenario`.
+                E.g. `CalibrationMeasure(output="z", measure="MSE")`
+                `CalibrationMeasure(output="z", measure="MSE", weight=0.3)`
+                or `CalibrationMeasure(output="z", measure="MSE", mesh="z_mesh")`
+                Lastly, `CalibrationMeasure` can be imported
+                from [gemseo-calibration.calibrator][gemseo-calibration.calibrator].
             parameter_names: The names of the parameters to be calibrated.
             formulation: The name of a formulation
                 to manage the multidisciplinary coupling.
@@ -90,7 +109,7 @@ class Calibrator(MDOScenarioAdapter):
         input_names = self.__to_iterable(input_names, str)
         control_outputs = self.__to_iterable(control_outputs, CalibrationMeasure)
         parameter_names = self.__to_iterable(parameter_names, str)
-        disciplines = self.__to_iterable(disciplines, MDODiscipline)
+        disciplines = self.__to_iterable(disciplines, Discipline)
         control_output = control_outputs[0]
         objective_name = control_output.output
         mesh_name = control_output.mesh
@@ -100,32 +119,41 @@ class Calibrator(MDOScenarioAdapter):
 
         doe_scenario = DOEScenario(
             disciplines,
-            formulation,
             objective_name,
             input_space,
+            formulation_name=formulation,
             **formulation_options,
         )
         if mesh_name:
             doe_scenario.add_observable(mesh_name)
 
-        for control_output in control_outputs[1:]:
-            output_name = control_output.output
-            mesh_name = control_output.mesh
-            doe_scenario.add_observable(output_name)
-            if mesh_name:
-                doe_scenario.add_observable(mesh_name)
+        self.__add_observables(control_outputs, doe_scenario)
 
-        doe_scenario.default_inputs = {
-            doe_scenario.ALGO: CustomDOE.__name__,
-            self.__ALGO_OPTIONS: {self.__SAMPLES: None},
-        }
+        doe_scenario.set_algorithm(algo_name=CustomDOE.__name__)
 
         self.__names_to_measures = {}
         self.__measures = []
-        self.objective_name, output_names = self.add_measure(control_outputs)
+        self.objective_name, output_names = self._add_measure(control_outputs)
         super().__init__(doe_scenario, parameter_names, output_names, name="Calibrator")
         self.__update_output_grammar()
         self.__reference_data = {}
+
+    @staticmethod
+    def __add_observables(
+        calibration_measures: Iterable[CalibrationMeasure], scenario: BaseScenario
+    ) -> None:
+        """Add observables to a scenario.
+
+        Args:
+            calibration_measures: The calibration measures to be added as observables.
+            scenario: The scenario.
+        """
+        for calibration_measure in calibration_measures:
+            output_name = calibration_measure.output
+            mesh_name = calibration_measure.mesh
+            scenario.add_observable(output_name)
+            if mesh_name:
+                scenario.add_observable(mesh_name)
 
     @staticmethod
     def __to_iterable(obj: Any, cls: type) -> Iterable[Any]:
@@ -143,7 +171,7 @@ class Calibrator(MDOScenarioAdapter):
         return obj
 
     def _reset_optimization_problem(self) -> None:
-        self.scenario.formulation.opt_problem.reset()
+        self.scenario.formulation.optimization_problem.reset()
 
     def __update_output_grammar(self) -> None:
         """Redefine the output grammar from the names of the output measures.
@@ -162,38 +190,46 @@ class Calibrator(MDOScenarioAdapter):
         """
         self.__reference_data = reference_data
         design_space = self.scenario.design_space
-        for name in design_space:
-            del design_space[name]
+        for name in tuple(design_space):
+            design_space.remove_variable(name)
             design_space.add_variable(name, size=reference_data[name].shape[1])
 
-        self.scenario.default_inputs[self.__ALGO_OPTIONS][self.__SAMPLES] = hstack([
-            reference_data[name] for name in self.scenario.get_optim_variable_names()
-        ])
+        self.scenario.set_algorithm(
+            algo_name="CustomDOE",
+            samples=hstack([
+                reference_data[name]
+                for name in self.scenario.get_optim_variable_names()
+            ]),
+        )
         for measure in self.__measures:
             measure.set_reference_data(self.__reference_data)
 
-    def _run(self) -> None:
+    def _execute(self) -> None:
         root_logger = logging.getLogger()
         saved_level = root_logger.level
         root_logger.setLevel(logging.WARNING)
-        super()._run()
+        super()._execute()
         root_logger.setLevel(saved_level)
 
     def _post_run(self) -> None:
         model_dataset = self.scenario.to_dataset().to_dict_of_arrays(False)
         for name, measure in self.__names_to_measures.items():
-            self.local_data[name] = array([measure(model_dataset)])
+            self.io.data[name] = array([measure.func(model_dataset)])
 
     @property
     def maximize_objective_measure(self) -> bool:
         """Whether to maximize the calibration measure related to the objectives."""
         return self.__names_to_measures[self.objective_name].maximize
 
-    def add_measure(
+    def _add_measure(
         self,
         control_outputs: CalibrationMeasure | Iterable[CalibrationMeasure],
     ) -> tuple[str, list[str]]:
         """Create a new calibration measure and add it to the outputs of the adapter.
+
+        The purpose of this method is to decouple adding a measure from updating
+        the output grammar because during the call from __init__ the grammar instances
+        are not yet existing before calling super().__init__.
 
         Args:
             control_outputs: The names of the outputs used to calibrate the disciplines
@@ -201,20 +237,18 @@ class Calibrator(MDOScenarioAdapter):
                 comprised between 0 and 1 (the weights must sum to 1).
                 When the output is a 1D function discretized over an irregular mesh,
                 the name of the mesh can be provided.
-                E.g. ``CalibrationMeasure(output="z", measure="MSE")``
-                ``CalibrationMeasure(output="z", measure="MSE", weight=0.3)``
-                or ``CalibrationMeasure(output="z", measure="MSE", mesh="z_mesh")``
-                Lastly, ``CalibrationMeasure`` can be imported
-                from :mod:`gemseo-calibration.scenario`.
+                E.g. `CalibrationMeasure(output="z", measure="MSE")`
+                `CalibrationMeasure(output="z", measure="MSE", weight=0.3)`
+                or `CalibrationMeasure(output="z", measure="MSE", mesh="z_mesh")`
+                Lastly, `CalibrationMeasure` can be imported
+                from [gemseo_calibration.calibrator][gemseo_calibration.calibrator].
 
         Returns:
             The name of the calibration measure applied to the outputs.
         """
         control_outputs = self.__update_weights(control_outputs)
         name = ""
-        if isinstance(control_outputs, CalibrationMeasure):
-            control_outputs = [control_outputs]
-
+        control_outputs = self.__to_control_outputs(control_outputs)
         control_output = control_outputs[0]
         measure, output_names = self.__create_measure(control_output)
         self.__measures.append(measure)
@@ -239,8 +273,47 @@ class Calibrator(MDOScenarioAdapter):
         measure.maximize = maximize
         measure.name = name
         self.__names_to_measures[name] = measure
-        self.__update_output_grammar()
         return name, list(set(output_names))
+
+    @staticmethod
+    def __to_control_outputs(
+        control_outputs: CalibrationMeasure | Iterable[CalibrationMeasure],
+    ) -> Iterable[CalibrationMeasure]:
+        """Force control output(s) to be an iterator of calibration measures.
+
+        Args:
+            control_outputs: The control output(s).
+        """
+        if isinstance(control_outputs, CalibrationMeasure):
+            control_outputs = [control_outputs]
+        return control_outputs
+
+    def add_measure(
+        self,
+        control_outputs: CalibrationMeasure | Iterable[CalibrationMeasure],
+    ) -> tuple[str, list[str]]:
+        """Create a new calibration measure and add it to the outputs of the adapter.
+
+        Args:
+            control_outputs: The names of the outputs used to calibrate the disciplines
+                with the name of the calibration measure and the corresponding weight
+                comprised between 0 and 1 (the weights must sum to 1).
+                When the output is a 1D function discretized over an irregular mesh,
+                the name of the mesh can be provided.
+                E.g. ``CalibrationMeasure(output="z", measure="MSE")``
+                ``CalibrationMeasure(output="z", measure="MSE", weight=0.3)``
+                or ``CalibrationMeasure(output="z", measure="MSE", mesh="z_mesh")``
+                Lastly, ``CalibrationMeasure`` can be imported
+                from :mod:`gemseo-calibration.scenario`.
+
+        Returns:
+            The name of the calibration measure applied to the outputs.
+        """
+        control_outputs = self.__to_control_outputs(control_outputs)
+        self.__add_observables(control_outputs, self.scenario)
+        return_values = self._add_measure(control_outputs)
+        self.__update_output_grammar()
+        return return_values
 
     def __update_weights(
         self, control_outputs: Sequence[CalibrationMeasure]
@@ -266,17 +339,20 @@ class Calibrator(MDOScenarioAdapter):
                 continue
 
             if not 0 < weight < 1:
-                raise ValueError("The weight must be comprised between 0 and 1.")
+                msg = "The weight must be comprised between 0 and 1."
+                raise ValueError(msg)
 
             total_weight += control_output.weight
 
         if not missing_weight_indices:
             if total_weight != 1:
-                raise ValueError("The weights must sum to 1.")
+                msg = "The weights must sum to 1."
+                raise ValueError(msg)
             return control_outputs
 
         if total_weight >= 1:
-            raise ValueError("The weights must sum to 1.")
+            msg = "The weights must sum to 1."
+            raise ValueError(msg)
 
         missing_weight = (1 - total_weight) / len(missing_weight_indices)
         for index in missing_weight_indices:

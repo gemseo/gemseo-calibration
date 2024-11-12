@@ -18,17 +18,14 @@ from __future__ import annotations
 
 from typing import ClassVar
 
-from gemseo.core.mdofunctions.mdo_function import MDOFunction
-from numpy import inf
-from numpy import nanmax
-from numpy import nanmin
-from numpy import ndarray
+from gemseo.core.mdo_functions.mdo_function import MDOFunction
+from gemseo.typing import RealArray
 
-DataType = dict[str, ndarray]
+DataType = dict[str, RealArray]
 """The type of data.
 
-The data are set as ``{variable_name: variable_values}``
-where ``variable_values`` is a 2D NumPy array
+The data are set as `{variable_name: variable_values}`
+where `variable_values` is a 2D NumPy array
 whose rows are the samples and columns are the components of the variable.
 """
 
@@ -53,9 +50,9 @@ class CalibrationMeasure(MDOFunction):
             output_name: The name of the output to be taken into account by the measure.
         """  # noqa: D205,D212,D415
         self.output_name = output_name
-        super().__init__(None, name or self._compute_name(), f_type=f_type)
-        self._lower_bound = -inf
-        self._upper_bound = inf
+        super().__init__(
+            self._evaluate_measure, name or self._compute_name(), f_type=f_type
+        )
         self._reference_data = []
 
     @property
@@ -74,19 +71,8 @@ class CalibrationMeasure(MDOFunction):
             reference_dataset: The reference input-output data set.
         """
         self._reference_data = reference_dataset[self.output_name]
-        self._lower_bound = nanmin(self._reference_data)
-        self._upper_bound = nanmax(self._reference_data)
 
-    def _update_bounds(self, data: ndarray) -> None:
-        """Update the lower and upper bounds of the output.
-
-        Args:
-            data: The value of the output.
-        """
-        self._lower_bound = min(data.min(), self._lower_bound)
-        self._upper_bound = max(data.max(), self._upper_bound)
-
-    def __call__(self, model_dataset: DataType) -> float:
+    def _evaluate_measure(self, model_dataset: DataType) -> float:
         """Measure the (in)consistency between the model dataset and the reference one.
 
         Args:
@@ -98,7 +84,7 @@ class CalibrationMeasure(MDOFunction):
         raise NotImplementedError
 
     @staticmethod
-    def _compare_data(data: ndarray, other_data: ndarray) -> ndarray:
+    def _compare_data(data: RealArray, other_data: RealArray) -> RealArray:
         """Compare two data arrays.
 
         Args:

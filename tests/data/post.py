@@ -16,16 +16,16 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from gemseo.post.opt_post_processor import OptPostProcessor
+from gemseo.post.base_post import BasePost
 
 from gemseo_calibration.post_processor import CalibrationPostProcessor
 
 if TYPE_CHECKING:
-    from gemseo.algos.opt_problem import OptimizationProblem
+    from gemseo.algos.optimization_problem import OptimizationProblem
     from numpy import ndarray
 
 
-class NewOptPostProcessor(OptPostProcessor):
+class NewOptPostProcessor(BasePost):
     """A new optimization post-processor."""
 
 

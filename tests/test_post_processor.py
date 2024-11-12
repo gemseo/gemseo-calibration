@@ -16,17 +16,22 @@
 
 from __future__ import annotations
 
-from gemseo.post.opt_post_processor import OptPostProcessor
-from gemseo.post.opt_post_processor import OptPostProcessorOptionType
-from gemseo.problems.analytical.rosenbrock import Rosenbrock
+from gemseo.post.base_post import BasePost
+from gemseo.post.base_post_settings import BasePostSettings
+from gemseo.problems.optimization.rosenbrock import Rosenbrock
 
 from gemseo_calibration.post_processor import CalibrationPostProcessor
 
 
-class NewCalibrationPostProcessor(CalibrationPostProcessor):
+class NewCalibrationPostProcessorSettings(BasePostSettings): ...
+
+
+class NewCalibrationPostProcessor(
+    CalibrationPostProcessor[NewCalibrationPostProcessorSettings]
+):
     """A new calibration post processor."""
 
-    def _plot(self, **options: OptPostProcessorOptionType) -> None:
+    def _plot(self, settings: NewCalibrationPostProcessorSettings) -> None:
         return
 
 
@@ -34,8 +39,8 @@ def test_post():
     """Test that the base class CalibrationPostProcessor is correctly initialized."""
     opt_problem = Rosenbrock()
     post = NewCalibrationPostProcessor(opt_problem, 1, 2, 3)
-    assert post.opt_problem == opt_problem
-    assert isinstance(post, OptPostProcessor)
+    assert post.optimization_problem == opt_problem
+    assert isinstance(post, BasePost)
     assert post._reference_data == 1
     assert post._prior_model_data == 2
     assert post._posterior_model_data == 3
