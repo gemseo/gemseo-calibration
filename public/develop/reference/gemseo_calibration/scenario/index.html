@@ -1733,12 +1733,12 @@
 
 <a href="#gemseo_calibration.scenario.CalibrationScenario" class="headerlink" title="Permanent link">&para;</a></h4>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">CalibrationScenario</span><span class="p">(</span>
-    <span class="n">disciplines</span><span class="p">:</span> <span class="n"><span title="gemseo.core.discipline.discipline.Discipline">Discipline</span></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></span><span class="p">[</span><span class="n"><span title="gemseo.core.discipline.discipline.Discipline">Discipline</span></span><span class="p">],</span>
+    <span class="n">disciplines</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.core.discipline.discipline.Discipline" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.discipline.discipline.html#gemseo.core.discipline.discipline.Discipline">Discipline</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" title="gemseo.core.discipline.discipline.Discipline" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.discipline.discipline.html#gemseo.core.discipline.discipline.Discipline">Discipline</a></span><span class="p">],</span>
     <span class="n">input_names</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">],</span>
     <span class="n">control_outputs</span><span class="p">:</span> <span class="p">(</span>
         <span class="n"><a class="autorefs autorefs-internal" title="gemseo_calibration.calibrator.CalibrationMeasure" href="../calibrator/#gemseo_calibration.calibrator.CalibrationMeasure">CalibrationMeasure</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Sequence" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence">Sequence</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="gemseo_calibration.calibrator.CalibrationMeasure" href="../calibrator/#gemseo_calibration.calibrator.CalibrationMeasure">CalibrationMeasure</a></span><span class="p">]</span>
     <span class="p">),</span>
-    <span class="n">calibration_space</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.algos.design_space.DesignSpace" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.algos.design_space.html#gemseo.algos.design_space.DesignSpace">DesignSpace</a></span><span class="p">,</span>
+    <span class="n">calibration_space</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.algos.design_space.DesignSpace" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.algos.design_space.html#gemseo.algos.design_space.DesignSpace">DesignSpace</a></span><span class="p">,</span>
     <span class="n">formulation</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">=</span> <span class="s2">&quot;MDF&quot;</span><span class="p">,</span>
     <span class="n">name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="o">**</span><span class="n">formulation_options</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span>
@@ -1747,7 +1747,7 @@
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><span title="gemseo.scenarios.mdo_scenario.MDOScenario">MDOScenario</span></code></p>
+              Bases: <code><a class="autorefs autorefs-external" title="gemseo.scenarios.mdo_scenario.MDOScenario" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.scenarios.mdo_scenario.html#gemseo.scenarios.mdo_scenario.MDOScenario">MDOScenario</a></code></p>
 
 
         <p>A scenario to calibrate a multidisciplinary system from reference data.</p>
@@ -1766,9 +1766,9 @@ to compare the discipline outputs with the reference data.</p>
   <p>Just like inputs,
 the parameters should be defined in the input grammars of the disciplines.</p>
 </details>        <p>The parameters are calibrated with the method
-<a class="autorefs autorefs-external" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo_calibration.scenario.html#gemseo_calibration.scenario.CalibrationScenario.execute">execute</a>
+[execute][gemseo_calibration.scenario.CalibrationScenario.execute]
 from an optimizer and a reference
-<a class="autorefs autorefs-external" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.datasets.io_dataset_.html#gemseo.datasets.io_dataset.IODataset">IODataset</a>.</p>
+<a class="autorefs autorefs-external" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.datasets.io_dataset.html#gemseo.datasets.io_dataset.IODataset">IODataset</a>.</p>
 
         <p>Initialize self.  See help(type(self)) for accurate signature.</p>
 
@@ -1777,7 +1777,7 @@ from an optimizer and a reference
     <ul>
         <li class="doc-section-item field-body">
             <b><code>disciplines</code></b>
-              (<code><span title="gemseo.core.discipline.discipline.Discipline">Discipline</span> | <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<span title="gemseo.core.discipline.discipline.Discipline">Discipline</span>]</code>)
+              (<code><a class="autorefs autorefs-external" title="gemseo.core.discipline.discipline.Discipline" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.discipline.discipline.html#gemseo.core.discipline.discipline.Discipline">Discipline</a> | <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" title="gemseo.core.discipline.discipline.Discipline" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.discipline.discipline.html#gemseo.core.discipline.discipline.Discipline">Discipline</a>]</code>)
           –
           <div class="doc-md-description">
             <p>The disciplines
@@ -1811,7 +1811,7 @@ from :mod:<code>gemseo-calibration.scenario</code>.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>calibration_space</code></b>
-              (<code><a class="autorefs autorefs-external" title="gemseo.algos.design_space.DesignSpace" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.algos.design_space.html#gemseo.algos.design_space.DesignSpace">DesignSpace</a></code>)
+              (<code><a class="autorefs autorefs-external" title="gemseo.algos.design_space.DesignSpace" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.algos.design_space.html#gemseo.algos.design_space.DesignSpace">DesignSpace</a></code>)
           –
           <div class="doc-md-description">
             <p>The space of the parameters to be calibrated,
@@ -2017,7 +2017,7 @@ If empty, use the name of the class.</p>
   </span>
 
 <a href="#gemseo_calibration.scenario.CalibrationScenario.posterior_model_data" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">posterior_model_data</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.typing.RealArray" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.typing.html#gemseo.typing.RealArray">RealArray</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">posterior_model_data</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.typing.RealArray" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.typing.html#gemseo.typing.RealArray">RealArray</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2063,7 +2063,7 @@ If empty, use the name of the class.</p>
   </span>
 
 <a href="#gemseo_calibration.scenario.CalibrationScenario.prior_model_data" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">prior_model_data</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.typing.RealArray" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.typing.html#gemseo.typing.RealArray">RealArray</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">prior_model_data</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.typing.RealArray" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.typing.html#gemseo.typing.RealArray">RealArray</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2109,7 +2109,7 @@ If empty, use the name of the class.</p>
   </span>
 
 <a href="#gemseo_calibration.scenario.CalibrationScenario.reference_data" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">reference_data</span><span class="p">:</span> <span class="n"><span title="gemseo.typing.StrKeyMapping">StrKeyMapping</span></span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">reference_data</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.typing.StrKeyMapping" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.typing.html#gemseo.typing.StrKeyMapping">StrKeyMapping</a></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2133,7 +2133,7 @@ If empty, use the name of the class.</p>
     <span class="n">control_outputs</span><span class="p">:</span> <span class="p">(</span>
         <span class="n"><a class="autorefs autorefs-internal" title="gemseo_calibration.calibrator.CalibrationMeasure" href="../calibrator/#gemseo_calibration.calibrator.CalibrationMeasure">CalibrationMeasure</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="gemseo_calibration.calibrator.CalibrationMeasure" href="../calibrator/#gemseo_calibration.calibrator.CalibrationMeasure">CalibrationMeasure</a></span><span class="p">]</span>
     <span class="p">),</span>
-    <span class="n">constraint_type</span><span class="p">:</span> <span class="n"><span title="gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType">ConstraintType</span></span> <span class="o">=</span> <span class="n"><span title="gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType.EQ">EQ</span></span><span class="p">,</span>
+    <span class="n">constraint_type</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.mdo_functions.mdo_function.html#gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType">ConstraintType</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType.EQ" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.mdo_functions.mdo_function.html#gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType.EQ">EQ</a></span><span class="p">,</span>
     <span class="n">constraint_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="n">value</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
     <span class="n">positive</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -2166,8 +2166,8 @@ from :mod:<code>gemseo-calibration.scenario</code>.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>constraint_type</code></b>
-              (<code><span title="gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType">ConstraintType</span></code>, default:
-                  <code><span title="gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType.EQ">EQ</span></code>
+              (<code><a class="autorefs autorefs-external" title="gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.mdo_functions.mdo_function.html#gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType">ConstraintType</a></code>, default:
+                  <code><a class="autorefs autorefs-external" title="gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType.EQ" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.mdo_functions.mdo_function.html#gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType.EQ">EQ</a></code>
 )
           –
           <div class="doc-md-description">
@@ -2311,7 +2311,7 @@ the name of the constraint is generated from the output name.</p>
 
 
 <a href="#gemseo_calibration.scenario.CalibrationScenario.post_process" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">post_process</span><span class="p">(</span><span class="n">post_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="gemseo.post.base_post.BasePost">BasePost</span></span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">post_process</span><span class="p">(</span><span class="n">post_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.post.base_post.BasePost" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.post.base_post.html#gemseo.post.base_post.BasePost">BasePost</a></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2345,7 +2345,7 @@ the name of the constraint is generated from the output name.</p>
 <p><span class="doc-section-title">Returns:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-              <code><span title="gemseo.post.base_post.BasePost">BasePost</span></code>
+              <code><a class="autorefs autorefs-external" title="gemseo.post.base_post.BasePost" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.post.base_post.html#gemseo.post.base_post.BasePost">BasePost</a></code>
           –
           <div class="doc-md-description">
             <p>The post-processor.</p>
@@ -2393,8 +2393,8 @@ the name of the constraint is generated from the output name.</p>
 
 <a href="#gemseo_calibration.scenario.CalibrationScenario.set_algorithm" class="headerlink" title="Permanent link">&para;</a></h6>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">set_algorithm</span><span class="p">(</span>
-    <span class="n">reference_data</span><span class="p">:</span> <span class="n"><span title="gemseo.typing.StrKeyMapping">StrKeyMapping</span></span><span class="p">,</span>
-    <span class="n">algo_settings_model</span><span class="p">:</span> <span class="n"><span title="gemseo.algos.base_driver_settings.BaseDriverSettings">BaseDriverSettings</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">reference_data</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.typing.StrKeyMapping" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.typing.html#gemseo.typing.StrKeyMapping">StrKeyMapping</a></span><span class="p">,</span>
+    <span class="n">algo_settings_model</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.algos.base_driver_settings.BaseDriverSettings" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.algos.base_driver_settings.html#gemseo.algos.base_driver_settings.BaseDriverSettings">BaseDriverSettings</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">algo_settings</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
@@ -2408,7 +2408,7 @@ the name of the constraint is generated from the output name.</p>
     <ul>
         <li class="doc-section-item field-body">
             <b><code>reference_data</code></b>
-              (<code><span title="gemseo.typing.StrKeyMapping">StrKeyMapping</span></code>)
+              (<code><a class="autorefs autorefs-external" title="gemseo.typing.StrKeyMapping" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.typing.html#gemseo.typing.StrKeyMapping">StrKeyMapping</a></code>)
           –
           <div class="doc-md-description">
             <p>The description is missing.</p>
@@ -2416,7 +2416,7 @@ the name of the constraint is generated from the output name.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>algo_settings_model</code></b>
-              (<code><span title="gemseo.algos.base_driver_settings.BaseDriverSettings">BaseDriverSettings</span> | None</code>, default:
+              (<code><a class="autorefs autorefs-external" title="gemseo.algos.base_driver_settings.BaseDriverSettings" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.algos.base_driver_settings.html#gemseo.algos.base_driver_settings.BaseDriverSettings">BaseDriverSettings</a> | None</code>, default:
                   <code>None</code>
 )
           –
