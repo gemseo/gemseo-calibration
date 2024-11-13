@@ -467,6 +467,30 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#develop" class="md-nav__link">
+    <span class="md-ellipsis">
+      Develop
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Develop">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added" class="md-nav__link">
+    <span class="md-ellipsis">
+      Added
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#version-300-november-2024" class="md-nav__link">
     <span class="md-ellipsis">
       Version 3.0.0 (November 2024)
@@ -477,7 +501,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added" class="md-nav__link">
+  <a href="#added_1" class="md-nav__link">
     <span class="md-ellipsis">
       Added
     </span>
@@ -501,7 +525,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_1" class="md-nav__link">
+  <a href="#added_2" class="md-nav__link">
     <span class="md-ellipsis">
       Added
     </span>
@@ -1464,6 +1488,30 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#develop" class="md-nav__link">
+    <span class="md-ellipsis">
+      Develop
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Develop">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added" class="md-nav__link">
+    <span class="md-ellipsis">
+      Added
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#version-300-november-2024" class="md-nav__link">
     <span class="md-ellipsis">
       Version 3.0.0 (November 2024)
@@ -1474,7 +1522,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added" class="md-nav__link">
+  <a href="#added_1" class="md-nav__link">
     <span class="md-ellipsis">
       Added
     </span>
@@ -1498,7 +1546,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_1" class="md-nav__link">
+  <a href="#added_2" class="md-nav__link">
     <span class="md-ellipsis">
       Added
     </span>
@@ -1628,14 +1676,22 @@ Changelog titles are:
 <a href="https://keepachangelog.com/en/1.0.0">Keep a Changelog</a>
 and this project adheres to
 <a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
-<h2 id="version-300-november-2024">Version 3.0.0 (November 2024)<a class="headerlink" href="#version-300-november-2024" title="Permanent link">&para;</a></h2>
+<h2 id="develop">Develop<a class="headerlink" href="#develop" title="Permanent link">&para;</a></h2>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/post/data_versus_model/post/#gemseo_calibration.post.data_versus_model.post.DataVersusModel">DataVersusModel</a>
+  displays data on a grid.</li>
+<li><a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/post/multiple_scatter/#gemseo_calibration.post.multiple_scatter.MultipleScatter">MultipleScatter</a>
+  displays data on a grid.</li>
+</ul>
+<h2 id="version-300-november-2024">Version 3.0.0 (November 2024)<a class="headerlink" href="#version-300-november-2024" title="Permanent link">&para;</a></h2>
+<h3 id="added_1">Added<a class="headerlink" href="#added_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Support GEMSEO v6.</li>
 <li>Support for Python 3.12.</li>
 </ul>
 <h2 id="version-202-december-2023">Version 2.0.2 (December 2023)<a class="headerlink" href="#version-202-december-2023" title="Permanent link">&para;</a></h2>
-<h3 id="added_1">Added<a class="headerlink" href="#added_1" title="Permanent link">&para;</a></h3>
+<h3 id="added_2">Added<a class="headerlink" href="#added_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Support for Python 3.11.</li>
 </ul>
@@ -1654,15 +1710,11 @@ and this project adheres to
 </ul>
 <h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Data are <code>dict[str, ndarray]</code> objects as
-    <code>{variable_name: variable_values}</code> instead of
-    <code class="interpreted-text" role="class">~gemseo.datasets.dataset.Dataset</code>.</li>
-<li>Use <code>""</code> as empty value of <code>str</code> and <code>str | Path</code> arguments, instead
-    of <code>"None"</code>.</li>
-<li><code class="interpreted-text" role="class">.CalibrationMeasure</code>: the type of
-    <code>f_type</code> is
-    <code>~gemseo.core.mdofunctions.mdo_function.MDOFunction.FunctionType</code>{.interpreted-text
-    role="attr"}.</li>
+<li>Data are <code>dict[str, ndarray]</code> objects a <code>{variable_name: variable_values}</code> instead of
+  <a class="autorefs autorefs-external" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.datasets.dataset.html#gemseo.datasets.dataset.Dataset">Dataset</a>.</li>
+<li>Use <code>""</code> as empty value of <code>str</code> and <code>str | Path</code> arguments, instead of <code>"None"</code>.</li>
+<li><a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/measure/#gemseo_calibration.measure.CalibrationMeasure">CalibrationMeasure</a>:
+  the type of <code>f_type</code> is <a class="autorefs autorefs-external" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.mdo_functions.mdo_function.html#gemseo.core.mdo_functions.mdo_function.MDOFunction.FunctionType">FunctionType</a>.</li>
 </ul>
 <h2 id="version-100-july-2022">Version 1.0.0 (July 2022)<a class="headerlink" href="#version-100-july-2022" title="Permanent link">&para;</a></h2>
 <p>First release.</p>
