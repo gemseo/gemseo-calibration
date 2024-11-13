@@ -26,6 +26,15 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Develop
+
+### Added
+
+- [DataVersusModel][gemseo_calibration.post.data_versus_model.post.DataVersusModel]
+  displays data on a grid.
+- [MultipleScatter][gemseo_calibration.post.multiple_scatter.MultipleScatter]
+  displays data on a grid.
+
 ## Version 3.0.0 (November 2024)
 
 ### Added
@@ -55,15 +64,11 @@ and this project adheres to
 
 ### Changed
 
-- Data are `dict[str, ndarray]` objects as
-    `{variable_name: variable_values}` instead of
-    `~gemseo.datasets.dataset.Dataset`{.interpreted-text role="class"}.
-- Use `""` as empty value of `str` and `str | Path` arguments, instead
-    of `"None"`.
-- `.CalibrationMeasure`{.interpreted-text role="class"}: the type of
-    `f_type` is
-    `~gemseo.core.mdofunctions.mdo_function.MDOFunction.FunctionType`{.interpreted-text
-    role="attr"}.
+- Data are `dict[str, ndarray]` objects a `{variable_name: variable_values}` instead of
+  [Dataset][gemseo.datasets.dataset.Dataset].
+- Use `""` as empty value of `str` and `str | Path` arguments, instead of `"None"`.
+- [CalibrationMeasure][gemseo_calibration.measure.CalibrationMeasure]:
+  the type of `f_type` is [FunctionType][gemseo.core.mdo_functions.mdo_function.MDOFunction.FunctionType].
 
 ## Version 1.0.0 (July 2022)
 

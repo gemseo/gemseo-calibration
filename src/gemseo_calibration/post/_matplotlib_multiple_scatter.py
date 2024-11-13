@@ -69,6 +69,7 @@ class MultipleScatter(MatplotlibPlot):
                 linestyle="",
                 label=self._common_settings.labels.get(name, name),
             )
+        axes.grid()
         axes.set_xlabel(self._common_settings.xlabel)
         axes.set_ylabel(self._common_settings.ylabel)
         axes.set_title(self._common_settings.title)

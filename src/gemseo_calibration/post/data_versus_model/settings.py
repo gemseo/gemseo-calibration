@@ -16,12 +16,16 @@
 
 from __future__ import annotations
 
+from typing import ClassVar
+
 from gemseo.post.base_post_settings import BasePostSettings
 from gemseo.utils.pydantic import update_field
 from pydantic import Field
 
 
 class DataVersusModelSettings(BasePostSettings):  # noqa: D101
+    _TARGET_CLASS_NAME: ClassVar[str] = "DataVersusModel"
+
     output: str = Field(
         ...,
         description="The names of the output of interest.",
