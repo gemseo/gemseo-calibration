@@ -96,7 +96,7 @@ class CalibrationScenario(MDOScenario):
                 `CalibrationMeasure(output="z", measure="MSE", weight=0.3)`
                 or `CalibrationMeasure(output="z", measure="MSE", mesh="z_mesh")`
                 Lastly, `CalibrationMeasure` can be imported
-                from :mod:`gemseo-calibration.scenario`.
+                from [gemseo_calibration.scenario][gemseo_calibration.scenario].
             calibration_space: The space of the parameters to be calibrated,
                 whose current values are consider as a prior for calibration.
             formulation: The name of a formulation
@@ -188,7 +188,7 @@ class CalibrationScenario(MDOScenario):
                 `CalibrationMeasure(output="z", measure="MSE", weight=0.3)`
                 or `CalibrationMeasure(output="z", measure="MSE", mesh="z_mesh")`
                 Lastly, `CalibrationMeasure` can be imported
-                from :mod:`gemseo-calibration.scenario`.
+                from [gemseo_calibration.scenario][gemseo_calibration.scenario].
             constraint_type: The type of constraint,
                 `"eq"` for equality constraint and
                 `"ineq"` for inequality constraint.
