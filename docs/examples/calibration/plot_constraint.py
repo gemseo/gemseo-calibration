@@ -13,74 +13,33 @@
 # FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
 # NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
 # WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-"""# Calibration scenario with a mesh-based output."""
+"""# Constrained calibration.
+
+This example illustrates the calibration of a discipline
+with two poorly known parameters and a constraint.
+"""
 
 from __future__ import annotations
-
-from typing import TYPE_CHECKING
 
 from gemseo import sample_disciplines
 from gemseo.algos.design_space import DesignSpace
 from gemseo.algos.parameter_space import ParameterSpace
-from gemseo.core.discipline.discipline import Discipline
+from gemseo.disciplines.analytic import AnalyticDiscipline
 from numpy import array
-from numpy import linspace
 
 from gemseo_calibration.scenario import CalibrationMeasure
 from gemseo_calibration.scenario import CalibrationScenario
 
-if TYPE_CHECKING:
-    from gemseo.typing import StrKeyMapping
-
 # %%
-# Let us consider a function $f(x)=[ax,\gamma bx, \gamma]$
-# from $\mathbb{R}$ to $\mathbb{R}^11$
-# where $\gamma=[0,0.25,0.5,0.75,1.]$ plays the role of a mesh.
-# In practice,
-# we could imagine a model having an output related to a mesh $\gamma$
-# whose size and nodes would depend on the model inputs.
-# Thus, this mesh is also an output of the model.
-
-
-class Model(Discipline):
-    def __init__(self) -> None:
-        super().__init__()
-        self.input_grammar.update_from_names(["x", "a", "b"])
-        self.output_grammar.update_from_names(["y", "z", "mesh"])
-        self.default_input_data = {
-            "x": array([0.0]),
-            "a": array([0.0]),
-            "b": array([0.0]),
-        }
-
-    def _run(self, input_data: StrKeyMapping) -> StrKeyMapping | None:
-        x_input = input_data["x"]
-        a_parameter = input_data["a"]
-        b_parameter = input_data["b"]
-        y_output = a_parameter * x_input
-        z_mesh = linspace(0, 1, 5)
-        z_output = b_parameter * x_input[0] * z_mesh
-        return {"y": y_output, "z": z_output, "mesh": z_mesh}
-
+# Let us consider a model $f(x)=[ax,bx]$
+# from $\mathbb{R}$ to $\mathbb{R}^2$:
+model = AnalyticDiscipline({"y": "a*x", "z": "b*x"}, name="model")
 
 # %%
 # This is a model of our reference data source,
-# which a kind of oracle providing input-output data
+# which is a kind of oracle providing input-output data
 # without the mathematical relationship behind it:
-class ReferenceModel(Discipline):
-    def __init__(self) -> None:
-        super().__init__()
-        self.input_grammar.update_from_names(["x"])
-        self.output_grammar.update_from_names(["y", "z", "mesh"])
-        self.default_input_data = {"x": array([0.0])}
-
-    def _run(self, input_data: StrKeyMapping) -> StrKeyMapping | None:
-        x_input = input_data["x"]
-        y_output = 2 * x_input
-        z_mesh = linspace(0, 1, 5)
-        z_output = 3 * x_input[0] * z_mesh
-        return {"y": y_output, "z": z_output, "mesh": z_mesh}
-
+reference = AnalyticDiscipline({"y": "2*x", "z": "3*x"}, name="reference")
 
 # %%
 # However in this pedagogical example,
@@ -100,17 +59,16 @@ prior.add_variable("b", lower_bound=0.0, upper_bound=10.0, value=0.0)
 
 # %%
 # Secondly,
-# given an input space $[0.,3.]$:
+# given an input space $[0,3]$:
 input_space = DesignSpace()
 input_space.add_variable("x", lower_bound=0.0, upper_bound=3.0)
 
 # %%
 # we generate reference output data by sampling the reference discipline:
-reference = ReferenceModel()
 reference_dataset = sample_disciplines(
     [reference],
     input_space,
-    ["mesh", "y", "z"],
+    ["y", "z"],
     algo_name="CustomDOE",
     samples=array([[1.0], [2.0]]),
 )
@@ -121,29 +79,28 @@ reference_data = reference_dataset.to_dict_of_arrays(False)
 # we can build and execute a
 # [CalibrationScenario][gemseo_calibration.scenario.CalibrationScenario]
 # to find the values of the parameters $a$ and $b$
-# which minimizes a
+# which minimize a
 # [CalibrationMeasure][gemseo_calibration.measure.CalibrationMeasure]
-# taking into account the outputs $y$ and $z$:
-model = Model()
-control_outputs = [
-    CalibrationMeasure("y", "MSE"),
-    CalibrationMeasure("z", "ISE", "mesh"),
-]
-calibration = CalibrationScenario(model, "x", control_outputs, prior)
+# related to the output $y$ with
+# a constraint about a
+# [CalibrationMeasure][gemseo_calibration.measure.CalibrationMeasure]
+# related to the output $z$.
+calibration = CalibrationScenario(model, "x", CalibrationMeasure("y", "MSE"), prior)
+calibration.add_constraint(CalibrationMeasure("z", "MSE"))
 calibration.execute(
     algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=100
 )
 
 # %%
 # Lastly,
-# we get the calibrated parameters:
+# we can check that the calibrated parameters are very close to the expected ones:
 calibration.optimization_result.x_opt
 
 # %%
-# plot an optimization history view:
+# and plot an optimization history view:
 calibration.post_process(post_name="OptHistoryView", save=False, show=True)
 
 # %%
 # as well as the model data versus the reference ones,
 # before and after the calibration:
-calibration.post_process(post_name="DataVersusModel", output="y", save=False, show=True)
+calibration.post_process(post_name="DataVersusModel", output="z", save=False, show=True)

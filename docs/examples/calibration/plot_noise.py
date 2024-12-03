@@ -13,12 +13,16 @@
 # FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
 # NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
 # WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-"""# Calibration scenario with noised observations."""
+"""# Noisy observations.
+
+This example illustrates the calibration of a discipline
+with three poorly known parameters and from noisy observations.
+"""
 
 from __future__ import annotations
 
 # %%
-# Let us consider a function $f(x)=ax^2+bx+c$
+# Let us consider a model $f(x)=ax^2+bx+c$
 # from $\mathbb{R}$ to $\mathbb{R}$:
 from gemseo.algos.design_space import DesignSpace
 from gemseo.algos.parameter_space import ParameterSpace
@@ -37,7 +41,7 @@ model = AnalyticDiscipline({"y": "a*x**2+b*x+c"}, name="model")
 
 # %%
 # This is a model of our reference data source,
-# which a kind of oracle providing input-output data
+# which is a kind of oracle providing input-output data
 # without the mathematical relationship behind it:
 original_model = AnalyticDiscipline({"y": "2*x**2-1.5*x+0.75"}, name="model")
 
@@ -47,7 +51,7 @@ reference.set_cache(reference.CacheType.MEMORY_FULL)
 # %%
 # This reference model contains a random additive term $u$
 # normally distributed with mean $\mu$ and standard deviation $\sigma$.
-# This means that the observations of $f:x\mapsto 2*x^2-0.5*x$ are noised.
+# This means that the observations of $f:x\mapsto 2x^2-1.5x+0.75$ are noised.
 
 # %%
 # In this pedagogical example,
@@ -69,7 +73,7 @@ prior.add_variable("c", lower_bound=-5.0, upper_bound=5.0, value=0.0)
 
 # %%
 # Secondly,
-# we have reference output data over the input space $[0.,3.]$.
+# we have reference output data over the input space $[0,3]$.
 input_space = DesignSpace()
 input_space.add_variable("x", lower_bound=0.0, upper_bound=3.0, value=1.5)
 # %%
@@ -112,8 +116,8 @@ reference_data = reference.cache.to_dataset().to_dict_of_arrays(False)
 # From these information sources,
 # we can build and execute a
 # [CalibrationScenario][gemseo_calibration.scenario.CalibrationScenario]
-# to find the value of the parameters $a$, $b$ and $c$
-# which minimizes a
+# to find the values of the parameters $a$, $b$ and $c$
+# which minimize a
 # [CalibrationMeasure][gemseo_calibration.measure.CalibrationMeasure]
 # related to the output $y$:
 calibration = CalibrationScenario(model, "x", CalibrationMeasure("y", "MSE"), prior)
@@ -123,15 +127,16 @@ calibration.execute(
 
 # %%
 # Lastly,
-# we get the calibrated parameters:
+# we can see that the calibrated parameters are different from the expected ones
 calibration.optimization_result.x_opt
 
 # %%
-# plot an optimization history view:
+# even if the result are converged:
 calibration.post_process(post_name="OptHistoryView", save=False, show=True)
 
 # %%
-# as well as the model data versus the reference ones:
+# However,
+# the calibrated model is close the expected one:
 expression = "a*x**2+b*x+c"
 for parameter_name, parameter_value in calibration.posterior_parameters.items():
     expression = expression.replace(parameter_name, str(parameter_value[0]))
