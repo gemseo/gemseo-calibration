@@ -12,7 +12,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-"""A module to compute the integrated measure between two data sets."""
+"""Base class for integrated metrics."""
 
 from __future__ import annotations
 
@@ -20,12 +20,12 @@ from numpy import interp
 from numpy import mean
 from numpy import trapz as integrate
 
-from gemseo_calibration.measure import CalibrationMeasure
-from gemseo_calibration.measure import DataType
+from gemseo_calibration.metrics.base_calibration_metric import BaseCalibrationMetric
+from gemseo_calibration.metrics.base_calibration_metric import DataType
 
 
-class IntegratedMeasure(CalibrationMeasure):
-    """An abstract integrated measure between two output data sets."""
+class BaseIntegratedMetric(BaseCalibrationMetric):
+    """The base class for integrated metrics."""
 
     mesh_name: str
     """The name of the 1D mesh."""
@@ -35,7 +35,7 @@ class IntegratedMeasure(CalibrationMeasure):
         output_name: str,
         mesh_name: str,
         name: str = "",
-        f_type: CalibrationMeasure.FunctionType = CalibrationMeasure.FunctionType.NONE,
+        f_type: BaseCalibrationMetric.FunctionType = BaseCalibrationMetric.FunctionType.NONE,  # noqa: E501
     ) -> None:
         """
         Args:
@@ -48,7 +48,7 @@ class IntegratedMeasure(CalibrationMeasure):
     def _compute_name(self) -> str:
         return f"{self.__class__.__name__}({self.output_name};{self.mesh_name})"
 
-    def _evaluate_measure(self, model_dataset: DataType) -> float:  # noqa: D102
+    def _evaluate_metric(self, model_dataset: DataType) -> float:  # noqa: D102
         model_data = model_dataset[self.output_name]
         model_mesh = model_dataset[self.mesh_name]
         return mean([

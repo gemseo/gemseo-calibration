@@ -23,7 +23,7 @@ from numpy import array
 from numpy import linspace
 from numpy import ndarray
 
-from gemseo_calibration.calibrator import CalibrationMeasure
+from gemseo_calibration.metrics.settings import CalibrationMetricSettings
 from gemseo_calibration.scenario import CalibrationScenario
 
 if TYPE_CHECKING:
@@ -92,8 +92,8 @@ def reference_data() -> dict[str, ndarray]:
 def test_execute(reference_data, calibration_space):
     """Check the execution of the calibration scenario with a meshed output."""
     outputs = [
-        CalibrationMeasure(output="y", measure="MSE"),
-        CalibrationMeasure(output="z", mesh="mesh", measure="ISE"),
+        CalibrationMetricSettings(output_name="y", metric_name="MSE"),
+        CalibrationMetricSettings(output_name="z", mesh_name="mesh", metric_name="ISE"),
     ]
     calibration = CalibrationScenario(Model(), "x", outputs, calibration_space)
     calibration.execute(

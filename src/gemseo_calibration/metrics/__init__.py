@@ -12,21 +12,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-"""Compute the mean absolute error between the model and reference output data."""
+"""Metrics to compare data sets."""
 
 from __future__ import annotations
-
-from typing import TYPE_CHECKING
-
-from gemseo_calibration.measures.mean_measure import MeanMeasure
-
-if TYPE_CHECKING:
-    from gemseo.typing import RealArray
-
-
-class MAE(MeanMeasure):
-    """The mean absolute error between the model and reference output data."""
-
-    @staticmethod
-    def _compare_data(data: RealArray, other_data: RealArray) -> RealArray:
-        return abs(data - other_data)

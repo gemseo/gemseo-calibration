@@ -21,8 +21,8 @@ from typing import Any
 
 from gemseo.core.mdo_functions.mdo_function import MDOFunction
 from gemseo.scenarios.mdo_scenario import MDOScenario
+from gemseo.utils.pydantic import get_class_name
 
-from gemseo_calibration.calibrator import CalibrationMeasure
 from gemseo_calibration.calibrator import Calibrator
 from gemseo_calibration.post.factory import CalibrationPostFactory
 
@@ -33,11 +33,14 @@ if TYPE_CHECKING:
     from gemseo.algos.base_driver_settings import BaseDriverSettings
     from gemseo.algos.design_space import DesignSpace
     from gemseo.core.discipline.discipline import Discipline
+    from gemseo.formulations.base_formulation_settings import BaseFormulationSettings
     from gemseo.post.base_post import BasePost
+    from gemseo.post.base_post_settings import BasePostSettings
     from gemseo.typing import RealArray
     from gemseo.typing import StrKeyMapping
 
-    from gemseo_calibration.measure import DataType
+    from gemseo_calibration.metrics.base_calibration_metric import DataType
+    from gemseo_calibration.metrics.settings import CalibrationMetricSettings
 
 
 class CalibrationScenario(MDOScenario):
@@ -50,7 +53,7 @@ class CalibrationScenario(MDOScenario):
     so that the model output data are close to the reference output data
     for some outputs of interest.
     This distance is evaluated with a
-    [CalibrationMeasure][gemseo_calibration.measure.CalibrationMeasure]
+    [BaseCalibrationMetric][gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric]
     to compare the discipline outputs with the reference data.
 
     Warning:
@@ -76,35 +79,44 @@ class CalibrationScenario(MDOScenario):
         self,
         disciplines: Discipline | list[Discipline],
         input_names: str | Iterable[str],
-        control_outputs: CalibrationMeasure | Sequence[CalibrationMeasure],
+        metric_settings_models: CalibrationMetricSettings
+        | Sequence[CalibrationMetricSettings],
         calibration_space: DesignSpace,
-        formulation: str = "MDF",
         name: str = "",
-        **formulation_options: Any,
+        formulation_settings_model: BaseFormulationSettings | None = None,
+        **formulation_settings: Any,
     ) -> None:
         """
         Args:
             disciplines: The disciplines
                 whose parameters must be calibrated from the reference data.
             input_names: The names of the inputs to be considered for the calibration.
-            control_outputs: The names of the outputs used to calibrate the disciplines
-                with the name of the calibration measure and the corresponding weight
-                comprised between 0 and 1 (the weights must sum to 1).
-                When the output is a 1D function discretized over an irregular mesh,
+            metric_settings_models: A collection of calibration settings,
+                including the name of the observed output,
+                the name of the calibration metric
+                and the corresponding weight comprised between 0 and 1
+                (the weights must sum to 1).
+                When the output is a 1D function discretized over a mesh,
                 the name of the mesh can be provided.
-                E.g. `CalibrationMeasure(output="z", measure="MSE")`
-                `CalibrationMeasure(output="z", measure="MSE", weight=0.3)`
-                or `CalibrationMeasure(output="z", measure="MSE", mesh="z_mesh")`
-                Lastly, `CalibrationMeasure` can be imported
-                from [gemseo_calibration.scenario][gemseo_calibration.scenario].
+                E.g. `CalibrationMetricSettings(output_name="z", metric_name="MSE")`
+                `CalibrationMetricSettings(output_name="z", metric_name="MSE", weight=0.3)`
+                or
+                `CalibrationMetricSettings(output_name="z", metric_name="MSE", mesh_name="z_mesh")`
+                Lastly, `CalibrationMetricSettings` can be imported
+                from
+                [gemseo_calibration.metrics.settings][gemseo_calibration.metrics.settings].
             calibration_space: The space of the parameters to be calibrated,
                 whose current values are consider as a prior for calibration.
-            formulation: The name of a formulation
-                to manage the multidisciplinary coupling.
             name: A name for this calibration scenario.
                 If empty, use the name of the class.
-            **formulation_options: The options of the formulation.
-        """  # noqa: D205,D212,D415
+            formulation_settings_model: The formulation settings as a Pydantic model.
+                If ``None``, use ``**settings``.
+            **formulation_settings: The formulation settings,
+                including the formulation name (use the keyword ``"formulation_name"``).
+                These arguments are ignored when ``settings_model`` is not ``None``.
+                If none and ``settings_model`` is ``None``,
+                the calibrator uses the default MDF formulation.
+        """  # noqa: D205,D212,D415,E501
         self.__prior_parameters = calibration_space.get_current_value(as_dict=True)
         self.__posterior_parameters = {}
         self.prior_model_data = {}
@@ -113,10 +125,10 @@ class CalibrationScenario(MDOScenario):
         calibrator = Calibrator(
             disciplines,
             input_names,
-            control_outputs,
+            metric_settings_models,
             calibration_space.variable_names,
-            formulation=formulation,
-            **formulation_options,
+            formulation_settings_model=formulation_settings_model,
+            **formulation_settings,
         )
         super().__init__(
             [calibrator],
@@ -124,7 +136,7 @@ class CalibrationScenario(MDOScenario):
             calibration_space,
             name=name or self.__class__.__name__,
             formulation_name="DisciplinaryOpt",
-            maximize_objective=calibrator.maximize_objective_measure,
+            maximize_objective=calibrator.maximize_objective_metric,
         )
         self.__calibration_post_factory = CalibrationPostFactory()
 
@@ -155,7 +167,7 @@ class CalibrationScenario(MDOScenario):
 
     @property
     def calibrator(self) -> Calibrator:
-        """The discipline computing calibration measures from the parameter values."""
+        """The discipline computing calibration metrics from the parameter values."""
         return self.formulation.disciplines[0]
 
     @property
@@ -170,25 +182,30 @@ class CalibrationScenario(MDOScenario):
 
     def add_constraint(
         self,
-        control_outputs: CalibrationMeasure | Iterable[CalibrationMeasure],
+        metric_settings_models: CalibrationMetricSettings
+        | Iterable[CalibrationMetricSettings],
         constraint_type: MDOFunction.ConstraintType = MDOFunction.ConstraintType.EQ,
         constraint_name: str = "",
         value: float = 0.0,
         positive: bool = False,
     ) -> None:
-        """Define a constraint from a calibration measure related to discipline outputs.
+        """Define a constraint from a calibration metric related to discipline outputs.
 
         Args:
-            control_outputs: The names of the outputs used to calibrate the disciplines
-                with the name of the calibration measure and the corresponding weight
-                comprised between 0 and 1 (the weights must sum to 1).
-                When the output is a 1D function discretized over an irregular mesh,
+            metric_settings_models: A collection of calibration settings,
+                including the name of the observed output,
+                the name of the calibration metric
+                and the corresponding weight comprised between 0 and 1
+                (the weights must sum to 1).
+                When the output is a 1D function discretized over a mesh,
                 the name of the mesh can be provided.
-                E.g. `CalibrationMeasure(output="z", measure="MSE")`
-                `CalibrationMeasure(output="z", measure="MSE", weight=0.3)`
-                or `CalibrationMeasure(output="z", measure="MSE", mesh="z_mesh")`
-                Lastly, `CalibrationMeasure` can be imported
-                from [gemseo_calibration.scenario][gemseo_calibration.scenario].
+                E.g. `CalibrationMetricSettings(output_name="z", metric_name="MSE")`
+                `CalibrationMetricSettings(output_name="z", metric_name="MSE", weight=0.3)`
+                or
+                `CalibrationMetricSettings(output_name="z", metric_name="MSE", mesh_name="z_mesh")`
+                Lastly, `CalibrationMetricSettings` can be imported
+                from
+                [gemseo_calibration.metrics.settings][gemseo_calibration.metrics.settings].
             constraint_type: The type of constraint,
                 `"eq"` for equality constraint and
                 `"ineq"` for inequality constraint.
@@ -197,22 +214,19 @@ class CalibrationScenario(MDOScenario):
                 the name of the constraint is generated from the output name.
             value: The value for which the constraint is active.
             positive: Whether to consider the inequality constraint as positive.
-        """
+        """  # noqa: E501
         super().add_constraint(
-            self.calibrator.add_measure(control_outputs)[0],
+            self.calibrator.add_metric(metric_settings_models)[0],
             constraint_type,
             constraint_name,
             value,
             positive,
         )
 
-    @property
-    def posts(self) -> list[str]:  # noqa: D102
-        return (
-            self.post_factory.class_names + self.__calibration_post_factory.class_names
-        )
-
-    def post_process(self, post_name: str, **options: Any) -> BasePost:  # noqa: D102
+    def post_process(  # noqa: D102
+        self, settings_model: BasePostSettings | None = None, **settings: Any
+    ) -> BasePost:
+        post_name = get_class_name(settings_model, settings, class_name_arg="post_name")
         if post_name in self.__calibration_post_factory.class_names:
             return self.__calibration_post_factory.execute(
                 self.formulation.optimization_problem,
@@ -220,7 +234,7 @@ class CalibrationScenario(MDOScenario):
                 self.prior_model_data,
                 self.posterior_model_data,
                 post_name,
-                **options,
+                **settings,
             )
 
-        return super().post_process(post_name=post_name, **options)
+        return super().post_process(post_name=post_name, **settings)

@@ -12,7 +12,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-"""Test the calibration measure MeanError."""
+"""Test the calibration metric MeanError."""
 
 from __future__ import annotations
 
@@ -22,8 +22,8 @@ from numpy import nan
 from numpy import ndarray
 from numpy import ones
 
-from gemseo_calibration.measures.iae import IAE
-from gemseo_calibration.measures.mae import MAE
+from gemseo_calibration.metrics.iae import IAE
+from gemseo_calibration.metrics.mae import MAE
 
 
 @pytest.fixture(scope="module")
@@ -67,24 +67,24 @@ def test_mean_error_with_mesh(output_name, mesh_name, expected):
     reference_data = {"y": array([[1.0, 1.0, 1.0]]), "m": array([[0.0, 1.0, 3.0]])}
     model_data = {"y": array([[2.0, 3.0, 4.0]]), "m": array([[0.0, 1.0, 3.0]])}
     if mesh_name is None:
-        measure = MAE(output_name)
+        metric = MAE(output_name)
     else:
-        measure = IAE(output_name, mesh_name)
-        assert measure.full_output_name == "y[m]"
-    measure.set_reference_data(reference_data)
-    assert measure.func(model_data) == expected
+        metric = IAE(output_name, mesh_name)
+        assert metric.full_output_name == "y[m]"
+    metric.set_reference_data(reference_data)
+    assert metric.func(model_data) == expected
 
 
 @pytest.mark.parametrize(
-    ("reference_mesh", "expected_measure"),
+    ("reference_mesh", "expected_metric"),
     [([0.0, 1.0, 2.0, 3.0], 6.5), ([0.0, 3.0], 6.0)],
 )
 def test_mean_error_with_interpolation_over_reference_mesh(
-    reference_mesh, expected_measure
+    reference_mesh, expected_metric
 ):
-    """Test that integrated measures handle interpolation over reference mesh."""
+    """Test that integrated metrics handle interpolation over reference mesh."""
     reference_data = {"y": ones((1, len(reference_mesh))), "m": array([reference_mesh])}
     model_data = {"y": array([[2.0, 3.0, 4.0]]), "m": array([[0.0, 1.0, 3.0]])}
-    measure = IAE("y", "m")
-    measure.set_reference_data(reference_data)
-    assert measure.func(model_data) == expected_measure
+    metric = IAE("y", "m")
+    metric.set_reference_data(reference_data)
+    assert metric.func(model_data) == expected_metric

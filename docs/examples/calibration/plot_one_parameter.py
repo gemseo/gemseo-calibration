@@ -27,7 +27,7 @@ from gemseo.algos.parameter_space import ParameterSpace
 from gemseo.disciplines.analytic import AnalyticDiscipline
 from numpy import array
 
-from gemseo_calibration.scenario import CalibrationMeasure
+from gemseo_calibration.metrics.settings import CalibrationMetricSettings
 from gemseo_calibration.scenario import CalibrationScenario
 
 # %%
@@ -75,9 +75,11 @@ reference_data = reference_dataset.to_dict_of_arrays(False)
 # [CalibrationScenario][gemseo_calibration.scenario.CalibrationScenario]
 # to find the value of the parameter $a$
 # which minimizes a
-# [CalibrationMeasure][gemseo_calibration.measure.CalibrationMeasure]
+# [BaseCalibrationMetric][gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric]
 # taking into account the output $y$:
-calibration = CalibrationScenario(model, "x", CalibrationMeasure("y", "MSE"), prior)
+calibration = CalibrationScenario(
+    model, "x", CalibrationMetricSettings(output_name="y", metric_name="MSE"), prior
+)
 calibration.execute(
     algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=100
 )

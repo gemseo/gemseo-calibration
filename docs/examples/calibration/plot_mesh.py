@@ -30,7 +30,7 @@ from gemseo.core.discipline.discipline import Discipline
 from numpy import array
 from numpy import linspace
 
-from gemseo_calibration.scenario import CalibrationMeasure
+from gemseo_calibration.metrics.settings import CalibrationMetricSettings
 from gemseo_calibration.scenario import CalibrationScenario
 
 if TYPE_CHECKING:
@@ -126,14 +126,14 @@ reference_data = reference_dataset.to_dict_of_arrays(False)
 # [CalibrationScenario][gemseo_calibration.scenario.CalibrationScenario]
 # to find the values of the parameters $a$ and $b$
 # which minimize a
-# [CalibrationMeasure][gemseo_calibration.measure.CalibrationMeasure]
+# [BaseCalibrationMetric][gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric]
 # taking into account the outputs $y$ and $z$:
 model = Model()
-control_outputs = [
-    CalibrationMeasure("y", "MSE"),
-    CalibrationMeasure("z", "ISE", "mesh"),
+metric_settings = [
+    CalibrationMetricSettings(output_name="y", metric_name="MSE"),
+    CalibrationMetricSettings(output_name="z", metric_name="ISE", mesh_name="mesh"),
 ]
-calibration = CalibrationScenario(model, "x", control_outputs, prior)
+calibration = CalibrationScenario(model, "x", metric_settings, prior)
 calibration.execute(
     algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=100
 )

@@ -12,19 +12,19 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-"""A module to compute the mean measure between the model and reference data."""
+"""Base class for mean calibration metrics."""
 
 from __future__ import annotations
 
 from numpy import nanmean
 
-from gemseo_calibration.measure import CalibrationMeasure
-from gemseo_calibration.measure import DataType
+from gemseo_calibration.metrics.base_calibration_metric import BaseCalibrationMetric
+from gemseo_calibration.metrics.base_calibration_metric import DataType
 
 
-class MeanMeasure(CalibrationMeasure):
-    """An abstract mean measure between the model and reference output data."""
+class BaseMeanMetric(BaseCalibrationMetric):
+    """The base class for mean metrics between the model and reference output data."""
 
-    def _evaluate_measure(self, model_dataset: DataType) -> float:  # noqa: D102
+    def _evaluate_metric(self, model_dataset: DataType) -> float:  # noqa: D102
         model_data = model_dataset[self.output_name]
         return nanmean(self._compare_data(self._reference_data, model_data))
