@@ -27,7 +27,7 @@ from gemseo.disciplines.analytic import AnalyticDiscipline
 from gemseo.utils.testing.helpers import image_comparison
 from numpy import array
 
-from gemseo_calibration.calibrator import CalibrationMeasure
+from gemseo_calibration.metrics.settings import CalibrationMetricSettings
 from gemseo_calibration.post.data_versus_model.post import DataVersusModel
 from gemseo_calibration.scenario import CalibrationScenario
 
@@ -50,7 +50,10 @@ def calibration_scenario() -> CalibrationScenario:
     calibration = CalibrationScenario(
         model,
         "x",
-        [CalibrationMeasure("y", "MSE"), CalibrationMeasure("z", "MSE")],
+        [
+            CalibrationMetricSettings(output_name="y", metric_name="MSE"),
+            CalibrationMetricSettings(output_name="z", metric_name="MSE"),
+        ],
         prior,
     )
     calibration.execute(

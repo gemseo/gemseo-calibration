@@ -27,7 +27,7 @@ from gemseo.disciplines.analytic import AnalyticDiscipline
 from numpy import array
 from numpy import nan
 
-from gemseo_calibration.scenario import CalibrationMeasure
+from gemseo_calibration.metrics.settings import CalibrationMetricSettings
 from gemseo_calibration.scenario import CalibrationScenario
 
 model = AnalyticDiscipline({"y": "a*x", "z": "b*x"}, name="model")
@@ -53,8 +53,11 @@ reference_data = Dataset.from_array(
     },
 ).to_dict_of_arrays(False)
 
-control_outputs = [CalibrationMeasure("y", "MSE"), CalibrationMeasure("z", "MSE")]
-calibration = CalibrationScenario(model, "x", control_outputs, prior)
+metric_settings = [
+    CalibrationMetricSettings(output_name="y", metric_name="MSE"),
+    CalibrationMetricSettings(output_name="z", metric_name="MSE"),
+]
+calibration = CalibrationScenario(model, "x", metric_settings, prior)
 calibration.execute(
     algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=100
 )

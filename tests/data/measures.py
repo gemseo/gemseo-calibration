@@ -12,44 +12,44 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-"""Dummy calibration measures used for tests."""
+"""Dummy calibration metrics used for tests."""
 
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from gemseo_calibration.measure import CalibrationMeasure
+from gemseo_calibration.metrics.base_calibration_metric import BaseCalibrationMetric
 
 if TYPE_CHECKING:
     from numpy import ndarray
 
 
-class MeasureCstr(CalibrationMeasure):
-    """The calibration measure to be used as a constraint."""
+class MetricCstr(BaseCalibrationMetric):
+    """The calibration metric to be used as a constraint."""
 
-    def _evaluate_measure(  # noqa: D102
+    def _evaluate_metric(  # noqa: D102
         self,
         model_dataset: dict[str, ndarray],
     ) -> float:
         return model_dataset["y"][1, 0]
 
 
-class MeasureObj(CalibrationMeasure):
-    """The calibration measure to be used as an objective."""
+class MetricObj(BaseCalibrationMetric):
+    """The calibration metric to be used as an objective."""
 
     maximize = True
 
-    def _evaluate_measure(  # noqa: D102
+    def _evaluate_metric(  # noqa: D102
         self,
         model_dataset: dict[str, ndarray],
     ) -> float:
         return model_dataset["y"][0, 0]
 
 
-class NewCalibrationMeasure(CalibrationMeasure):
-    """The calibration measure returning zero."""
+class NewCalibrationMetric(BaseCalibrationMetric):
+    """The calibration metric returning zero."""
 
-    def _evaluate_measure(  # noqa: D102
+    def _evaluate_metric(  # noqa: D102
         self,
         model_dataset: dict[str, ndarray],
     ) -> float:

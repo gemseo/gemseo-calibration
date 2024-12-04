@@ -12,7 +12,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-"""A module to measure the consistency or the inconsistency between two data sets."""
+"""Base class for metrics to compare data sets."""
 
 from __future__ import annotations
 
@@ -30,14 +30,14 @@ whose rows are the samples and columns are the components of the variable.
 """
 
 
-class CalibrationMeasure(MDOFunction):
-    """A measure of the consistency (or inconsistency) between two data sets."""
+class BaseCalibrationMetric(MDOFunction):
+    """The base class for metrics to compare data sets."""
 
     output_name: str
-    """The name of the output used by the measure for calibration."""
+    """The name of the output used by the metric for calibration."""
 
     maximize: ClassVar[bool] = False
-    """Whether to maximize the calibration measure."""
+    """Whether to maximize the calibration metric."""
 
     def __init__(
         self,
@@ -47,11 +47,11 @@ class CalibrationMeasure(MDOFunction):
     ) -> None:
         """
         Args:
-            output_name: The name of the output to be taken into account by the measure.
+            output_name: The name of the output to be taken into account by the metric.
         """  # noqa: D205,D212,D415
         self.output_name = output_name
         super().__init__(
-            self._evaluate_measure, name or self._compute_name(), f_type=f_type
+            self._evaluate_metric, name or self._compute_name(), f_type=f_type
         )
         self._reference_data = []
 
@@ -61,7 +61,7 @@ class CalibrationMeasure(MDOFunction):
         return self.output_name
 
     def _compute_name(self) -> str:
-        """Return the name of the measure."""
+        """Return the name of the metric."""
         return f"{self.__class__.__name__}({self.output_name})"
 
     def set_reference_data(self, reference_dataset: DataType) -> None:
@@ -72,14 +72,14 @@ class CalibrationMeasure(MDOFunction):
         """
         self._reference_data = reference_dataset[self.output_name]
 
-    def _evaluate_measure(self, model_dataset: DataType) -> float:
-        """Measure the (in)consistency between the model dataset and the reference one.
+    def _evaluate_metric(self, model_dataset: DataType) -> float:
+        """Evaluate the metric given a model dataset.
 
         Args:
             model_dataset: The model dataset.
 
         Returns:
-            The measure of the (in)consistency between the model and reference datasets.
+            The value of the metric.
         """
         raise NotImplementedError
 
