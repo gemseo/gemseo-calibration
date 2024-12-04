@@ -27,7 +27,7 @@ from gemseo.algos.parameter_space import ParameterSpace
 from gemseo.disciplines.analytic import AnalyticDiscipline
 from numpy import array
 
-from gemseo_calibration.scenario import CalibrationMeasure
+from gemseo_calibration.metrics.settings import CalibrationMetricSettings
 from gemseo_calibration.scenario import CalibrationScenario
 
 # %%
@@ -73,7 +73,11 @@ input_space.add_variable("x", lower_bound=0.0, upper_bound=3.0)
 # %%
 # we generate reference output data by sampling the reference discipline:
 reference_dataset = sample_disciplines(
-    [reference], input_space, ["y1", "y2"], "CustomDOE", samples=array([[1.0], [2.0]])
+    [reference],
+    input_space,
+    ["y1", "y2"],
+    algo_name="CustomDOE",
+    samples=array([[1.0], [2.0]]),
 )
 reference_data = reference_dataset.to_dict_of_arrays(False)
 
@@ -88,7 +92,10 @@ reference_data = reference_dataset.to_dict_of_arrays(False)
 calibration = CalibrationScenario(
     models,
     "x",
-    [CalibrationMeasure("y1", "MSE"), CalibrationMeasure("y2", "MSE")],
+    [
+        CalibrationMetricSettings(output_name="y1", metric_name="MSE"),
+        CalibrationMetricSettings(output_name="y2", metric_name="MSE"),
+    ],
     prior,
 )
 calibration.execute(
