@@ -1561,6 +1561,56 @@
         <p>The settings of a calibration metric.</p>
 
 
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+            <b><code>output_name</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>The name of the output.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>metric_name</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>, default:
+                  <code>&#39;MSE&#39;</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>The name of the metric
+to compare the observed and simulated outputs.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>mesh_name</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>, default:
+                  <code>&#39;&#39;</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>The name of the mesh associated with the output if any.</p>
+<p>To be used when the output is a 1D function discretized over a mesh.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+            <b><code>weight</code></b>
+              (<code>Annotated[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a>, Gt(<span title="Gt(gt)">gt</span>=0)] | None</code>, default:
+                  <code>None</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>The weight of this calibration metric
+when this calibration metric is an element of a collection of calibration metrics.</p>
+<p>The weight must be between 0 and 1.
+The sum of the weights of the elements in the collection must be 1.
+In a collection,
+all the calibration metrics with <code>weight</code> set to <code>None</code> will have the same weight.</p>
+          </div>
+        </li>
+    </ul>
+
+
 
 
 
