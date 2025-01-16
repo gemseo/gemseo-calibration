@@ -88,7 +88,7 @@ noise_space.add_random_variable("u", "OTNormalDistribution", mu=0.0, sigma=0.5)
 # an outer one repeating this sampling for different values of the noise.
 # A classical way of doing this with |g| is to use a
 # [MDOScenarioAdapter][gemseo.disciplines.scenario_adapters.mdo_scenario_adapter.MDOScenarioAdapter]
-# which is an [MDODiscipline][gemseo.core.discipline.MDODiscipline] executing a
+# which is a [Discipline][gemseo.core.discipline.discipline.Discipline] executing a
 # [DOEScenario][gemseo.scenarios.doe_scenario.DOEScenario]
 # for a given value of $u$.
 # For example, let us imagine a [DOEScenario][gemseo.scenarios.doe_scenario.DOEScenario]

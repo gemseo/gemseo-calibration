@@ -35,6 +35,8 @@ eval-type-backport==0.2.0
     # via gemseo
 fastjsonschema==2.20.0
     # via gemseo
+fieldz==0.1.0
+    # via griffe-fieldz
 fonttools==4.55.3
     # via matplotlib
 gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@870209c0136843b693dc41e032c9437fb6a2c0f1
@@ -49,8 +51,11 @@ graphviz==0.20.3
     # via gemseo
 griffe==1.5.4
     # via
+    #   griffe-fieldz
     #   griffe-inherited-docstrings
     #   mkdocstrings-python
+griffe-fieldz==0.2.1
+    # via gemseo-calibration (pyproject.toml)
 griffe-inherited-docstrings==1.1.1
     # via gemseo-calibration (pyproject.toml)
 h5py==3.11.0
@@ -288,6 +293,7 @@ tqdm==4.66.5
 typing-extensions==4.12.2
     # via
     #   black
+    #   fieldz
     #   gemseo
     #   mkdocstrings
     #   pydantic

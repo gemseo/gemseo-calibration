@@ -60,8 +60,7 @@ class CalibrationScenario(MDOScenario):
         Just like inputs,
         the parameters should be defined in the input grammars of the disciplines.
 
-    The parameters are calibrated with the method
-    [execute][gemseo_calibration.scenario.CalibrationScenario.execute]
+    The parameters are calibrated with the method ``execute()``
     from an optimizer and a reference
     [IODataset][gemseo.datasets.io_dataset.IODataset].
     """
