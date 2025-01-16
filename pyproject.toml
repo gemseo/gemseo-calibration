@@ -36,6 +36,7 @@ test = [
 doc = [
     "black",
     "griffe-inherited-docstrings",
+    "griffe-fieldz",
     "markdown-exec[ansi]",
     "mike",
     "mkdocs-bibtex",

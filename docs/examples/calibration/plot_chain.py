@@ -91,7 +91,7 @@ reference_data = reference_dataset.to_dict_of_arrays(False)
 # [CalibrationScenario][gemseo_calibration.scenario.CalibrationScenario]
 # to find the value of the parameters $a$ and $b$
 # which minimizes a
-# [CalibrationMeasure][gemseo_calibration.measure.CalibrationMeasure]
+# [CalibrationMetric][gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric]
 # taking into account the output $y$:
 calibration = CalibrationScenario(
     models, "x", CalibrationMetricSettings(output_name="y", metric_name="MSE"), prior

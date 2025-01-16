@@ -28,13 +28,13 @@ and this project adheres to
 
 ## Develop
 
-## Added
+### Added
 
 - [Calibrator][gemseo_calibration.calibrator.Calibrator]
-  has an `formulation_settings_model` argument and keyword arguments `**formulation_settings`
+  has a `formulation_settings_model` argument and keyword arguments `**formulation_settings`
   (use either one or the other).
 - [CalibrationScenario][gemseo_calibration.scenario.CalibrationScenario]
-  has an `formulation_settings_model` argument and keyword arguments `**formulation_settings`
+  has a `formulation_settings_model` argument and keyword arguments `**formulation_settings`
   (use either one or the other).
 
 ### Changed
@@ -44,13 +44,13 @@ and this project adheres to
 - [MultipleScatter][gemseo_calibration.post.multiple_scatter.MultipleScatter]
   displays data on a grid.
 - API CHANGES:
-     - `BaseCalibrationMetric.mesh` renamed to [mesh_name][gemseo_calibration.metrics.settings.CalibrationMetricSettings.mesh_name].
+     - `BaseCalibrationMetric.mesh` renamed to [CalibrationMetricSettings.mesh_name][gemseo_calibration.metrics.settings.CalibrationMetricSettings].
     - use the expression _calibration metric_ rather the _calibration measure_,
       to be consistent with [gemseo.utils.metrics][gemseo.utils.metrics].
     - rename `measures` package to [metrics][gemseo_calibration.metrics].
-    - rename `gemseo_calibration.measure.CalibrationMeasure` to [BaseCalibrationMetric][gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric].
+    - rename `gemseo_calibration.measure.CalibrationMeasure` to [gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric][gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric].
     - `gemseo_calibration.calibrator.CalibrationMeasure`:
-        - rename it to [CalibrationMetricSettings][gemseo_calibration.metrics.settings.CalibrationMetricSettings].
+        - rename it to [gemseo_calibration.metrics.settings.CalibrationMetricSettings][gemseo_calibration.metrics.settings.CalibrationMetricSettings].
         - [CalibrationMetricSettings][gemseo_calibration.metrics.settings.CalibrationMetricSettings] is a Pydantic model and so the arguments must be set as keyword arguments.
         - move it to [gemseo_calibration.metrics.settings][gemseo_calibration.metrics.settings].
         - rename its field `measure` to `metric`.
@@ -59,7 +59,7 @@ and this project adheres to
     - rename `IntegratedMeasure` to [BaseIntegratedMetric][gemseo_calibration.metrics.base_integrated_metric.BaseIntegratedMetric].
     - rename `MeanMeasure` to [BaseMeanMetric][gemseo_calibration.metrics.base_mean_metric.BaseMeanMetric].
     - [Calibrator][gemseo_calibration.calibrator.Calibrator]:
-        - rename its `maximize_objective_measure` attribute to [maximize_objective_measure][gemseo_calibration.calibrator.Calibrator.maximize_objective_metric].
+        - rename its `maximize_objective_measure` attribute to [maximize_objective_metric][gemseo_calibration.calibrator.Calibrator.maximize_objective_metric].
         - rename its `add_measure` method to [add_metric][gemseo_calibration.calibrator.Calibrator.add_metric].
         - rename its `formulation` argument to `formulation_name`
         - rename its `control_outputs` argument to `metric_settings_models`.
@@ -102,7 +102,7 @@ and this project adheres to
 - Data are `dict[str, ndarray]` objects a `{variable_name: variable_values}` instead of
   [Dataset][gemseo.datasets.dataset.Dataset].
 - Use `""` as empty value of `str` and `str | Path` arguments, instead of `"None"`.
-- [BaseCalibrationMetric][gemseo_calibration.base_calibration_metric.BaseCalibrationMetric]:
+- [BaseCalibrationMetric][gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric]:
   the type of `f_type` is [FunctionType][gemseo.core.mdo_functions.mdo_function.MDOFunction.FunctionType].
 
 ## Version 1.0.0 (July 2022)
