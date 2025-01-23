@@ -39,7 +39,7 @@ fieldz==0.1.0
     # via griffe-fieldz
 fonttools==4.55.4
     # via matplotlib
-gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@370d08b4c39efaf4d14230bc73707bdc85bc9ee4
+gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@adb0187d99c50e057f8082963fedf3e83f0b284b
     # via
     #   -c requirements/test-constraints.in
     #   gemseo-calibration (pyproject.toml)
@@ -224,7 +224,7 @@ pygments==2.19.1
     #   pygments-ansi-color
 pygments-ansi-color==0.3.0
     # via markdown-exec
-pymdown-extensions==10.14
+pymdown-extensions==10.14.1
     # via
     #   markdown-exec
     #   mkdocs-material
