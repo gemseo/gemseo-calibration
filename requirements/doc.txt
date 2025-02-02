@@ -2,7 +2,7 @@
 #    uv pip compile --extra doc --constraint requirements/test-constraints.in -o requirements/doc.txt --python-version 3.9 pyproject.toml
 annotated-types==0.7.0
     # via pydantic
-babel==2.16.0
+babel==2.17.0
     # via mkdocs-material
 black==25.1.0
     # via gemseo-calibration (pyproject.toml)
@@ -39,7 +39,7 @@ fieldz==0.1.0
     # via griffe-fieldz
 fonttools==4.55.8
     # via matplotlib
-gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@45e45c1107cd9fec9acae7e872fe62a1bfb49a3b
+gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@ecda233c8799f18db00053857543a17bb5fa7036
     # via
     #   -c requirements/test-constraints.in
     #   gemseo-calibration (pyproject.toml)
@@ -224,7 +224,7 @@ pygments==2.19.1
     #   pygments-ansi-color
 pygments-ansi-color==0.3.0
     # via markdown-exec
-pymdown-extensions==10.14.2
+pymdown-extensions==10.14.3
     # via
     #   markdown-exec
     #   mkdocs-material
