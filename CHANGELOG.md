@@ -30,6 +30,11 @@ and this project adheres to
 
 ### Added
 
+- The [signal][gemseo_calibration.signal] package
+  proposes new features to facilitate the calibration of a signal generator,
+  such as an [ODEDiscipline][gemseo.disciplines.ode].
+- The package [problems.signal][gemseo_calibration.problems.signal]
+  proposes problems to illustrate the features of the [signal][gemseo_calibration.signal] package.
 - [Calibrator][gemseo_calibration.calibrator.Calibrator]
   has a `formulation_settings_model` argument and keyword arguments `**formulation_settings`
   (use either one or the other).
