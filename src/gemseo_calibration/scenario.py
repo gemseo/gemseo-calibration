@@ -22,6 +22,7 @@ from typing import Any
 from gemseo.core.mdo_functions.mdo_function import MDOFunction
 from gemseo.scenarios.mdo_scenario import MDOScenario
 from gemseo.utils.pydantic import get_class_name
+from numpy import ndarray
 
 from gemseo_calibration.calibrator import Calibrator
 from gemseo_calibration.post.factory import CalibrationPostFactory
@@ -158,7 +159,13 @@ class CalibrationScenario(MDOScenario):
         self.__posterior_parameters = self.design_space.convert_array_to_dict(
             self.optimization_result.x_opt
         )
-        self.calibrator.default_input_data = self.posterior_parameters
+        default_input_data = self.calibrator.default_input_data
+        for name, value in self.__posterior_parameters.items():
+            if not isinstance(default_input_data[name], ndarray):
+                value = value[0]
+
+            default_input_data[name] = value
+
         self.calibrator.execute()
         self.posterior_model_data = (
             self.calibrator.scenario.to_dataset().to_dict_of_arrays(False)

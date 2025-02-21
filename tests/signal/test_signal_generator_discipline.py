@@ -72,10 +72,10 @@ def test_parameter_names(oscillator, times):
         times,
     )
     assert tuple(discipline.io.input_grammar.names) == (
+        "a",
         "initial_position",
         "initial_velocity",
         "initial_omega",
-        "a",
     )
     assert tuple(discipline.io.output_grammar.names) == ("position",)
     discipline.execute({

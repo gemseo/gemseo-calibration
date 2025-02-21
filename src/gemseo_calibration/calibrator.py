@@ -51,8 +51,6 @@ class Calibrator(MDOScenarioAdapter):
     method.
     """
 
-    __ALGO_OPTIONS = "algo_options"
-
     def __init__(
         self,
         disciplines: Discipline | list[Discipline],

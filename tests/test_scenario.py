@@ -20,6 +20,7 @@ from typing import TYPE_CHECKING
 
 import pytest
 from gemseo.algos.design_space import DesignSpace
+from gemseo.disciplines.auto_py import AutoPyDiscipline
 from gemseo.post.opt_history_view import OptHistoryView
 from numpy import array
 
@@ -161,3 +162,32 @@ def test_post_process(calibration_scenario, reference_data):
         post_name="DataVersusModel", output="y", save=False, show=False
     )
     assert isinstance(post, DataVersusModel)
+
+
+def f(x: float, p: float) -> float:
+    y = x + p
+    return y  # noqa: RET504
+
+
+def test_float_calibration_parameter():
+    """Check that CalibrationScenario supports disciplines with float arguments."""
+    discipline = AutoPyDiscipline(f)
+
+    calibration_space = DesignSpace()
+    calibration_space.add_variable("p", lower_bound=-1.0, upper_bound=1.0, value=-1.0)
+
+    reference_data = {
+        "x": array([[0.5], [1.0]]),
+        "y": array([[1.0], [1.5]]),
+    }
+
+    scenario = CalibrationScenario(
+        discipline,
+        "x",
+        CalibrationMetricSettings(output_name="y", metric_name="MSE"),
+        calibration_space,
+    )
+    scenario.execute(
+        algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=10
+    )
+    assert scenario.optimization_result.x_opt == 0.5
