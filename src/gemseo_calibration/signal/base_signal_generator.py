@@ -28,6 +28,8 @@ from gemseo.utils.metaclasses import ABCGoogleDocstringInheritanceMeta
 if TYPE_CHECKING:
     from collections.abc import Mapping
 
+    from gemseo.core.grammars.base_grammar import BaseGrammar
+
 
 Data = Union[float, RealArray]
 
@@ -47,6 +49,9 @@ class Signal(NamedTuple):
 
 class BaseSignalGenerator(metaclass=ABCGoogleDocstringInheritanceMeta):
     """The base class for signal generators."""
+
+    grammar: BaseGrammar
+    """The grammar of variables."""
 
     @abstractmethod
     def generate(  # noqa: D102

@@ -58,9 +58,13 @@ class ODESignalGenerator(BaseSignalGenerator):
             state_names: The names of the state variables.
             time_name: The name of the time variable.
         """  # noqa: D205 D212
+        super().__init__()
         self.__rhs_discipline = rhs_discipline
         self.__state_names = state_names
         self.__time_name = time_name
+        self.grammar = rhs_discipline.io.input_grammar.__class__("Variables")
+        self.grammar.update(rhs_discipline.io.input_grammar)
+        self.grammar.update(rhs_discipline.io.output_grammar)
 
     @property
     def rhs_discipline(self) -> Discipline:

@@ -17,7 +17,6 @@
 
 from gemseo.algos.design_space import DesignSpace
 from matplotlib import pyplot as plt
-from numpy import array
 from numpy import atleast_2d
 from numpy import full
 from numpy import linspace
@@ -126,15 +125,14 @@ output_name = "position"
 # and execute the `simulator` with the constant angular velocity.
 # First,
 # we initialize the state variables of the ODEs:
-initial_oscillator_omega = array([omega_0])
-initial_oscillator_position = array([p_0])
-initial_oscillator_velocity = array([v_0])
-initial_simulator_position = array([p_0])
-initial_simulator_velocity = array([v_0])
-initial_calibrated_simulator_position = array([p_0])
-initial_calibrated_simulator_velocity = array([v_0])
+initial_oscillator_omega = omega_0
+initial_oscillator_position = p_0
+initial_oscillator_velocity = v_0
+initial_simulator_position = p_0
+initial_simulator_velocity = v_0
+initial_calibrated_simulator_position = p_0
+initial_calibrated_simulator_velocity = v_0
 new_omega = [full(n_sub_nodes, omega_0), None]
-
 # %%
 # and then,
 # at each calibration time $t_i$,
@@ -167,7 +165,6 @@ for i in range(m + 1):
             "velocity": initial_simulator_velocity,
         },
     )
-
     # Calibration of the simulator at times of interest.
     calibration = CalibrationScenario(
         SignalGeneratorDiscipline(
@@ -199,7 +196,7 @@ for i in range(m + 1):
     )
 
     # Generation of simulations at times of interest with the calibrated simulator.
-    omega_opt = calibration.optimization_result.x_opt_as_dict["omega"]
+    omega_opt = calibration.optimization_result.x_opt_as_dict["omega"][0]
     calibrated_simulator.rhs_discipline.default_input_data["omega"] = omega_opt
     calibrated_simulator_signal = calibrated_simulator.generate(
         times,
@@ -257,19 +254,18 @@ for i in range(m + 1):
     # Update the initial values of the state variables for the next iteration.
     t_i += delta
     # --- For the reference data.
-    initial_oscillator_omega = oscillator_signal.final["omega"]
-    initial_oscillator_position = oscillator_signal.final["position"]
-    initial_oscillator_velocity = oscillator_signal.final["velocity"]
+    final_state = oscillator_signal.final
+    initial_oscillator_omega = final_state["omega"][0]
+    initial_oscillator_position = final_state["position"][0]
+    initial_oscillator_velocity = final_state["velocity"][0]
     # --- For the uncalibrated simulator.
-    initial_simulator_position = simulator_signal.final["position"]
-    initial_simulator_velocity = simulator_signal.final["velocity"]
+    final_state = simulator_signal.final
+    initial_simulator_position = final_state["position"][0]
+    initial_simulator_velocity = final_state["velocity"][0]
     # --- For the calibrated simulator.
-    initial_calibrated_simulator_position = calibrated_simulator_signal.final[
-        "position"
-    ]
-    initial_calibrated_simulator_velocity = calibrated_simulator_signal.final[
-        "velocity"
-    ]
+    final_state = calibrated_simulator_signal.final
+    initial_calibrated_simulator_position = final_state["position"][0]
+    initial_calibrated_simulator_velocity = final_state["velocity"][0]
 
 # Finalize the plot.
 ax1.legend()
@@ -304,14 +300,14 @@ calibrated_simulator = Oscillator()
 search_space = DesignSpace()
 search_space.add_variable("a", lower_bound=0.0001, upper_bound=0.1, value=0.001)
 
-initial_oscillator_omega = array([omega_0])
-initial_oscillator_position = array([p_0])
-initial_oscillator_velocity = array([v_0])
-initial_simulator_position = array([p_0])
-initial_simulator_velocity = array([v_0])
-initial_calibrated_simulator_omega = array([omega_0])
-initial_calibrated_simulator_position = array([p_0])
-initial_calibrated_simulator_velocity = array([v_0])
+initial_oscillator_omega = omega_0
+initial_oscillator_position = p_0
+initial_oscillator_velocity = v_0
+initial_simulator_position = p_0
+initial_simulator_velocity = v_0
+initial_calibrated_simulator_omega = omega_0
+initial_calibrated_simulator_position = p_0
+initial_calibrated_simulator_velocity = v_0
 fig, (ax1, ax2) = plt.subplots(2, 1)
 for i in range(m + 1):
     # The times of interest, from the initial time to the calibration time.
@@ -368,7 +364,7 @@ for i in range(m + 1):
     )
 
     # Generation of simulations at times of interest with the calibrated simulator.
-    a_opt = calibration.optimization_result.x_opt_as_dict["a"]
+    a_opt = calibration.optimization_result.x_opt_as_dict["a"][0]
     calibrated_simulator.rhs_discipline.default_input_data["a"] = a_opt
     calibrated_simulator_signal = calibrated_simulator.generate(
         times,
@@ -425,20 +421,19 @@ for i in range(m + 1):
     # Update the initial values of the state variables for the next iteration.
     t_i += delta
     # --- For the reference data.
-    initial_oscillator_omega = oscillator_signal.final["omega"]
-    initial_oscillator_position = oscillator_signal.final["position"]
-    initial_oscillator_velocity = oscillator_signal.final["velocity"]
+    final_state = oscillator_signal.final
+    initial_oscillator_omega = final_state["omega"][0]
+    initial_oscillator_position = final_state["position"][0]
+    initial_oscillator_velocity = final_state["velocity"][0]
     # --- For the uncalibrated simulator.
-    initial_simulator_position = simulator_signal.final["position"]
-    initial_simulator_velocity = simulator_signal.final["velocity"]
+    final_state = simulator_signal.final
+    initial_simulator_position = final_state["position"][0]
+    initial_simulator_velocity = final_state["velocity"][0]
     # --- For the calibrated simulator.
-    initial_calibrated_simulator_omega = calibrated_simulator_signal.final["omega"]
-    initial_calibrated_simulator_position = calibrated_simulator_signal.final[
-        "position"
-    ]
-    initial_calibrated_simulator_velocity = calibrated_simulator_signal.final[
-        "velocity"
-    ]
+    final_state = calibrated_simulator_signal.final
+    initial_calibrated_simulator_omega = final_state["omega"][0]
+    initial_calibrated_simulator_position = final_state["position"][0]
+    initial_calibrated_simulator_velocity = final_state["velocity"][0]
 
 # Finalize the plot
 ax1.legend()
@@ -466,7 +461,7 @@ ax2.grid()
 # (but the ODE model of $\omega$ is correct):
 wrong_p_0 = -0.3
 simulator = Oscillator()
-simulator.rhs_discipline.default_input_data["position"] = array([wrong_p_0])
+simulator.rhs_discipline.default_input_data["position"] = wrong_p_0
 # %%
 # ### The methodology
 # For that,
@@ -516,7 +511,7 @@ calibration.execute(
 # %%
 # ### The results
 # Finally, we plot the results:
-p_0_opt = calibration.optimization_result.x_opt_as_dict["initial_position"]
+p_0_opt = calibration.optimization_result.x_opt_as_dict["initial_position"][0]
 times = linspace(t_0, t_n, num=n_nodes)
 simulator_signal = simulator.generate(
     times, {"omega": omega_0, "position": wrong_p_0, "velocity": v_0}
