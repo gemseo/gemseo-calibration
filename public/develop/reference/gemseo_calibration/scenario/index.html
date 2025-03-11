@@ -2122,6 +2122,7 @@
 
 
 
+
   <div class="doc doc-children">
 
 
@@ -2144,8 +2145,8 @@
     <span class="n">disciplines</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.core.discipline.discipline.Discipline" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.discipline.discipline.html#gemseo.core.discipline.discipline.Discipline">Discipline</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" title="gemseo.core.discipline.discipline.Discipline" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.discipline.discipline.html#gemseo.core.discipline.discipline.Discipline">Discipline</a></span><span class="p">],</span>
     <span class="n">input_names</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">],</span>
     <span class="n">metric_settings_models</span><span class="p">:</span> <span class="p">(</span>
-        <span class="n"><a class="autorefs autorefs-internal" title="gemseo_calibration.metrics.settings.CalibrationMetricSettings" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a></span>
-        <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Sequence" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence">Sequence</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="gemseo_calibration.metrics.settings.CalibrationMetricSettings" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a></span><span class="p">]</span>
+        <span class="n"><a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a></span>
+        <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Sequence" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence">Sequence</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a></span><span class="p">]</span>
     <span class="p">),</span>
     <span class="n">calibration_space</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.algos.design_space.DesignSpace" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.algos.design_space.html#gemseo.algos.design_space.DesignSpace">DesignSpace</a></span><span class="p">,</span>
     <span class="n">name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
@@ -2168,7 +2169,7 @@ this multidisciplinary system computes output data from input data.</p>
 so that the model output data are close to the reference output data
 for some outputs of interest.
 This distance is evaluated with a
-<a class="autorefs autorefs-internal" href="../metrics/base_calibration_metric/#gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric">BaseCalibrationMetric</a>
+<a class="autorefs autorefs-internal" title="            BaseCalibrationMetric" href="../metrics/base_calibration_metric/#gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric">BaseCalibrationMetric</a>
 to compare the discipline outputs with the reference data.</p>
 
 
@@ -2204,7 +2205,7 @@ whose parameters must be calibrated from the reference data.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>metric_settings_models</code></b>
-              (<code><a class="autorefs autorefs-internal" title="gemseo_calibration.metrics.settings.CalibrationMetricSettings" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a> | <a class="autorefs autorefs-external" title="collections.abc.Sequence" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence">Sequence</a>[<a class="autorefs autorefs-internal" title="gemseo_calibration.metrics.settings.CalibrationMetricSettings" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a>]</code>)
+              (<code><a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a> | <a class="autorefs autorefs-external" title="collections.abc.Sequence" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence">Sequence</a>[<a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a>]</code>)
           –
           <div class="doc-md-description">
             <p>A collection of calibration settings,
@@ -2220,7 +2221,7 @@ or
 <code>CalibrationMetricSettings(output_name="z", metric_name="MSE", mesh_name="z_mesh")</code>
 Lastly, <code>CalibrationMetricSettings</code> can be imported
 from
-<a class="autorefs autorefs-internal" href="../metrics/settings/#gemseo_calibration.metrics.settings">gemseo_calibration.metrics.settings</a>.</p>
+<a class="autorefs autorefs-internal" title="            settings" href="../metrics/settings/#gemseo_calibration.metrics.settings">gemseo_calibration.metrics.settings</a>.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -2269,6 +2270,7 @@ the calibrator uses the default MDF formulation.</p>
           </div>
         </li>
     </ul>
+
 
 
 
@@ -2430,12 +2432,13 @@ the calibrator uses the default MDF formulation.</p>
   </span>
 
 <a href="#gemseo_calibration.scenario.CalibrationScenario.calibrator" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">calibrator</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="gemseo_calibration.calibrator.Calibrator" href="../calibrator/#gemseo_calibration.calibrator.Calibrator">Calibrator</a></span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">calibrator</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            Calibrator (gemseo_calibration.calibrator.Calibrator)" href="../calibrator/#gemseo_calibration.calibrator.Calibrator">Calibrator</a></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
 
         <p>The discipline computing calibration metrics from the parameter values.</p>
+
     </div>
 
 </div>
@@ -2459,6 +2462,7 @@ the calibrator uses the default MDF formulation.</p>
     <div class="doc doc-contents ">
 
         <p>The model data after the calibration.</p>
+
     </div>
 
 </div>
@@ -2476,12 +2480,18 @@ the calibrator uses the default MDF formulation.</p>
   </span>
 
 <a href="#gemseo_calibration.scenario.CalibrationScenario.posterior_parameters" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">posterior_parameters</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="gemseo_calibration.metrics.base_calibration_metric.DataType" href="../metrics/base_calibration_metric/#gemseo_calibration.metrics.base_calibration_metric.DataType">DataType</a></span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">posterior_parameters</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            DataType
+
+
+  
+      module-attribute
+   (gemseo_calibration.metrics.base_calibration_metric.DataType)" href="../metrics/base_calibration_metric/#gemseo_calibration.metrics.base_calibration_metric.DataType">DataType</a></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
 
         <p>The values of the parameters after the calibration stage.</p>
+
     </div>
 
 </div>
@@ -2505,6 +2515,7 @@ the calibrator uses the default MDF formulation.</p>
     <div class="doc doc-contents ">
 
         <p>The model data before the calibration.</p>
+
     </div>
 
 </div>
@@ -2522,12 +2533,18 @@ the calibrator uses the default MDF formulation.</p>
   </span>
 
 <a href="#gemseo_calibration.scenario.CalibrationScenario.prior_parameters" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">prior_parameters</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="gemseo_calibration.metrics.base_calibration_metric.DataType" href="../metrics/base_calibration_metric/#gemseo_calibration.metrics.base_calibration_metric.DataType">DataType</a></span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">prior_parameters</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            DataType
+
+
+  
+      module-attribute
+   (gemseo_calibration.metrics.base_calibration_metric.DataType)" href="../metrics/base_calibration_metric/#gemseo_calibration.metrics.base_calibration_metric.DataType">DataType</a></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
 
         <p>The values of the parameters before the calibration stage.</p>
+
     </div>
 
 </div>
@@ -2551,6 +2568,7 @@ the calibrator uses the default MDF formulation.</p>
     <div class="doc doc-contents ">
 
         <p>The reference data, if defined.</p>
+
     </div>
 
 </div>
@@ -2567,8 +2585,8 @@ the calibrator uses the default MDF formulation.</p>
 <a href="#gemseo_calibration.scenario.CalibrationScenario.add_constraint" class="headerlink" title="Permanent link">&para;</a></h6>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">add_constraint</span><span class="p">(</span>
     <span class="n">metric_settings_models</span><span class="p">:</span> <span class="p">(</span>
-        <span class="n"><a class="autorefs autorefs-internal" title="gemseo_calibration.metrics.settings.CalibrationMetricSettings" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a></span>
-        <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="gemseo_calibration.metrics.settings.CalibrationMetricSettings" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a></span><span class="p">]</span>
+        <span class="n"><a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a></span>
+        <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a></span><span class="p">]</span>
     <span class="p">),</span>
     <span class="n">constraint_type</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.mdo_functions.mdo_function.html#gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType">ConstraintType</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType.EQ" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.mdo_functions.mdo_function.html#gemseo.core.mdo_functions.mdo_function.MDOFunction.ConstraintType.EQ">EQ</a></span><span class="p">,</span>
     <span class="n">constraint_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
@@ -2586,7 +2604,7 @@ the calibrator uses the default MDF formulation.</p>
     <ul>
         <li class="doc-section-item field-body">
             <b><code>metric_settings_models</code></b>
-              (<code><a class="autorefs autorefs-internal" title="gemseo_calibration.metrics.settings.CalibrationMetricSettings" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a> | <a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a>[<a class="autorefs autorefs-internal" title="gemseo_calibration.metrics.settings.CalibrationMetricSettings" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a>]</code>)
+              (<code><a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a> | <a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a>[<a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a>]</code>)
           –
           <div class="doc-md-description">
             <p>A collection of calibration settings,
@@ -2602,7 +2620,7 @@ or
 <code>CalibrationMetricSettings(output_name="z", metric_name="MSE", mesh_name="z_mesh")</code>
 Lastly, <code>CalibrationMetricSettings</code> can be imported
 from
-<a class="autorefs autorefs-internal" href="../metrics/settings/#gemseo_calibration.metrics.settings">gemseo_calibration.metrics.settings</a>.</p>
+<a class="autorefs autorefs-internal" title="            settings" href="../metrics/settings/#gemseo_calibration.metrics.settings">gemseo_calibration.metrics.settings</a>.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -2662,6 +2680,7 @@ the name of the constraint is generated from the output name.</p>
           </div>
         </li>
     </ul>
+
 
             <details class="quote">
               <summary>Source code in <code>src/gemseo_calibration/scenario.py</code></summary>
@@ -2812,6 +2831,7 @@ These arguments are ignored when <code>settings_model</code> is not <code>None</
         </li>
     </ul>
 
+
             <details class="quote">
               <summary>Source code in <code>src/gemseo_calibration/scenario.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">232</span>
@@ -2903,6 +2923,7 @@ These arguments are ignored when <code>settings_model</code> is not <code>None</
           </div>
         </li>
     </ul>
+
 
             <details class="quote">
               <summary>Source code in <code>src/gemseo_calibration/scenario.py</code></summary>

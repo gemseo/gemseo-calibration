@@ -2105,56 +2105,61 @@ and this project adheres to
 <h2 id="develop">Develop<a class="headerlink" href="#develop" title="Permanent link">&para;</a></h2>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
 <ul>
-<li>The <a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/signal/#gemseo_calibration.signal">signal</a> package
+<li>The <a class="autorefs autorefs-internal" title="            signal" href="../reference/gemseo_calibration/signal/#gemseo_calibration.signal">signal</a> package
   proposes new features to facilitate the calibration of a signal generator,
   such as an <a class="autorefs autorefs-external" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.disciplines.ode.html#module-gemseo.disciplines.ode">ODEDiscipline</a>.</li>
-<li>The package <a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/problems/signal/#gemseo_calibration.problems.signal">problems.signal</a>
-  proposes problems to illustrate the features of the <a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/signal/#gemseo_calibration.signal">signal</a> package.</li>
-<li><a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/calibrator/#gemseo_calibration.calibrator.Calibrator">Calibrator</a>
+<li>The package <a class="autorefs autorefs-internal" title="            signal" href="../reference/gemseo_calibration/problems/signal/#gemseo_calibration.problems.signal">problems.signal</a>
+  proposes problems to illustrate the features of the <a class="autorefs autorefs-internal" title="            signal" href="../reference/gemseo_calibration/signal/#gemseo_calibration.signal">signal</a> package.</li>
+<li><a class="autorefs autorefs-internal" title="            Calibrator" href="../reference/gemseo_calibration/calibrator/#gemseo_calibration.calibrator.Calibrator">Calibrator</a>
   has a <code>formulation_settings_model</code> argument and keyword arguments <code>**formulation_settings</code>
   (use either one or the other).</li>
-<li><a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/scenario/#gemseo_calibration.scenario.CalibrationScenario">CalibrationScenario</a>
+<li><a class="autorefs autorefs-internal" title="            CalibrationScenario" href="../reference/gemseo_calibration/scenario/#gemseo_calibration.scenario.CalibrationScenario">CalibrationScenario</a>
   has a <code>formulation_settings_model</code> argument and keyword arguments <code>**formulation_settings</code>
   (use either one or the other).</li>
 </ul>
 <h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/post/data_versus_model/post/#gemseo_calibration.post.data_versus_model.post.DataVersusModel">DataVersusModel</a>
+<li><a class="autorefs autorefs-internal" title="            DataVersusModel" href="../reference/gemseo_calibration/post/data_versus_model/post/#gemseo_calibration.post.data_versus_model.post.DataVersusModel">DataVersusModel</a>
   displays data on a grid.</li>
-<li><a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/post/multiple_scatter/#gemseo_calibration.post.multiple_scatter.MultipleScatter">MultipleScatter</a>
+<li><a class="autorefs autorefs-internal" title="            MultipleScatter" href="../reference/gemseo_calibration/post/multiple_scatter/#gemseo_calibration.post.multiple_scatter.MultipleScatter">MultipleScatter</a>
   displays data on a grid.</li>
 <li>API CHANGES:<ul>
-<li><code>BaseCalibrationMetric.mesh</code> renamed to <a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings.mesh_name</a>.</li>
+<li><code>BaseCalibrationMetric.mesh</code> renamed to <a class="autorefs autorefs-internal" title="            CalibrationMetricSettings" href="../reference/gemseo_calibration/metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings.mesh_name</a>.</li>
 <li>use the expression <em>calibration metric</em> rather the <em>calibration measure</em>,
   to be consistent with <a class="autorefs autorefs-external" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.utils.metrics.html#module-gemseo.utils.metrics">gemseo.utils.metrics</a>.</li>
-<li>rename <code>measures</code> package to <a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/metrics/#gemseo_calibration.metrics">metrics</a>.</li>
-<li>rename <code>gemseo_calibration.measure.CalibrationMeasure</code> to <a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/metrics/base_calibration_metric/#gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric">gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric</a>.</li>
+<li>rename <code>measures</code> package to <a class="autorefs autorefs-internal" title="            metrics" href="../reference/gemseo_calibration/metrics/#gemseo_calibration.metrics">metrics</a>.</li>
+<li>rename <code>gemseo_calibration.measure.CalibrationMeasure</code> to <a class="autorefs autorefs-internal" title="            BaseCalibrationMetric" href="../reference/gemseo_calibration/metrics/base_calibration_metric/#gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric">gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric</a>.</li>
 <li><code>gemseo_calibration.calibrator.CalibrationMeasure</code>:<ul>
-<li>rename it to <a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">gemseo_calibration.metrics.settings.CalibrationMetricSettings</a>.</li>
-<li><a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a> is a Pydantic model and so the arguments must be set as keyword arguments.</li>
-<li>move it to <a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/metrics/settings/#gemseo_calibration.metrics.settings">gemseo_calibration.metrics.settings</a>.</li>
+<li>rename it to <a class="autorefs autorefs-internal" title="            CalibrationMetricSettings" href="../reference/gemseo_calibration/metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">gemseo_calibration.metrics.settings.CalibrationMetricSettings</a>.</li>
+<li><a class="autorefs autorefs-internal" title="            CalibrationMetricSettings" href="../reference/gemseo_calibration/metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a> is a Pydantic model and so the arguments must be set as keyword arguments.</li>
+<li>move it to <a class="autorefs autorefs-internal" title="            settings" href="../reference/gemseo_calibration/metrics/settings/#gemseo_calibration.metrics.settings">gemseo_calibration.metrics.settings</a>.</li>
 <li>rename its field <code>measure</code> to <code>metric</code>.</li>
 <li>rename its field <code>mesh</code> to <code>mesh_name</code>.</li>
 <li>rename its field <code>output</code> to <code>output_name</code>.</li>
 </ul>
 </li>
-<li>rename <code>IntegratedMeasure</code> to <a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/metrics/base_integrated_metric/#gemseo_calibration.metrics.base_integrated_metric.BaseIntegratedMetric">BaseIntegratedMetric</a>.</li>
-<li>rename <code>MeanMeasure</code> to <a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/metrics/base_mean_metric/#gemseo_calibration.metrics.base_mean_metric.BaseMeanMetric">BaseMeanMetric</a>.</li>
-<li><a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/calibrator/#gemseo_calibration.calibrator.Calibrator">Calibrator</a>:<ul>
-<li>rename its <code>maximize_objective_measure</code> attribute to <a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/calibrator/#gemseo_calibration.calibrator.Calibrator.maximize_objective_metric">maximize_objective_metric</a>.</li>
-<li>rename its <code>add_measure</code> method to <a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/calibrator/#gemseo_calibration.calibrator.Calibrator.add_metric">add_metric</a>.</li>
+<li>rename <code>IntegratedMeasure</code> to <a class="autorefs autorefs-internal" title="            BaseIntegratedMetric" href="../reference/gemseo_calibration/metrics/base_integrated_metric/#gemseo_calibration.metrics.base_integrated_metric.BaseIntegratedMetric">BaseIntegratedMetric</a>.</li>
+<li>rename <code>MeanMeasure</code> to <a class="autorefs autorefs-internal" title="            BaseMeanMetric" href="../reference/gemseo_calibration/metrics/base_mean_metric/#gemseo_calibration.metrics.base_mean_metric.BaseMeanMetric">BaseMeanMetric</a>.</li>
+<li><a class="autorefs autorefs-internal" title="            Calibrator" href="../reference/gemseo_calibration/calibrator/#gemseo_calibration.calibrator.Calibrator">Calibrator</a>:<ul>
+<li>rename its <code>maximize_objective_measure</code> attribute to <a class="autorefs autorefs-internal" title="            maximize_objective_metric
+
+
+  
+      property
+  " href="../reference/gemseo_calibration/calibrator/#gemseo_calibration.calibrator.Calibrator.maximize_objective_metric">maximize_objective_metric</a>.</li>
+<li>rename its <code>add_measure</code> method to <a class="autorefs autorefs-internal" title="            add_metric" href="../reference/gemseo_calibration/calibrator/#gemseo_calibration.calibrator.Calibrator.add_metric">add_metric</a>.</li>
 <li>rename its <code>formulation</code> argument to <code>formulation_name</code></li>
 <li>rename its <code>control_outputs</code> argument to <code>metric_settings_models</code>.</li>
 </ul>
 </li>
 <li><code>CalibrationMeasureFactory</code>:<ul>
-<li>rename it to <a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/metrics/factory/#gemseo_calibration.metrics.factory.CalibrationMetricFactory">CalibrationMetricFactory</a>.</li>
+<li>rename it to <a class="autorefs autorefs-internal" title="            CalibrationMetricFactory" href="../reference/gemseo_calibration/metrics/factory/#gemseo_calibration.metrics.factory.CalibrationMetricFactory">CalibrationMetricFactory</a>.</li>
 <li>remove its <code>measures</code> property; use <code>class_names</code> instead.</li>
-<li>rename its method <code>is_integrated_measure</code> to <a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/metrics/factory/#gemseo_calibration.metrics.factory.CalibrationMetricFactory.is_integrated_metric">is_integrated_metric</a>.</li>
+<li>rename its method <code>is_integrated_measure</code> to <a class="autorefs autorefs-internal" title="            is_integrated_metric" href="../reference/gemseo_calibration/metrics/factory/#gemseo_calibration.metrics.factory.CalibrationMetricFactory.is_integrated_metric">is_integrated_metric</a>.</li>
 </ul>
 </li>
-<li>remove the <code>formulation</code> argument of <a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/scenario/#gemseo_calibration.scenario.CalibrationScenario">CalibrationScenario</a>; use <code>formulation_name</code> instead.</li>
-<li>rename the <code>control_outputs</code> argument of <a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/scenario/#gemseo_calibration.scenario.CalibrationScenario">CalibrationScenario</a> to <code>metric_settings_models</code>.</li>
+<li>remove the <code>formulation</code> argument of <a class="autorefs autorefs-internal" title="            CalibrationScenario" href="../reference/gemseo_calibration/scenario/#gemseo_calibration.scenario.CalibrationScenario">CalibrationScenario</a>; use <code>formulation_name</code> instead.</li>
+<li>rename the <code>control_outputs</code> argument of <a class="autorefs autorefs-internal" title="            CalibrationScenario" href="../reference/gemseo_calibration/scenario/#gemseo_calibration.scenario.CalibrationScenario">CalibrationScenario</a> to <code>metric_settings_models</code>.</li>
 </ul>
 </li>
 </ul>
@@ -2187,7 +2192,7 @@ and this project adheres to
 <li>Data are <code>dict[str, ndarray]</code> objects a <code>{variable_name: variable_values}</code> instead of
   <a class="autorefs autorefs-external" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.datasets.dataset.html#gemseo.datasets.dataset.Dataset">Dataset</a>.</li>
 <li>Use <code>""</code> as empty value of <code>str</code> and <code>str | Path</code> arguments, instead of <code>"None"</code>.</li>
-<li><a class="autorefs autorefs-internal" href="../reference/gemseo_calibration/metrics/base_calibration_metric/#gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric">BaseCalibrationMetric</a>:
+<li><a class="autorefs autorefs-internal" title="            BaseCalibrationMetric" href="../reference/gemseo_calibration/metrics/base_calibration_metric/#gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric">BaseCalibrationMetric</a>:
   the type of <code>f_type</code> is <a class="autorefs autorefs-external" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.mdo_functions.mdo_function.html#gemseo.core.mdo_functions.mdo_function.MDOFunction.FunctionType">FunctionType</a>.</li>
 </ul>
 <h2 id="version-100-july-2022">Version 1.0.0 (July 2022)<a class="headerlink" href="#version-100-july-2022" title="Permanent link">&para;</a></h2>
