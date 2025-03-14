@@ -40,7 +40,7 @@ fieldz==0.1.0
     # via griffe-fieldz
 fonttools==4.56.0
     # via matplotlib
-gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@b6231c4e260c6c4622fb8af99a2b4eb1bd18a69b
+gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@9c3fb7010f2854337ae0a7f78987fd24a4bb8de9
     # via
     #   -c requirements/test-constraints.in
     #   gemseo-calibration (pyproject.toml)
@@ -141,7 +141,7 @@ mkdocs-include-markdown-plugin==7.1.5
     # via gemseo-calibration (pyproject.toml)
 mkdocs-literate-nav==0.6.1
     # via gemseo-calibration (pyproject.toml)
-mkdocs-material==9.6.7
+mkdocs-material==9.6.8
     # via
     #   gemseo-calibration (pyproject.toml)
     #   mkdocs-gallery
@@ -284,7 +284,7 @@ sympy==1.13.3
     # via gemseo
 tenacity==9.0.0
     # via plotly
-threadpoolctl==3.5.0
+threadpoolctl==3.6.0
     # via scikit-learn
 tomli==2.2.1
     # via black
