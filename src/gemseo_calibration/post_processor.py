@@ -25,6 +25,7 @@ from gemseo.post.base_post_settings import BasePostSettings
 
 if TYPE_CHECKING:
     from gemseo.algos.optimization_problem import OptimizationProblem
+    from gemseo.datasets.optimization_dataset import OptimizationDataset
 
     from gemseo_calibration.metrics.base_calibration_metric import DataType
 
@@ -36,14 +37,13 @@ class CalibrationPostProcessor(BasePost, Generic[T]):
 
     def __init__(
         self,
-        opt_problem: OptimizationProblem,
+        opt_problem: OptimizationProblem | OptimizationDataset,
         reference_data: DataType,
         prior_model_data: DataType,
         posterior_model_data: DataType,
     ) -> None:
         """
         Args:
-            opt_problem: The optimization problem to run.
             reference_data: The reference data.
             prior_model_data: The model data before the calibration.
             posterior_model_data: The model data after the calibration.

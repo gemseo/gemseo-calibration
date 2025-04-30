@@ -19,6 +19,7 @@ from __future__ import annotations
 from gemseo.post.base_post import BasePost
 from gemseo.post.base_post_settings import BasePostSettings
 from gemseo.problems.optimization.rosenbrock import Rosenbrock
+from numpy import zeros
 
 from gemseo_calibration.post_processor import CalibrationPostProcessor
 
@@ -38,6 +39,8 @@ class NewCalibrationPostProcessor(
 def test_post():
     """Test that the base class CalibrationPostProcessor is correctly initialized."""
     opt_problem = Rosenbrock()
+    opt_problem.preprocess_functions()
+    opt_problem.evaluate_functions(zeros(2))
     post = NewCalibrationPostProcessor(opt_problem, 1, 2, 3)
     assert post.optimization_problem == opt_problem
     assert isinstance(post, BasePost)
