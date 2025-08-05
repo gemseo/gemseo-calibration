@@ -21,6 +21,7 @@ from numpy import array
 from numpy import nan
 from numpy import ndarray
 from numpy import ones
+from numpy.testing import assert_array_equal
 
 from gemseo_calibration.metrics.iae import IAE
 from gemseo_calibration.metrics.mae import MAE
@@ -88,3 +89,4 @@ def test_mean_error_with_interpolation_over_reference_mesh(
     metric = IAE("y", "m")
     metric.set_reference_data(reference_data)
     assert metric.func(model_data) == expected_metric
+    assert_array_equal(metric.reference_mesh, reference_data["m"])
