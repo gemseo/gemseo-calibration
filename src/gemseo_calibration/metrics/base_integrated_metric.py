@@ -16,12 +16,19 @@
 
 from __future__ import annotations
 
-from numpy import interp
+from typing import TYPE_CHECKING
+
+from numpy import all as np_all
+from numpy import diff
 from numpy import mean
-from numpy import trapz as integrate
+from numpy import trapezoid as integrate
+from scipy.interpolate import interp1d
 
 from gemseo_calibration.metrics.base_calibration_metric import BaseCalibrationMetric
 from gemseo_calibration.metrics.base_calibration_metric import DataType
+
+if TYPE_CHECKING:
+    from gemseo.typing import RealArray
 
 
 class BaseIntegratedMetric(BaseCalibrationMetric):
@@ -49,18 +56,48 @@ class BaseIntegratedMetric(BaseCalibrationMetric):
         return f"{self.__class__.__name__}({self.output_name};{self.mesh_name})"
 
     def _evaluate_metric(self, model_dataset: DataType) -> float:  # noqa: D102
+        """Evaluate the metric by comparing reference data interpolated on model data.
+
+        The interpolation accepts reference abscissa or model abscissa having
+        monotonically increasing or decreasing values. Extrapolation is forbidden.
+        """
         model_data = model_dataset[self.output_name]
         model_mesh = model_dataset[self.mesh_name]
-        return mean([
-            integrate(  # noqa: NPY201
-                self._compare_data(
-                    self._reference_data[i],
-                    interp(self.__reference_mesh[i], model_mesh[i], model_data[i]),
-                ),
-                self.__reference_mesh[i],
+        compared_data = []
+        for x_ref, y_ref, x_model, y_model in zip(
+            self.__reference_mesh, self._reference_data, model_mesh, model_data
+        ):
+            if np_all(diff(x_ref) < 0):
+                x_ref = x_ref[::-1]
+                y_ref = y_ref[::-1]
+            if np_all(diff(x_model) < 0):
+                x_model = x_model[::-1]
+                y_model = y_model[::-1]
+
+            interpolator = interp1d(
+                x_model,
+                y_model,
+                assume_sorted=True,
+                bounds_error=True,
             )
-            for i in range(len(model_data))
+            compared_data.append(
+                self._compare_data(
+                    y_ref,
+                    interpolator(x_ref),
+                )
+            )
+        return mean([
+            integrate(
+                data,
+                x_ref,
+            )
+            for data in compared_data
         ])
+
+    @property
+    def reference_mesh(self) -> RealArray:
+        """The reference mesh."""
+        return self.__reference_mesh
 
     @property
     def full_output_name(self) -> str:  # noqa: D102
