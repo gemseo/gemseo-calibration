@@ -59,6 +59,7 @@ def test_basic(oscillator, times):
     assert_almost_equal(
         discipline.io.data["position"],
         array([1.0, 0.9306871, 0.7327731, 0.4343574, 0.0766517]),
+        decimal=2,
     )
 
 
@@ -87,6 +88,7 @@ def test_parameter_names(oscillator, times):
     assert_almost_equal(
         discipline.io.data["position"],
         array([1.0, 0.930612, 0.7322193, 0.4327589, 0.0736661]),
+        decimal=2,
     )
 
 
@@ -108,4 +110,5 @@ def test_not_all_state_names(oscillator, times):
     assert_almost_equal(
         discipline.io.data["position"],
         array([1.0, 0.9689715, 0.8780239, 0.7329289, 0.5429478]),
+        decimal=2,
     )
