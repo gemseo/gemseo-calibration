@@ -113,13 +113,15 @@ class Calibrator(MDOScenarioAdapter):
             formulation_settings_model=formulation_settings_model,
             **formulation_settings,
         )
-        if mesh_name := metric_settings_models[0].mesh_name:
-            doe_scenario.add_observable(mesh_name)
-
-        for metric_settings_model in metric_settings_models[1:]:
-            doe_scenario.add_observable(metric_settings_model.output_name)
-            if mesh_name := metric_settings_model.mesh_name:
-                doe_scenario.add_observable(mesh_name)
+        function_names = [metric_settings_models[0].output_name]
+        for metric_settings_model in metric_settings_models:
+            for name in (
+                metric_settings_model.output_name,
+                metric_settings_model.mesh_name,
+            ):
+                if name and name not in function_names:
+                    doe_scenario.add_observable(name)
+                    function_names.append(name)
 
         doe_scenario.set_algorithm(algo_name=CustomDOE.__name__)
 
@@ -292,10 +294,19 @@ class Calibrator(MDOScenarioAdapter):
             The name of the calibration metric applied to the outputs.
         """  # noqa: E501
         metric_settings_models = self.__to_metric_settings(metric_settings_models)
+        function_names = [
+            function_.name
+            for function_ in self.scenario.formulation.optimization_problem.functions
+            if function_ is not None
+        ]
         for metric_settings_model in metric_settings_models:
-            self.scenario.add_observable(metric_settings_model.output_name)
-            if mesh_name := metric_settings_model.mesh_name:
-                self.scenario.add_observable(mesh_name)
+            for name in (
+                metric_settings_model.output_name,
+                metric_settings_model.mesh_name,
+            ):
+                if name and name not in function_names:
+                    self.scenario.add_observable(name)
+                    function_names.append(name)
 
         return_values = self._add_metric(metric_settings_models)
         self.__update_output_grammar()
