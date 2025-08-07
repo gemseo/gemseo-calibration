@@ -1830,6 +1830,10 @@ without the mathematical relationship behind it:</p>
 <span class="n">reference</span> <span class="o">=</span> <span class="n">MDOChain</span><span class="p">([</span><span class="n">original_model</span><span class="p">,</span> <span class="n">AnalyticDiscipline</span><span class="p">({</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="s2">&quot;y+u&quot;</span><span class="p">},</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;noise&quot;</span><span class="p">)])</span>
 <span class="n">reference</span><span class="o">.</span><span class="n">set_cache</span><span class="p">(</span><span class="n">reference</span><span class="o">.</span><span class="n">CacheType</span><span class="o">.</span><span class="n">MEMORY_FULL</span><span class="p">)</span>
 </code></pre></div>
+<p class="mkd-glr-script-out">Out:</p>
+<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>/usr/lib64/python3.12/multiprocessing/popen_fork.py:66:<span class="w"> </span>DeprecationWarning:<span class="w"> </span>This<span class="w"> </span>process<span class="w"> </span><span class="o">(</span><span class="nv">pid</span><span class="o">=</span><span class="m">303</span><span class="o">)</span><span class="w"> </span>is<span class="w"> </span>multi-threaded,<span class="w"> </span>use<span class="w"> </span>of<span class="w"> </span>fork<span class="o">()</span><span class="w"> </span>may<span class="w"> </span>lead<span class="w"> </span>to<span class="w"> </span>deadlocks<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>child.
+<span class="w">  </span>self.pid<span class="w"> </span><span class="o">=</span><span class="w"> </span>os.fork<span class="o">()</span>
+</code></pre></div>
 <!-- GENERATED FROM PYTHON SOURCE LINES 52-55 -->
 
 <p>This reference model contains a random additive term <span class="arithmatex">\(u\)</span>
@@ -1949,7 +1953,7 @@ we can see that the calibrated parameters are different from the expected ones</
 </ul>
 
 <p class="mkd-glr-script-out">Out:</p>
-<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>&lt;gemseo.post.opt_history_view.OptHistoryView<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>0x7cb9147aabb0&gt;
+<div class="mkd-glr-script-out-disp highlight"><pre><span></span><code>&lt;gemseo.post.opt_history_view.OptHistoryView<span class="w"> </span>object<span class="w"> </span>at<span class="w"> </span>0x7ecefab65a00&gt;
 </code></pre></div>
 <!-- GENERATED FROM PYTHON SOURCE LINES 140-142 -->
 
@@ -1986,7 +1990,7 @@ the calibrated model is close the expected one:</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 <p><img alt="plot noise" class="mkd-glr-single-img" src="../images/mkd_glr_plot_noise_004.png" srcset="../images/mkd_glr_plot_noise_004.png" /></p>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  2.594 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  2.115 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../plot_noise.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M256 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v210.7l-41.4-41.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 242.7zM64 320c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64h-46.9l-56.6 56.6c-31.2 31.2-81.9 31.2-113.1 0L110.9 320zm304 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48"/></svg></span> Download Python source code: plot_noise.py</a></p>
