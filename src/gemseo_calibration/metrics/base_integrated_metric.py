@@ -21,7 +21,14 @@ from typing import TYPE_CHECKING
 from numpy import all as np_all
 from numpy import diff
 from numpy import mean
-from numpy import trapezoid as integrate
+
+try:
+    # Numpy >= 2
+    from numpy import trapezoid
+except ImportError:  # pragma: no cover
+    # Numpy < 2
+    from numpy import trapz as trapezoid
+
 from scipy.interpolate import interp1d
 
 from gemseo_calibration.metrics.base_calibration_metric import BaseCalibrationMetric
@@ -87,7 +94,7 @@ class BaseIntegratedMetric(BaseCalibrationMetric):
                 )
             )
         return mean([
-            integrate(
+            trapezoid(
                 data,
                 x_ref,
             )
