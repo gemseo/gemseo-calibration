@@ -2178,20 +2178,20 @@
 
                   <details class="quote">
                     <summary>Source code in <code>src/gemseo_calibration/metrics/base_integrated_metric.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">47</span>
 <span class="normal">48</span>
 <span class="normal">49</span>
 <span class="normal">50</span>
 <span class="normal">51</span>
 <span class="normal">52</span>
-<span class="normal">53</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">output_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">mesh_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -2381,9 +2381,9 @@
 
             <details class="quote">
               <summary>Source code in <code>src/gemseo_calibration/metrics/base_integrated_metric.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">106</span>
-<span class="normal">107</span>
-<span class="normal">108</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">set_reference_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference_dataset</span><span class="p">:</span> <span class="n">DataType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: D102</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">set_reference_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference_dataset</span><span class="p">:</span> <span class="n">DataType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: D102</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">__reference_mesh</span> <span class="o">=</span> <span class="n">reference_dataset</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mesh_name</span><span class="p">]</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">set_reference_data</span><span class="p">(</span><span class="n">reference_dataset</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
