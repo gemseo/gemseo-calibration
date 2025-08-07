@@ -20,11 +20,12 @@ from typing import TYPE_CHECKING
 
 import pytest
 from gemseo.algos.design_space import DesignSpace
+from gemseo.disciplines.auto_py import AutoPyDiscipline
 from gemseo.post.opt_history_view import OptHistoryView
 from numpy import array
 
-from gemseo_calibration.calibrator import CalibrationMeasure
 from gemseo_calibration.calibrator import Calibrator
+from gemseo_calibration.metrics.settings import CalibrationMetricSettings
 from gemseo_calibration.post.data_versus_model.post import DataVersusModel
 from gemseo_calibration.scenario import CalibrationScenario
 
@@ -43,7 +44,7 @@ def calibration_space() -> DesignSpace:
 
 @pytest.fixture
 def calibration_scenario(
-    measure_factory,
+    metric_factory,
     discipline: Discipline,
     calibration_space: DesignSpace,
 ) -> CalibrationScenario:
@@ -51,14 +52,14 @@ def calibration_scenario(
     scenario = CalibrationScenario(
         discipline,
         "x",
-        CalibrationMeasure("y", "MeasureObj"),
+        CalibrationMetricSettings(output_name="y", metric_name="MetricObj"),
         calibration_space,
         name="calib",
     )
     scenario.add_constraint(
         [
-            CalibrationMeasure("y", "MeasureCstr"),
-            CalibrationMeasure("z", "MeasureCstr"),
+            CalibrationMetricSettings(output_name="y", metric_name="MetricCstr"),
+            CalibrationMetricSettings(output_name="z", metric_name="MetricCstr"),
         ],
         "ineq",
         value=0.05,
@@ -85,7 +86,7 @@ def test_init(calibration_scenario):
 @pytest.mark.parametrize("list_of_outputs", [False, True])
 @pytest.mark.parametrize("list_of_constraints", [False, True])
 def test_init_list(
-    measure_factory,
+    metric_factory,
     discipline,
     calibration_space,
     list_of_disciplines,
@@ -96,9 +97,9 @@ def test_init_list(
     """Check the instantiation of a scenario with or without lists of variables."""
     disciplines = [discipline] if list_of_disciplines else discipline
     inputs = ["x"] if list_of_inputs else "x"
-    output = CalibrationMeasure("y", "MeasureObj")
+    output = CalibrationMetricSettings(output_name="y", metric_name="MetricObj")
     outputs = [output] if list_of_outputs else output
-    constraint = CalibrationMeasure("z", "MeasureCstr")
+    constraint = CalibrationMetricSettings(output_name="z", metric_name="MetricCstr")
     constraints = [constraint] if list_of_constraints else constraint
     scenario = CalibrationScenario(disciplines, inputs, outputs, calibration_space)
     scenario.add_constraint(constraints)
@@ -108,10 +109,10 @@ def test_init_list(
 
 def test_calibration_adapter(calibration_scenario):
     """Check the calibrator after initialization + add of the constraint."""
-    names_to_measures = calibration_scenario.calibrator._Calibrator__names_to_measures
-    assert sorted(names_to_measures.keys()) == [
-        "0.5*MeasureCstr[y]+0.5*MeasureCstr[z]",
-        "MeasureObj[y]",
+    names_to_metrics = calibration_scenario.calibrator._Calibrator__names_to_metrics
+    assert sorted(names_to_metrics.keys()) == [
+        "0.5*MetricCstr[y]+0.5*MetricCstr[z]",
+        "MetricObj[y]",
     ]
 
 
@@ -122,7 +123,7 @@ def test_constraint(calibration_scenario):
     """
     constraints = calibration_scenario.formulation.optimization_problem.constraints
     assert len(constraints) == 1
-    assert str(constraints[0]) == "0.5*MeasureCstr[y]+0.5*MeasureCstr[z](a, b) <= 0.05"
+    assert str(constraints[0]) == "0.5*MetricCstr[y]+0.5*MetricCstr[z](a, b) <= 0.05"
 
 
 def test_execute(calibration_scenario, reference_data):
@@ -161,3 +162,32 @@ def test_post_process(calibration_scenario, reference_data):
         post_name="DataVersusModel", output="y", save=False, show=False
     )
     assert isinstance(post, DataVersusModel)
+
+
+def f(x: float, p: float) -> float:
+    y = x + p
+    return y  # noqa: RET504
+
+
+def test_float_calibration_parameter():
+    """Check that CalibrationScenario supports disciplines with float arguments."""
+    discipline = AutoPyDiscipline(f)
+
+    calibration_space = DesignSpace()
+    calibration_space.add_variable("p", lower_bound=-1.0, upper_bound=1.0, value=-1.0)
+
+    reference_data = {
+        "x": array([[0.5], [1.0]]),
+        "y": array([[1.0], [1.5]]),
+    }
+
+    scenario = CalibrationScenario(
+        discipline,
+        "x",
+        CalibrationMetricSettings(output_name="y", metric_name="MSE"),
+        calibration_space,
+    )
+    scenario.execute(
+        algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=10
+    )
+    assert scenario.optimization_result.x_opt == 0.5

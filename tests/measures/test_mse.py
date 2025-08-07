@@ -12,7 +12,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-"""Test the calibration measures MSE and ISE."""
+"""Test the calibration metrics MSE and ISE."""
 
 from __future__ import annotations
 
@@ -20,12 +20,12 @@ import pytest
 from numpy import array
 from numpy.testing import assert_array_equal
 
-from gemseo_calibration.measures.ise import ISE
-from gemseo_calibration.measures.mse import MSE
+from gemseo_calibration.metrics.ise import ISE
+from gemseo_calibration.metrics.mse import MSE
 
 
-@pytest.mark.parametrize("measure", [MSE, ISE])
-def test_compute_output_error(measure):
+@pytest.mark.parametrize("metric", [MSE, ISE])
+def test_compute_output_error(metric):
     """Test that the static method _compute_output_error returns a squared error."""
-    output_error = measure._compare_data(array([0.0]), array([2.0]))
+    output_error = metric._compare_data(array([0.0]), array([2.0]))
     assert_array_equal(output_error, array([4.0]))

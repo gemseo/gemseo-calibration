@@ -13,12 +13,16 @@
 # FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
 # NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
 # WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-"""# Calibration scenario with noised observations."""
+"""# Noisy observations.
+
+This example illustrates the calibration of a discipline
+with three poorly known parameters and from noisy observations.
+"""
 
 from __future__ import annotations
 
 # %%
-# Let us consider a function $f(x)=ax^2+bx+c$
+# Let us consider a model $f(x)=ax^2+bx+c$
 # from $\mathbb{R}$ to $\mathbb{R}$:
 from gemseo.algos.design_space import DesignSpace
 from gemseo.algos.parameter_space import ParameterSpace
@@ -30,14 +34,14 @@ from matplotlib import pyplot as plt
 from numpy import array
 from numpy import linspace
 
-from gemseo_calibration.scenario import CalibrationMeasure
+from gemseo_calibration.metrics.settings import CalibrationMetricSettings
 from gemseo_calibration.scenario import CalibrationScenario
 
 model = AnalyticDiscipline({"y": "a*x**2+b*x+c"}, name="model")
 
 # %%
 # This is a model of our reference data source,
-# which a kind of oracle providing input-output data
+# which is a kind of oracle providing input-output data
 # without the mathematical relationship behind it:
 original_model = AnalyticDiscipline({"y": "2*x**2-1.5*x+0.75"}, name="model")
 
@@ -47,7 +51,7 @@ reference.set_cache(reference.CacheType.MEMORY_FULL)
 # %%
 # This reference model contains a random additive term $u$
 # normally distributed with mean $\mu$ and standard deviation $\sigma$.
-# This means that the observations of $f:x\mapsto 2*x^2-0.5*x$ are noised.
+# This means that the observations of $f:x\mapsto 2x^2-1.5x+0.75$ are noised.
 
 # %%
 # In this pedagogical example,
@@ -69,7 +73,7 @@ prior.add_variable("c", lower_bound=-5.0, upper_bound=5.0, value=0.0)
 
 # %%
 # Secondly,
-# we have reference output data over the input space $[0.,3.]$.
+# we have reference output data over the input space $[0,3]$.
 input_space = DesignSpace()
 input_space.add_variable("x", lower_bound=0.0, upper_bound=3.0, value=1.5)
 # %%
@@ -84,7 +88,7 @@ noise_space.add_random_variable("u", "OTNormalDistribution", mu=0.0, sigma=0.5)
 # an outer one repeating this sampling for different values of the noise.
 # A classical way of doing this with |g| is to use a
 # [MDOScenarioAdapter][gemseo.disciplines.scenario_adapters.mdo_scenario_adapter.MDOScenarioAdapter]
-# which is an [MDODiscipline][gemseo.core.discipline.MDODiscipline] executing a
+# which is a [Discipline][gemseo.core.discipline.discipline.Discipline] executing a
 # [DOEScenario][gemseo.scenarios.doe_scenario.DOEScenario]
 # for a given value of $u$.
 # For example, let us imagine a [DOEScenario][gemseo.scenarios.doe_scenario.DOEScenario]
@@ -112,26 +116,29 @@ reference_data = reference.cache.to_dataset().to_dict_of_arrays(False)
 # From these information sources,
 # we can build and execute a
 # [CalibrationScenario][gemseo_calibration.scenario.CalibrationScenario]
-# to find the value of the parameters $a$, $b$ and $c$
-# which minimizes a
-# [CalibrationMeasure][gemseo_calibration.measure.CalibrationMeasure]
+# to find the values of the parameters $a$, $b$ and $c$
+# which minimize a
+# [BaseCalibrationMetric][gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric]
 # related to the output $y$:
-calibration = CalibrationScenario(model, "x", CalibrationMeasure("y", "MSE"), prior)
+calibration = CalibrationScenario(
+    model, "x", CalibrationMetricSettings(output_name="y", metric_name="MSE"), prior
+)
 calibration.execute(
     algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=100
 )
 
 # %%
 # Lastly,
-# we get the calibrated parameters:
+# we can see that the calibrated parameters are different from the expected ones
 calibration.optimization_result.x_opt
 
 # %%
-# plot an optimization history view:
+# even if the result are converged:
 calibration.post_process(post_name="OptHistoryView", save=False, show=True)
 
 # %%
-# as well as the model data versus the reference ones:
+# However,
+# the calibrated model is close the expected one:
 expression = "a*x**2+b*x+c"
 for parameter_name, parameter_value in calibration.posterior_parameters.items():
     expression = expression.replace(parameter_name, str(parameter_value[0]))

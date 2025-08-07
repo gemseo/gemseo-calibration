@@ -23,7 +23,7 @@ from matplotlib import pyplot as plt
 from numpy import array
 from numpy import ndarray
 
-from gemseo_calibration.measures.factory import CalibrationMeasureFactory
+from gemseo_calibration.metrics.factory import CalibrationMetricFactory
 from gemseo_calibration.post.factory import CalibrationPostFactory
 
 DATA = Path(__file__).parent / "data"
@@ -61,9 +61,9 @@ def pyplot_close_all():
 
 
 @pytest.fixture
-def measure_factory(reset_factory, monkeypatch) -> CalibrationMeasureFactory:
+def metric_factory(reset_factory, monkeypatch) -> CalibrationMetricFactory:
     monkeypatch.setenv("GEMSEO_PATH", DATA)
-    return CalibrationMeasureFactory()
+    return CalibrationMetricFactory()
 
 
 @pytest.fixture

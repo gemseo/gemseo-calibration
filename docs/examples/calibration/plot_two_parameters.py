@@ -13,7 +13,11 @@
 # FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
 # NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
 # WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-"""# Calibration with 2 parameters."""
+"""# Two calibration parameters.
+
+This example illustrates the calibration of a discipline
+with two poorly known parameters.
+"""
 
 from __future__ import annotations
 
@@ -23,16 +27,16 @@ from gemseo.algos.parameter_space import ParameterSpace
 from gemseo.disciplines.analytic import AnalyticDiscipline
 from numpy import array
 
-from gemseo_calibration.scenario import CalibrationMeasure
+from gemseo_calibration.metrics.settings import CalibrationMetricSettings
 from gemseo_calibration.scenario import CalibrationScenario
 
 # %%
-# Let us consider a function $f(x)=[ax,bx]$ from $\mathbb{R}$ to $\mathbb{R}^2$:
+# Let us consider a model $f(x)=[ax,bx]$ from $\mathbb{R}$ to $\mathbb{R}^2$:
 model = AnalyticDiscipline({"y": "a*x", "z": "b*x"}, name="model")
 
 # %%
 # This is a model of our reference data source,
-# which a kind of oracle providing input-output data
+# which is a kind of oracle providing input-output data
 # without the mathematical relationship behind it:
 reference = AnalyticDiscipline({"y": "2*x", "z": "3*x"}, name="reference")
 
@@ -54,7 +58,7 @@ prior.add_variable("b", lower_bound=0.0, upper_bound=10.0, value=0.0)
 
 # %%
 # Secondly,
-# given an input space $[0.,3.]$:
+# given an input space $[0,3]$:
 input_space = DesignSpace()
 input_space.add_variable("x", lower_bound=0.0, upper_bound=3.0)
 
@@ -73,23 +77,26 @@ reference_data = reference_dataset.to_dict_of_arrays(False)
 # From these information sources,
 # we can build and execute a
 # [CalibrationScenario][gemseo_calibration.scenario.CalibrationScenario]
-# to find the value of the parameters $a$ and $b$
-# which minimizes a
-# [CalibrationMeasure][gemseo_calibration.measure.CalibrationMeasure]
+# to find the values of the parameters $a$ and $b$
+# which minimize a
+# [BaseCalibrationMetric][gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric]
 # taking into account the outputs $y$ and $z$:
-control_outputs = [CalibrationMeasure("y", "MSE"), CalibrationMeasure("z", "MSE")]
-calibration = CalibrationScenario(model, "x", control_outputs, prior)
+metric_settings = [
+    CalibrationMetricSettings(output_name="y", metric_name="MSE"),
+    CalibrationMetricSettings(output_name="z", metric_name="MSE"),
+]
+calibration = CalibrationScenario(model, "x", metric_settings, prior)
 calibration.execute(
     algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=100
 )
 
 # %%
 # Lastly,
-# we get the calibrated parameters:
+# we can check that the calibrated parameters are very close to the expected ones:
 calibration.optimization_result.x_opt
 
 # %%
-# plot an optimization history view:
+# and plot an optimization history view:
 calibration.post_process(post_name="OptHistoryView", save=False, show=True)
 
 # %%
