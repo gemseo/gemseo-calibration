@@ -26,7 +26,7 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Develop
+## Version 4.0.0 (August 2025)
 
 ### Added
 
@@ -49,7 +49,7 @@ and this project adheres to
 - [MultipleScatter][gemseo_calibration.post.multiple_scatter.MultipleScatter]
   displays data on a grid.
 - API CHANGES:
-     - `BaseCalibrationMetric.mesh` renamed to [CalibrationMetricSettings.mesh_name][gemseo_calibration.metrics.settings.CalibrationMetricSettings].
+    - `BaseCalibrationMetric.mesh` renamed to [CalibrationMetricSettings.mesh_name][gemseo_calibration.metrics.settings.CalibrationMetricSettings].
     - use the expression _calibration metric_ rather the _calibration measure_,
       to be consistent with [gemseo.utils.metrics][gemseo.utils.metrics].
     - rename `measures` package to [metrics][gemseo_calibration.metrics].
