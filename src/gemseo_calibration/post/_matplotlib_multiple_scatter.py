@@ -19,7 +19,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from gemseo.post.dataset.plots._matplotlib.plot import MatplotlibPlot
-from gemseo.utils.compatibility.matplotlib import get_color_map
+from matplotlib import colormaps
 from numpy import linspace
 
 if TYPE_CHECKING:
@@ -54,7 +54,7 @@ class MultipleScatter(MatplotlibPlot):
         axes.plot(bounds, bounds, color="gray", linestyle="--", marker="o")
         n_items = len(y)
         color = self._common_settings.color
-        color_map = get_color_map(self._common_settings.colormap)
+        color_map = colormaps[self._common_settings.colormap]
         color = color or [color_map(c) for c in linspace(0, 1, n_items)]
         if isinstance(color, str):
             color = [color] * n_items
