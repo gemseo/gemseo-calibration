@@ -6,7 +6,7 @@ babel==2.17.0
     # via mkdocs-material
 backrefs==5.9
     # via mkdocs-material
-black==25.1.0
+black==25.9.0
     # via gemseo-calibration (pyproject.toml:doc)
 bracex==2.6
     # via wcmatch
@@ -39,7 +39,7 @@ fieldz==0.1.2
     # via griffe-fieldz
 fonttools==4.60.0
     # via matplotlib
-gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@c3280a610a12844f01b71c9f25ec4e2a5908897b
+gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@1229874bfb02edf89307673e2576caec9f035be0
     # via
     #   -c requirements/test-constraints.in
     #   gemseo-calibration (pyproject.toml)
@@ -240,6 +240,8 @@ python-dateutil==2.9.0.post0
     #   pandas
 python-dotenv==1.1.1
     # via pydantic-settings
+pytokens==0.1.10
+    # via black
 pytz==2025.2
     # via pandas
 pyxdsm==2.3.1
