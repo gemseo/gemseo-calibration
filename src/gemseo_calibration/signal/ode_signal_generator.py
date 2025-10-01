@@ -22,7 +22,6 @@ from gemseo.disciplines.ode.ode_discipline import ODEDiscipline
 from gemseo.utils.constants import READ_ONLY_EMPTY_DICT
 
 from gemseo_calibration.signal.base_signal_generator import BaseSignalGenerator
-from gemseo_calibration.signal.base_signal_generator import Data
 from gemseo_calibration.signal.base_signal_generator import Signal
 
 if TYPE_CHECKING:
@@ -31,6 +30,8 @@ if TYPE_CHECKING:
 
     from gemseo.core.discipline.discipline import Discipline
     from gemseo.typing import RealArray
+
+    from gemseo_calibration.signal.base_signal_generator import Data
 
 
 class ODESignalGenerator(BaseSignalGenerator):

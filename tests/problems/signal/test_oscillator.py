@@ -12,8 +12,11 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import pytest
-from gemseo.typing import RealArray
 from numpy import array
 from numpy import linspace
 from numpy.testing import assert_almost_equal
@@ -21,6 +24,9 @@ from numpy.testing import assert_almost_equal
 from gemseo_calibration.problems.signal.oscillator import Oscillator
 from gemseo_calibration.problems.signal.oscillator import compute_omega_rhs
 from gemseo_calibration.problems.signal.oscillator import compute_oscillator_rhs
+
+if TYPE_CHECKING:
+    from gemseo.typing import RealArray
 
 
 @pytest.fixture(scope="module")

@@ -19,7 +19,6 @@ from __future__ import annotations
 from abc import abstractmethod
 from typing import TYPE_CHECKING
 from typing import NamedTuple
-from typing import Union
 
 from gemseo.typing import RealArray
 from gemseo.utils.constants import READ_ONLY_EMPTY_DICT
@@ -31,7 +30,7 @@ if TYPE_CHECKING:
     from gemseo.core.grammars.base_grammar import BaseGrammar
 
 
-Data = Union[float, RealArray]
+Data = float | RealArray
 
 
 class Signal(NamedTuple):

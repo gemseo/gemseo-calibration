@@ -18,7 +18,6 @@ from __future__ import annotations
 
 from math import exp
 from typing import TYPE_CHECKING
-from typing import Callable
 
 from gemseo.core.chains.chain import MDOChain
 from gemseo.disciplines.auto_py import AutoPyDiscipline
@@ -26,6 +25,8 @@ from gemseo.disciplines.auto_py import AutoPyDiscipline
 from gemseo_calibration.signal.ode_signal_generator import ODESignalGenerator
 
 if TYPE_CHECKING:
+    from collections.abc import Callable
+
     from gemseo_calibration.signal.base_signal_generator import Data
 
 

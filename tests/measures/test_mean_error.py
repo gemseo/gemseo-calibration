@@ -16,15 +16,19 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import pytest
 from numpy import array
 from numpy import nan
-from numpy import ndarray
 from numpy import ones
 from numpy.testing import assert_array_equal
 
 from gemseo_calibration.metrics.iae import IAE
 from gemseo_calibration.metrics.mae import MAE
+
+if TYPE_CHECKING:
+    from numpy import ndarray
 
 
 @pytest.fixture(scope="module")

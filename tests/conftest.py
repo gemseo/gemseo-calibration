@@ -15,16 +15,19 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import pytest
 from gemseo.disciplines.analytic import AnalyticDiscipline
 from gemseo.utils.testing.pytest_conftest import *  # noqa: F401, F403
 from matplotlib import pyplot as plt
 from numpy import array
-from numpy import ndarray
 
 from gemseo_calibration.metrics.factory import CalibrationMetricFactory
 from gemseo_calibration.post.factory import CalibrationPostFactory
+
+if TYPE_CHECKING:
+    from numpy import ndarray
 
 DATA = Path(__file__).parent / "data"
 

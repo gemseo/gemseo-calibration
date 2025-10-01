@@ -21,13 +21,13 @@ from gemseo.algos.parameter_space import ParameterSpace
 from gemseo.core.discipline.discipline import Discipline
 from numpy import array
 from numpy import linspace
-from numpy import ndarray
 
 from gemseo_calibration.metrics.settings import CalibrationMetricSettings
 from gemseo_calibration.scenario import CalibrationScenario
 
 if TYPE_CHECKING:
     from gemseo.typing import StrKeyMapping
+    from numpy import ndarray
 
 
 class Model(Discipline):
