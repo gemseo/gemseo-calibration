@@ -32,10 +32,11 @@ except ImportError:  # pragma: no cover
 from scipy.interpolate import interp1d
 
 from gemseo_calibration.metrics.base_calibration_metric import BaseCalibrationMetric
-from gemseo_calibration.metrics.base_calibration_metric import DataType
 
 if TYPE_CHECKING:
     from gemseo.typing import RealArray
+
+    from gemseo_calibration.metrics.base_calibration_metric import DataType
 
 
 class BaseIntegratedMetric(BaseCalibrationMetric):
@@ -72,7 +73,11 @@ class BaseIntegratedMetric(BaseCalibrationMetric):
         model_mesh = model_dataset[self.mesh_name]
         compared_data = []
         for x_ref, y_ref, x_model, y_model in zip(
-            self.__reference_mesh, self._reference_data, model_mesh, model_data
+            self.__reference_mesh,
+            self._reference_data,
+            model_mesh,
+            model_data,
+            strict=False,
         ):
             if np_all(diff(x_ref) < 0):
                 x_ref = x_ref[::-1]
