@@ -104,7 +104,10 @@ def test_init_list(
     scenario = CalibrationScenario(disciplines, inputs, outputs, calibration_space)
     scenario.add_constraint(constraints)
     assert scenario.calibrator.scenario.design_space.variable_names == ["x"]
-    assert scenario.calibrator.scenario.formulation._objective_name == "y"
+    assert (
+        scenario.calibrator.scenario.formulation.optimization_problem.objective.name
+        == "y"
+    )
 
 
 def test_calibration_adapter(calibration_scenario):
