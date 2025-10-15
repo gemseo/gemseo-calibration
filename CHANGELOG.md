@@ -26,6 +26,16 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Version 4.0.1 (October 2025)
+
+### Added
+
+- Support for Python 3.13.
+
+### Removed
+
+- Support for Python 3.9.
+
 ## Version 4.0.0 (August 2025)
 
 ### Added
@@ -49,31 +59,31 @@ and this project adheres to
 - [MultipleScatter][gemseo_calibration.post.multiple_scatter.MultipleScatter]
   displays data on a grid.
 - API CHANGES:
-    - `BaseCalibrationMetric.mesh` renamed to [CalibrationMetricSettings.mesh_name][gemseo_calibration.metrics.settings.CalibrationMetricSettings].
-    - use the expression _calibration metric_ rather the _calibration measure_,
+  - `BaseCalibrationMetric.mesh` renamed to [CalibrationMetricSettings.mesh_name][gemseo_calibration.metrics.settings.CalibrationMetricSettings].
+  - use the expression _calibration metric_ rather the _calibration measure_,
       to be consistent with [gemseo.utils.metrics][gemseo.utils.metrics].
-    - rename `measures` package to [metrics][gemseo_calibration.metrics].
-    - rename `gemseo_calibration.measure.CalibrationMeasure` to [gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric][gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric].
-    - `gemseo_calibration.calibrator.CalibrationMeasure`:
-        - rename it to [gemseo_calibration.metrics.settings.CalibrationMetricSettings][gemseo_calibration.metrics.settings.CalibrationMetricSettings].
-        - [CalibrationMetricSettings][gemseo_calibration.metrics.settings.CalibrationMetricSettings] is a Pydantic model and so the arguments must be set as keyword arguments.
-        - move it to [gemseo_calibration.metrics.settings][gemseo_calibration.metrics.settings].
-        - rename its field `measure` to `metric`.
-        - rename its field `mesh` to `mesh_name`.
-        - rename its field `output` to `output_name`.
-    - rename `IntegratedMeasure` to [BaseIntegratedMetric][gemseo_calibration.metrics.base_integrated_metric.BaseIntegratedMetric].
-    - rename `MeanMeasure` to [BaseMeanMetric][gemseo_calibration.metrics.base_mean_metric.BaseMeanMetric].
-    - [Calibrator][gemseo_calibration.calibrator.Calibrator]:
-        - rename its `maximize_objective_measure` attribute to [maximize_objective_metric][gemseo_calibration.calibrator.Calibrator.maximize_objective_metric].
-        - rename its `add_measure` method to [add_metric][gemseo_calibration.calibrator.Calibrator.add_metric].
-        - rename its `formulation` argument to `formulation_name`
-        - rename its `control_outputs` argument to `metric_settings_models`.
-    - `CalibrationMeasureFactory`:
-        - rename it to [CalibrationMetricFactory][gemseo_calibration.metrics.factory.CalibrationMetricFactory].
-        - remove its `measures` property; use `class_names` instead.
-        - rename its method `is_integrated_measure` to [is_integrated_metric][gemseo_calibration.metrics.factory.CalibrationMetricFactory.is_integrated_metric].
-    - remove the `formulation` argument of [CalibrationScenario][gemseo_calibration.scenario.CalibrationScenario]; use `formulation_name` instead.
-    - rename the `control_outputs` argument of [CalibrationScenario][gemseo_calibration.scenario.CalibrationScenario] to `metric_settings_models`.
+  - rename `measures` package to [metrics][gemseo_calibration.metrics].
+  - rename `gemseo_calibration.measure.CalibrationMeasure` to [gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric][gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric].
+  - `gemseo_calibration.calibrator.CalibrationMeasure`:
+    - rename it to [gemseo_calibration.metrics.settings.CalibrationMetricSettings][gemseo_calibration.metrics.settings.CalibrationMetricSettings].
+    - [CalibrationMetricSettings][gemseo_calibration.metrics.settings.CalibrationMetricSettings] is a Pydantic model and so the arguments must be set as keyword arguments.
+    - move it to [gemseo_calibration.metrics.settings][gemseo_calibration.metrics.settings].
+    - rename its field `measure` to `metric`.
+    - rename its field `mesh` to `mesh_name`.
+    - rename its field `output` to `output_name`.
+  - rename `IntegratedMeasure` to [BaseIntegratedMetric][gemseo_calibration.metrics.base_integrated_metric.BaseIntegratedMetric].
+  - rename `MeanMeasure` to [BaseMeanMetric][gemseo_calibration.metrics.base_mean_metric.BaseMeanMetric].
+  - [Calibrator][gemseo_calibration.calibrator.Calibrator]:
+    - rename its `maximize_objective_measure` attribute to [maximize_objective_metric][gemseo_calibration.calibrator.Calibrator.maximize_objective_metric].
+    - rename its `add_measure` method to [add_metric][gemseo_calibration.calibrator.Calibrator.add_metric].
+    - rename its `formulation` argument to `formulation_name`
+    - rename its `control_outputs` argument to `metric_settings_models`.
+  - `CalibrationMeasureFactory`:
+    - rename it to [CalibrationMetricFactory][gemseo_calibration.metrics.factory.CalibrationMetricFactory].
+    - remove its `measures` property; use `class_names` instead.
+    - rename its method `is_integrated_measure` to [is_integrated_metric][gemseo_calibration.metrics.factory.CalibrationMetricFactory.is_integrated_metric].
+  - remove the `formulation` argument of [CalibrationScenario][gemseo_calibration.scenario.CalibrationScenario]; use `formulation_name` instead.
+  - rename the `control_outputs` argument of [CalibrationScenario][gemseo_calibration.scenario.CalibrationScenario] to `metric_settings_models`.
 
 ## Version 3.0.0 (November 2024)
 

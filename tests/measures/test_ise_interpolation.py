@@ -14,6 +14,8 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import pytest
 from gemseo.datasets.dataset import Dataset
 from numpy import all as np_all
@@ -21,9 +23,11 @@ from numpy import diff
 from numpy import full
 from numpy import hstack
 from numpy import linspace
-from numpy import ndarray
 
 from gemseo_calibration.metrics.ise import ISE
+
+if TYPE_CHECKING:
+    from numpy import ndarray
 
 
 def create_dataset(

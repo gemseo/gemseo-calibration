@@ -16,10 +16,14 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 from numpy import nanmean
 
 from gemseo_calibration.metrics.base_calibration_metric import BaseCalibrationMetric
-from gemseo_calibration.metrics.base_calibration_metric import DataType
+
+if TYPE_CHECKING:
+    from gemseo_calibration.metrics.base_calibration_metric import DataType
 
 
 class BaseMeanMetric(BaseCalibrationMetric):
