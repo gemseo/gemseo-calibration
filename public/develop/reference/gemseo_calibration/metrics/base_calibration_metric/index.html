@@ -2427,7 +2427,7 @@
   </span>
 
 <a href="#gemseo_calibration.metrics.base_calibration_metric.DataType" class="headerlink" title="Permanent link">&para;</a></h4>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">DataType</span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.typing.RealArray" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.typing.html#gemseo.typing.RealArray">RealArray</a></span><span class="p">]</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">DataType</span> <span class="o">=</span> <span class="n"><span title="dict">dict</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n"><span title="gemseo.typing.RealArray">RealArray</span></span><span class="p">]</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2453,15 +2453,15 @@ whose rows are the samples and columns are the components of the variable.</p>
 
 <a href="#gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric" class="headerlink" title="Permanent link">&para;</a></h4>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">BaseCalibrationMetric</span><span class="p">(</span>
-    <span class="n">output_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span>
-    <span class="n">name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="n">f_type</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.core.mdo_functions.mdo_function.MDOFunction.FunctionType" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.mdo_functions.mdo_function.html#gemseo.core.mdo_functions.mdo_function.MDOFunction.FunctionType">FunctionType</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.core.mdo_functions.mdo_function.MDOFunction.FunctionType.NONE" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.mdo_functions.mdo_function.html#gemseo.core.mdo_functions.mdo_function.MDOFunction.FunctionType.NONE">NONE</a></span><span class="p">,</span>
+    <span class="n">output_name</span><span class="p">:</span> <span class="n"><span title="str">str</span></span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">f_type</span><span class="p">:</span> <span class="n"><span title="gemseo.core.mdo_functions.mdo_function.MDOFunction.FunctionType">FunctionType</span></span> <span class="o">=</span> <span class="n"><span title="gemseo.core.mdo_functions.mdo_function.MDOFunction.FunctionType.NONE">NONE</span></span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-external" title="gemseo.core.mdo_functions.mdo_function.MDOFunction" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.mdo_functions.mdo_function.html#gemseo.core.mdo_functions.mdo_function.MDOFunction">MDOFunction</a></code></p>
+              Bases: <code><span title="gemseo.core.mdo_functions.mdo_function.MDOFunction">MDOFunction</span></code></p>
 
 
 
@@ -2473,7 +2473,7 @@ whose rows are the samples and columns are the components of the variable.</p>
     <ul>
         <li class="doc-section-item field-body">
             <b><code>output_name</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+              (<code><span title="str">str</span></code>)
           –
           <div class="doc-md-description">
             <p>The name of the output to be taken into account by the metric.</p>
@@ -2481,7 +2481,7 @@ whose rows are the samples and columns are the components of the variable.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>name</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>, default:
+              (<code><span title="str">str</span></code>, default:
                   <code>&#39;&#39;</code>
 )
           –
@@ -2491,8 +2491,8 @@ whose rows are the samples and columns are the components of the variable.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>f_type</code></b>
-              (<code><a class="autorefs autorefs-external" title="gemseo.core.mdo_functions.mdo_function.MDOFunction.FunctionType" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.mdo_functions.mdo_function.html#gemseo.core.mdo_functions.mdo_function.MDOFunction.FunctionType">FunctionType</a></code>, default:
-                  <code><a class="autorefs autorefs-external" title="gemseo.core.mdo_functions.mdo_function.MDOFunction.FunctionType.NONE" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.mdo_functions.mdo_function.html#gemseo.core.mdo_functions.mdo_function.MDOFunction.FunctionType.NONE">NONE</a></code>
+              (<code><span title="gemseo.core.mdo_functions.mdo_function.MDOFunction.FunctionType">FunctionType</span></code>, default:
+                  <code><span title="gemseo.core.mdo_functions.mdo_function.MDOFunction.FunctionType.NONE">NONE</span></code>
 )
           –
           <div class="doc-md-description">
@@ -2565,7 +2565,7 @@ whose rows are the samples and columns are the components of the variable.</p>
   </span>
 
 <a href="#gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric.full_output_name" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">full_output_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">full_output_name</span><span class="p">:</span> <span class="n"><span title="str">str</span></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2589,7 +2589,7 @@ whose rows are the samples and columns are the components of the variable.</p>
   </span>
 
 <a href="#gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric.maximize" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">maximize</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">False</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">maximize</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span> <span class="o">=</span> <span class="kc">False</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2613,7 +2613,7 @@ whose rows are the samples and columns are the components of the variable.</p>
   </span>
 
 <a href="#gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric.output_name" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">output_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">=</span> <span class="n"><span title="gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric(output_name)">output_name</span></span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">output_name</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">=</span> <span class="n"><span title="gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric(output_name)">output_name</span></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">

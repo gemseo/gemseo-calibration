@@ -2428,7 +2428,7 @@
 
 <a href="#gemseo_calibration.problems.signal.oscillator.Oscillator" class="headerlink" title="Permanent link">&para;</a></h4>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">Oscillator</span><span class="p">(</span>
-    <span class="n">omega</span><span class="p">:</span> <span class="n"><span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a></span><span class="p">[[</span><span class="n"><span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span></span><span class="p">,</span> <span class="n"><span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span></span><span class="p">],</span> <span class="n"><span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span></span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">omega</span><span class="p">:</span> <span class="n"><span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span></span> <span class="o">|</span> <span class="n"><span title="collections.abc.Callable">Callable</span></span><span class="p">[[</span><span class="n"><span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span></span><span class="p">,</span> <span class="n"><span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span></span><span class="p">],</span> <span class="n"><span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span></span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
 
@@ -2447,7 +2447,7 @@
     <ul>
         <li class="doc-section-item field-body">
             <b><code>omega</code></b>
-              (<code><span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span> | <a class="autorefs autorefs-external" title="collections.abc.Callable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable">Callable</a>[[<span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span>, <span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span>], <span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span>]</code>, default:
+              (<code><span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span> | <span title="collections.abc.Callable">Callable</span>[[<span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span>, <span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span>], <span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span>]</code>, default:
                   <code>0.0</code>
 )
           –
@@ -2574,7 +2574,7 @@ If <code>0</code>, use the RHS computing <code>-a * exp(-a * time)</code> with <
   </span>
 
 <a href="#gemseo_calibration.problems.signal.oscillator.Oscillator.rhs_discipline" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">rhs_discipline</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.core.discipline.discipline.Discipline" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.discipline.discipline.html#gemseo.core.discipline.discipline.Discipline">Discipline</a></span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">rhs_discipline</span><span class="p">:</span> <span class="n"><span title="gemseo.core.discipline.discipline.Discipline">Discipline</span></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2597,11 +2597,11 @@ If <code>0</code>, use the RHS computing <code>-a * exp(-a * time)</code> with <
 
 <a href="#gemseo_calibration.problems.signal.oscillator.Oscillator.generate" class="headerlink" title="Permanent link">&para;</a></h6>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">generate</span><span class="p">(</span>
-    <span class="n">times</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.typing.RealArray" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.typing.html#gemseo.typing.RealArray">RealArray</a></span><span class="p">,</span>
-    <span class="n">initial_state_values</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Mapping" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping">Mapping</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span></span><span class="p">],</span>
-    <span class="n">parameter_values</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Mapping" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping">Mapping</a></span><span class="p">[</span>
-        <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span></span>
-    <span class="p">]</span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.utils.constants.READ_ONLY_EMPTY_DICT" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.utils.constants.html#gemseo.utils.constants.READ_ONLY_EMPTY_DICT">READ_ONLY_EMPTY_DICT</a></span><span class="p">,</span>
+    <span class="n">times</span><span class="p">:</span> <span class="n"><span title="gemseo.typing.RealArray">RealArray</span></span><span class="p">,</span>
+    <span class="n">initial_state_values</span><span class="p">:</span> <span class="n"><span title="collections.abc.Mapping">Mapping</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n"><span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span></span><span class="p">],</span>
+    <span class="n">parameter_values</span><span class="p">:</span> <span class="n"><span title="collections.abc.Mapping">Mapping</span></span><span class="p">[</span>
+        <span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n"><span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span></span>
+    <span class="p">]</span> <span class="o">=</span> <span class="n"><span title="gemseo.utils.constants.READ_ONLY_EMPTY_DICT">READ_ONLY_EMPTY_DICT</span></span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            Signal (gemseo_calibration.signal.base_signal_generator.Signal)" href="../../../signal/base_signal_generator/#gemseo_calibration.signal.base_signal_generator.Signal">Signal</a></span>
 </code></pre></div>
 
@@ -2614,7 +2614,7 @@ If <code>0</code>, use the RHS computing <code>-a * exp(-a * time)</code> with <
     <ul>
         <li class="doc-section-item field-body">
             <b><code>times</code></b>
-              (<code><a class="autorefs autorefs-external" title="gemseo.typing.RealArray" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.typing.html#gemseo.typing.RealArray">RealArray</a></code>)
+              (<code><span title="gemseo.typing.RealArray">RealArray</span></code>)
           –
           <div class="doc-md-description">
             <p>The times of interest in ascending order,
@@ -2623,7 +2623,7 @@ from initial time to final time.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>initial_state_values</code></b>
-              (<code><a class="autorefs autorefs-external" title="collections.abc.Mapping" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping">Mapping</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span>]</code>)
+              (<code><span title="collections.abc.Mapping">Mapping</span>[<span title="str">str</span>, <span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span>]</code>)
           –
           <div class="doc-md-description">
             <p>The values of the state variables
@@ -2632,8 +2632,8 @@ at initial time.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>parameter_values</code></b>
-              (<code><a class="autorefs autorefs-external" title="collections.abc.Mapping" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping">Mapping</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span>]</code>, default:
-                  <code><a class="autorefs autorefs-external" title="gemseo.utils.constants.READ_ONLY_EMPTY_DICT" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.utils.constants.html#gemseo.utils.constants.READ_ONLY_EMPTY_DICT">READ_ONLY_EMPTY_DICT</a></code>
+              (<code><span title="collections.abc.Mapping">Mapping</span>[<span title="str">str</span>, <span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span>]</code>, default:
+                  <code><span title="gemseo.utils.constants.READ_ONLY_EMPTY_DICT">READ_ONLY_EMPTY_DICT</span></code>
 )
           –
           <div class="doc-md-description">
@@ -2728,8 +2728,8 @@ at initial time.</p>
 
 <a href="#gemseo_calibration.problems.signal.oscillator.compute_omega_rhs" class="headerlink" title="Permanent link">&para;</a></h4>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">compute_omega_rhs</span><span class="p">(</span>
-    <span class="n">time</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">omega</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span> <span class="o">=</span> <span class="mf">0.02</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+    <span class="n">time</span><span class="p">:</span> <span class="n"><span title="float">float</span></span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">omega</span><span class="p">:</span> <span class="n"><span title="float">float</span></span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n"><span title="float">float</span></span> <span class="o">=</span> <span class="mf">0.02</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="float">float</span></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2744,7 +2744,7 @@ at initial time.</p>
     <ul>
         <li class="doc-section-item field-body">
             <b><code>time</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>, default:
+              (<code><span title="float">float</span></code>, default:
                   <code>0.0</code>
 )
           –
@@ -2754,7 +2754,7 @@ at initial time.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>omega</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>, default:
+              (<code><span title="float">float</span></code>, default:
                   <code>1.0</code>
 )
           –
@@ -2764,7 +2764,7 @@ at initial time.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>a</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>, default:
+              (<code><span title="float">float</span></code>, default:
                   <code>0.02</code>
 )
           –
@@ -2778,7 +2778,7 @@ at initial time.</p>
 <p><span class="doc-section-title">Returns:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>
+              <code><span title="float">float</span></code>
           –
           <div class="doc-md-description">
             <p>The time derivative of the angular velocity of the oscillator.</p>
@@ -2841,11 +2841,11 @@ at initial time.</p>
 
 <a href="#gemseo_calibration.problems.signal.oscillator.compute_oscillator_rhs" class="headerlink" title="Permanent link">&para;</a></h4>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">compute_oscillator_rhs</span><span class="p">(</span>
-    <span class="n">time</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
-    <span class="n">position</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
-    <span class="n">velocity</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
-    <span class="n">omega</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span><span class="p">]</span>
+    <span class="n">time</span><span class="p">:</span> <span class="n"><span title="float">float</span></span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">position</span><span class="p">:</span> <span class="n"><span title="float">float</span></span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">velocity</span><span class="p">:</span> <span class="n"><span title="float">float</span></span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">omega</span><span class="p">:</span> <span class="n"><span title="float">float</span></span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="tuple">tuple</span></span><span class="p">[</span><span class="n"><span title="float">float</span></span><span class="p">,</span> <span class="n"><span title="float">float</span></span><span class="p">]</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2857,7 +2857,7 @@ at initial time.</p>
     <ul>
         <li class="doc-section-item field-body">
             <b><code>time</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>, default:
+              (<code><span title="float">float</span></code>, default:
                   <code>0.0</code>
 )
           –
@@ -2867,7 +2867,7 @@ at initial time.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>position</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>, default:
+              (<code><span title="float">float</span></code>, default:
                   <code>1.0</code>
 )
           –
@@ -2877,7 +2877,7 @@ at initial time.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>velocity</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>, default:
+              (<code><span title="float">float</span></code>, default:
                   <code>0.0</code>
 )
           –
@@ -2887,7 +2887,7 @@ at initial time.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>omega</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>, default:
+              (<code><span title="float">float</span></code>, default:
                   <code>1.0</code>
 )
           –
@@ -2901,7 +2901,7 @@ at initial time.</p>
 <p><span class="doc-section-title">Returns:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a>]</code>
+              <code><span title="tuple">tuple</span>[<span title="float">float</span>, <span title="float">float</span>]</code>
           –
           <div class="doc-md-description">
             <p>The time derivative of the position of the oscillator,

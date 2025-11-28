@@ -2498,7 +2498,7 @@
   </span>
 
 <a href="#gemseo_calibration.signal.base_signal_generator.BaseSignalGenerator.grammar" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">grammar</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.core.grammars.base_grammar.BaseGrammar" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.grammars.base_grammar.html#gemseo.core.grammars.base_grammar.BaseGrammar">BaseGrammar</a></span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">grammar</span><span class="p">:</span> <span class="n"><span title="gemseo.core.grammars.base_grammar.BaseGrammar">BaseGrammar</span></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2525,11 +2525,11 @@
 
 <a href="#gemseo_calibration.signal.base_signal_generator.BaseSignalGenerator.generate" class="headerlink" title="Permanent link">&para;</a></h6>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">generate</span><span class="p">(</span>
-    <span class="n">times</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.typing.RealArray" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.typing.html#gemseo.typing.RealArray">RealArray</a></span><span class="p">,</span>
-    <span class="n">initial_state_values</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Mapping" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping">Mapping</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span></span><span class="p">],</span>
-    <span class="n">parameter_values</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Mapping" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping">Mapping</a></span><span class="p">[</span>
-        <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span></span>
-    <span class="p">]</span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.utils.constants.READ_ONLY_EMPTY_DICT" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.utils.constants.html#gemseo.utils.constants.READ_ONLY_EMPTY_DICT">READ_ONLY_EMPTY_DICT</a></span><span class="p">,</span>
+    <span class="n">times</span><span class="p">:</span> <span class="n"><span title="gemseo.typing.RealArray">RealArray</span></span><span class="p">,</span>
+    <span class="n">initial_state_values</span><span class="p">:</span> <span class="n"><span title="collections.abc.Mapping">Mapping</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n"><span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span></span><span class="p">],</span>
+    <span class="n">parameter_values</span><span class="p">:</span> <span class="n"><span title="collections.abc.Mapping">Mapping</span></span><span class="p">[</span>
+        <span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n"><span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span></span>
+    <span class="p">]</span> <span class="o">=</span> <span class="n"><span title="gemseo.utils.constants.READ_ONLY_EMPTY_DICT">READ_ONLY_EMPTY_DICT</span></span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            Signal (gemseo_calibration.signal.base_signal_generator.Signal)" href="#gemseo_calibration.signal.base_signal_generator.Signal">Signal</a></span>
 </code></pre></div>
 
@@ -2542,7 +2542,7 @@
     <ul>
         <li class="doc-section-item field-body">
             <b><code>times</code></b>
-              (<code><a class="autorefs autorefs-external" title="gemseo.typing.RealArray" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.typing.html#gemseo.typing.RealArray">RealArray</a></code>)
+              (<code><span title="gemseo.typing.RealArray">RealArray</span></code>)
           –
           <div class="doc-md-description">
             <p>The times of interest in ascending order,
@@ -2551,7 +2551,7 @@ from initial time to final time.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>initial_state_values</code></b>
-              (<code><a class="autorefs autorefs-external" title="collections.abc.Mapping" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping">Mapping</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span>]</code>)
+              (<code><span title="collections.abc.Mapping">Mapping</span>[<span title="str">str</span>, <span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span>]</code>)
           –
           <div class="doc-md-description">
             <p>The values of the state variables
@@ -2560,8 +2560,8 @@ at initial time.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>parameter_values</code></b>
-              (<code><a class="autorefs autorefs-external" title="collections.abc.Mapping" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping">Mapping</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span>]</code>, default:
-                  <code><a class="autorefs autorefs-external" title="gemseo.utils.constants.READ_ONLY_EMPTY_DICT" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.utils.constants.html#gemseo.utils.constants.READ_ONLY_EMPTY_DICT">READ_ONLY_EMPTY_DICT</a></code>
+              (<code><span title="collections.abc.Mapping">Mapping</span>[<span title="str">str</span>, <span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span>]</code>, default:
+                  <code><span title="gemseo.utils.constants.READ_ONLY_EMPTY_DICT">READ_ONLY_EMPTY_DICT</span></code>
 )
           –
           <div class="doc-md-description">
@@ -2649,7 +2649,7 @@ at initial time.</p>
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-external" title="typing.NamedTuple" href="https://docs.python.org/3/library/typing.html#typing.NamedTuple">NamedTuple</a></code></p>
+              Bases: <code><span title="typing.NamedTuple">NamedTuple</span></code></p>
 
 
 
@@ -2721,7 +2721,7 @@ at initial time.</p>
   </span>
 
 <a href="#gemseo_calibration.signal.base_signal_generator.Signal.evolution" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">evolution</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.typing.RealArray" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.typing.html#gemseo.typing.RealArray">RealArray</a></span><span class="p">]</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">evolution</span><span class="p">:</span> <span class="n"><span title="dict">dict</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n"><span title="gemseo.typing.RealArray">RealArray</span></span><span class="p">]</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2745,7 +2745,7 @@ at initial time.</p>
   </span>
 
 <a href="#gemseo_calibration.signal.base_signal_generator.Signal.final" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">final</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span></span><span class="p">]</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">final</span><span class="p">:</span> <span class="n"><span title="dict">dict</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n"><span title="gemseo_calibration.signal.base_signal_generator.Data">Data</span></span><span class="p">]</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2769,7 +2769,7 @@ at initial time.</p>
   </span>
 
 <a href="#gemseo_calibration.signal.base_signal_generator.Signal.times" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">times</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.typing.RealArray" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.typing.html#gemseo.typing.RealArray">RealArray</a></span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">times</span><span class="p">:</span> <span class="n"><span title="gemseo.typing.RealArray">RealArray</span></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">

@@ -2206,17 +2206,17 @@ one color per series <span class="arithmatex">\(\{y_i\}_{1\leq i \leq n}\)</span
 
 <a href="#gemseo_calibration.post.multiple_scatter.MultipleScatter" class="headerlink" title="Permanent link">&para;</a></h4>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">MultipleScatter</span><span class="p">(</span>
-    <span class="n">dataset</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.datasets.dataset.Dataset" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.datasets.dataset.html#gemseo.datasets.dataset.Dataset">Dataset</a></span><span class="p">,</span>
-    <span class="n">x</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span>
-    <span class="n">y</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">],</span>
-    <span class="n">x_comp</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="n">y_comp</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Mapping" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping">Mapping</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">]</span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-external" title="types.MappingProxyType" href="https://docs.python.org/3/library/types.html#types.MappingProxyType">MappingProxyType</a></span><span class="p">({}),</span>
+    <span class="n">dataset</span><span class="p">:</span> <span class="n"><span title="gemseo.datasets.dataset.Dataset">Dataset</span></span><span class="p">,</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n"><span title="str">str</span></span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="n"><span title="collections.abc.Iterable">Iterable</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">],</span>
+    <span class="n">x_comp</span><span class="p">:</span> <span class="n"><span title="int">int</span></span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">y_comp</span><span class="p">:</span> <span class="n"><span title="collections.abc.Mapping">Mapping</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n"><span title="int">int</span></span><span class="p">]</span> <span class="o">=</span> <span class="n"><span title="types.MappingProxyType">MappingProxyType</span></span><span class="p">({}),</span>
 <span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-external" title="gemseo.post.dataset.dataset_plot.DatasetPlot" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.post.dataset.dataset_plot.html#gemseo.post.dataset.dataset_plot.DatasetPlot">DatasetPlot</a></code></p>
+              Bases: <code><span title="gemseo.post.dataset.dataset_plot.DatasetPlot">DatasetPlot</span></code></p>
 
 
 
@@ -2228,7 +2228,7 @@ one color per series <span class="arithmatex">\(\{y_i\}_{1\leq i \leq n}\)</span
     <ul>
         <li class="doc-section-item field-body">
             <b><code>dataset</code></b>
-              (<code><a class="autorefs autorefs-external" title="gemseo.datasets.dataset.Dataset" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.datasets.dataset.html#gemseo.datasets.dataset.Dataset">Dataset</a></code>)
+              (<code><span title="gemseo.datasets.dataset.Dataset">Dataset</span></code>)
           –
           <div class="doc-md-description">
             <p>The dataset containing the data to plot.</p>
@@ -2236,7 +2236,7 @@ one color per series <span class="arithmatex">\(\{y_i\}_{1\leq i \leq n}\)</span
         </li>
         <li class="doc-section-item field-body">
             <b><code>x</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+              (<code><span title="str">str</span></code>)
           –
           <div class="doc-md-description">
             <p>The name of the variable on the x-axis.</p>
@@ -2244,7 +2244,7 @@ one color per series <span class="arithmatex">\(\{y_i\}_{1\leq i \leq n}\)</span
         </li>
         <li class="doc-section-item field-body">
             <b><code>y</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>)
+              (<code><span title="str">str</span> | <span title="collections.abc.Iterable">Iterable</span>[<span title="str">str</span>]</code>)
           –
           <div class="doc-md-description">
             <p>The names of the variables on the y-axis.</p>
@@ -2252,7 +2252,7 @@ one color per series <span class="arithmatex">\(\{y_i\}_{1\leq i \leq n}\)</span
         </li>
         <li class="doc-section-item field-body">
             <b><code>x_comp</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>, default:
+              (<code><span title="int">int</span></code>, default:
                   <code>0</code>
 )
           –
@@ -2262,8 +2262,8 @@ one color per series <span class="arithmatex">\(\{y_i\}_{1\leq i \leq n}\)</span
         </li>
         <li class="doc-section-item field-body">
             <b><code>y_comp</code></b>
-              (<code><a class="autorefs autorefs-external" title="collections.abc.Mapping" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping">Mapping</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>]</code>, default:
-                  <code><a class="autorefs autorefs-external" title="types.MappingProxyType" href="https://docs.python.org/3/library/types.html#types.MappingProxyType">MappingProxyType</a>({})</code>
+              (<code><span title="collections.abc.Mapping">Mapping</span>[<span title="str">str</span>, <span title="int">int</span>]</code>, default:
+                  <code><span title="types.MappingProxyType">MappingProxyType</span>({})</code>
 )
           –
           <div class="doc-md-description">
@@ -2280,7 +2280,7 @@ use the first component.</p>
 <p><span class="doc-section-title">Raises:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#ValueError">ValueError</a></code>
+              <code><span title="ValueError">ValueError</span></code>
             –
           <div class="doc-md-description">
             <p>If the dataset is empty.</p>

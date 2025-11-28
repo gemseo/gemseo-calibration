@@ -2201,16 +2201,16 @@
 <a href="#gemseo_calibration.signal.signal_generator_discipline.SignalGeneratorDiscipline" class="headerlink" title="Permanent link">&para;</a></h4>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">SignalGeneratorDiscipline</span><span class="p">(</span>
     <span class="n">signal_generator</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            BaseSignalGenerator (gemseo_calibration.signal.base_signal_generator.BaseSignalGenerator)" href="../base_signal_generator/#gemseo_calibration.signal.base_signal_generator.BaseSignalGenerator">BaseSignalGenerator</a></span><span class="p">,</span>
-    <span class="n">state_names</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">],</span>
-    <span class="n">parameter_names</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">],</span>
-    <span class="n">output_names</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">],</span>
-    <span class="n">times</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.typing.RealArray" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.typing.html#gemseo.typing.RealArray">RealArray</a></span><span class="p">,</span>
+    <span class="n">state_names</span><span class="p">:</span> <span class="n"><span title="collections.abc.Iterable">Iterable</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">],</span>
+    <span class="n">parameter_names</span><span class="p">:</span> <span class="n"><span title="collections.abc.Iterable">Iterable</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">],</span>
+    <span class="n">output_names</span><span class="p">:</span> <span class="n"><span title="collections.abc.Iterable">Iterable</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">],</span>
+    <span class="n">times</span><span class="p">:</span> <span class="n"><span title="gemseo.typing.RealArray">RealArray</span></span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-external" title="gemseo.core.discipline.discipline.Discipline" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.discipline.discipline.html#gemseo.core.discipline.discipline.Discipline">Discipline</a></code></p>
+              Bases: <code><span title="gemseo.core.discipline.discipline.Discipline">Discipline</span></code></p>
 
 
 
@@ -2231,7 +2231,7 @@
         </li>
         <li class="doc-section-item field-body">
             <b><code>state_names</code></b>
-              (<code><a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>)
+              (<code><span title="collections.abc.Iterable">Iterable</span>[<span title="str">str</span>]</code>)
           –
           <div class="doc-md-description">
             <p>The names of the variables in the signal generator
@@ -2240,7 +2240,7 @@ used as discipline input variables.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>parameter_names</code></b>
-              (<code><a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>)
+              (<code><span title="collections.abc.Iterable">Iterable</span>[<span title="str">str</span>]</code>)
           –
           <div class="doc-md-description">
             <p>The names of the parameters in the signal generator
@@ -2249,7 +2249,7 @@ used as discipline input variables.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>output_names</code></b>
-              (<code><a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>)
+              (<code><span title="collections.abc.Iterable">Iterable</span>[<span title="str">str</span>]</code>)
           –
           <div class="doc-md-description">
             <p>The names of the variables in the signal generator
@@ -2258,7 +2258,7 @@ used as discipline output variables.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>times</code></b>
-              (<code><a class="autorefs autorefs-external" title="gemseo.typing.RealArray" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.typing.html#gemseo.typing.RealArray">RealArray</a></code>)
+              (<code><span title="gemseo.typing.RealArray">RealArray</span></code>)
           –
           <div class="doc-md-description">
             <p>The times of interest in ascending order,

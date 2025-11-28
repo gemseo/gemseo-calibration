@@ -2390,23 +2390,23 @@
 
 <a href="#gemseo_calibration.calibrator.Calibrator" class="headerlink" title="Permanent link">&para;</a></h4>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">Calibrator</span><span class="p">(</span>
-    <span class="n">disciplines</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.core.discipline.discipline.Discipline" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.discipline.discipline.html#gemseo.core.discipline.discipline.Discipline">Discipline</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" title="gemseo.core.discipline.discipline.Discipline" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.discipline.discipline.html#gemseo.core.discipline.discipline.Discipline">Discipline</a></span><span class="p">],</span>
-    <span class="n">input_names</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">],</span>
+    <span class="n">disciplines</span><span class="p">:</span> <span class="n"><span title="gemseo.core.discipline.discipline.Discipline">Discipline</span></span> <span class="o">|</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="gemseo.core.discipline.discipline.Discipline">Discipline</span></span><span class="p">],</span>
+    <span class="n">input_names</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="n"><span title="collections.abc.Iterable">Iterable</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">],</span>
     <span class="n">metric_settings_models</span><span class="p">:</span> <span class="p">(</span>
         <span class="n"><a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a></span>
-        <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Sequence" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence">Sequence</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a></span><span class="p">]</span>
+        <span class="o">|</span> <span class="n"><span title="collections.abc.Sequence">Sequence</span></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a></span><span class="p">]</span>
     <span class="p">),</span>
-    <span class="n">parameter_names</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">],</span>
+    <span class="n">parameter_names</span><span class="p">:</span> <span class="n"><span title="str">str</span></span> <span class="o">|</span> <span class="n"><span title="collections.abc.Iterable">Iterable</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">],</span>
     <span class="n">formulation_settings_model</span><span class="p">:</span> <span class="p">(</span>
-        <span class="n"><a class="autorefs autorefs-external" title="gemseo.formulations.base_formulation_settings.BaseFormulationSettings" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.formulations.base_formulation_settings.html#gemseo.formulations.base_formulation_settings.BaseFormulationSettings">BaseFormulationSettings</a></span> <span class="o">|</span> <span class="kc">None</span>
+        <span class="n"><span title="gemseo.formulations.base_formulation_settings.BaseFormulationSettings">BaseFormulationSettings</span></span> <span class="o">|</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">formulation_settings</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span>
+    <span class="o">**</span><span class="n">formulation_settings</span><span class="p">:</span> <span class="n"><span title="typing.Any">Any</span></span>
 <span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-external" title="gemseo.disciplines.scenario_adapters.mdo_scenario_adapter.MDOScenarioAdapter" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.disciplines.scenario_adapters.mdo_scenario_adapter.html#gemseo.disciplines.scenario_adapters.mdo_scenario_adapter.MDOScenarioAdapter">MDOScenarioAdapter</a></code></p>
+              Bases: <code><span title="gemseo.disciplines.scenario_adapters.mdo_scenario_adapter.MDOScenarioAdapter">MDOScenarioAdapter</span></code></p>
 
 
 
@@ -2423,7 +2423,7 @@ method.</p>
     <ul>
         <li class="doc-section-item field-body">
             <b><code>disciplines</code></b>
-              (<code><a class="autorefs autorefs-external" title="gemseo.core.discipline.discipline.Discipline" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.discipline.discipline.html#gemseo.core.discipline.discipline.Discipline">Discipline</a> | <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" title="gemseo.core.discipline.discipline.Discipline" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.core.discipline.discipline.html#gemseo.core.discipline.discipline.Discipline">Discipline</a>]</code>)
+              (<code><span title="gemseo.core.discipline.discipline.Discipline">Discipline</span> | <span title="list">list</span>[<span title="gemseo.core.discipline.discipline.Discipline">Discipline</span>]</code>)
           –
           <div class="doc-md-description">
             <p>The disciplines
@@ -2432,7 +2432,7 @@ whose parameters must be calibrated from the reference data.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>input_names</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>)
+              (<code><span title="str">str</span> | <span title="collections.abc.Iterable">Iterable</span>[<span title="str">str</span>]</code>)
           –
           <div class="doc-md-description">
             <p>The names of the inputs to be considered for the calibration.</p>
@@ -2440,7 +2440,7 @@ whose parameters must be calibrated from the reference data.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>metric_settings_models</code></b>
-              (<code><a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a> | <a class="autorefs autorefs-external" title="collections.abc.Sequence" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence">Sequence</a>[<a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a>]</code>)
+              (<code><a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a> | <span title="collections.abc.Sequence">Sequence</span>[<a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a>]</code>)
           –
           <div class="doc-md-description">
             <p>A collection of calibration settings,
@@ -2460,7 +2460,7 @@ from <a class="autorefs autorefs-internal" title="            calibrator" href="
         </li>
         <li class="doc-section-item field-body">
             <b><code>parameter_names</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>)
+              (<code><span title="str">str</span> | <span title="collections.abc.Iterable">Iterable</span>[<span title="str">str</span>]</code>)
           –
           <div class="doc-md-description">
             <p>The names of the parameters to be calibrated.</p>
@@ -2468,7 +2468,7 @@ from <a class="autorefs autorefs-internal" title="            calibrator" href="
         </li>
         <li class="doc-section-item field-body">
             <b><code>formulation_settings_model</code></b>
-              (<code><a class="autorefs autorefs-external" title="gemseo.formulations.base_formulation_settings.BaseFormulationSettings" href="https://gemseo.readthedocs.io/en/stable/modules/gemseo.formulations.base_formulation_settings.html#gemseo.formulations.base_formulation_settings.BaseFormulationSettings">BaseFormulationSettings</a> | None</code>, default:
+              (<code><span title="gemseo.formulations.base_formulation_settings.BaseFormulationSettings">BaseFormulationSettings</span> | None</code>, default:
                   <code>None</code>
 )
           –
@@ -2480,7 +2480,7 @@ If <code>None</code>, use <code>**settings</code>.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>**formulation_settings</code></b>
-              (<code><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>, default:
+              (<code><span title="typing.Any">Any</span></code>, default:
                   <code>{}</code>
 )
           –
@@ -2498,7 +2498,7 @@ the calibrator uses the default MDF formulation.</p>
 <p><span class="doc-section-title">Raises:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#ValueError">ValueError</a></code>
+              <code><span title="ValueError">ValueError</span></code>
             –
           <div class="doc-md-description">
             <p>If both <code>reset_x0_before_opt</code> and <code>set_x0_before_opt</code>
@@ -2701,7 +2701,7 @@ are <code>True</code>.</p>
   </span>
 
 <a href="#gemseo_calibration.calibrator.Calibrator.maximize_objective_metric" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">maximize_objective_metric</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="n">maximize_objective_metric</span><span class="p">:</span> <span class="n"><span title="bool">bool</span></span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2755,9 +2755,9 @@ are <code>True</code>.</p>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">add_metric</span><span class="p">(</span>
     <span class="n">metric_settings_models</span><span class="p">:</span> <span class="p">(</span>
         <span class="n"><a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a></span>
-        <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a></span><span class="p">]</span>
+        <span class="o">|</span> <span class="n"><span title="collections.abc.Iterable">Iterable</span></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a></span><span class="p">]</span>
     <span class="p">),</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">]]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="tuple">tuple</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">,</span> <span class="n"><span title="list">list</span></span><span class="p">[</span><span class="n"><span title="str">str</span></span><span class="p">]]</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2769,7 +2769,7 @@ are <code>True</code>.</p>
     <ul>
         <li class="doc-section-item field-body">
             <b><code>metric_settings_models</code></b>
-              (<code><a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a> | <a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a>[<a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a>]</code>)
+              (<code><a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a> | <span title="collections.abc.Iterable">Iterable</span>[<a class="autorefs autorefs-internal" title="            CalibrationMetricSettings (gemseo_calibration.metrics.settings.CalibrationMetricSettings)" href="../metrics/settings/#gemseo_calibration.metrics.settings.CalibrationMetricSettings">CalibrationMetricSettings</a>]</code>)
           –
           <div class="doc-md-description">
             <p>A collection of calibration settings,
@@ -2793,7 +2793,7 @@ from
 <p><span class="doc-section-title">Returns:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code>
+              <code><span title="tuple">tuple</span>[<span title="str">str</span>, <span title="list">list</span>[<span title="str">str</span>]]</code>
           –
           <div class="doc-md-description">
             <p>The name of the calibration metric applied to the outputs.</p>
