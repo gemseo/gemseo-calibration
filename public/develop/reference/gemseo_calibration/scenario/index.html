@@ -1242,28 +1242,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#gemseo_calibration.scenario.CalibrationScenario.post_process" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;post_process
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gemseo_calibration.scenario.CalibrationScenario.set_algorithm" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;set_algorithm
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -2393,28 +2371,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#gemseo_calibration.scenario.CalibrationScenario.post_process" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;post_process
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gemseo_calibration.scenario.CalibrationScenario.set_algorithm" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;set_algorithm
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -2540,7 +2496,6 @@ the parameters should be defined in the input grammars of the disciplines.</p>
 from an optimizer and a reference
 [IODataset][gemseo.datasets.io_dataset.IODataset].</p>
 
-        <p>Initialize self.  See help(type(self)) for accurate signature.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -3116,181 +3071,6 @@ the name of the constraint is generated from the output name.</p>
         <span class="n">value</span><span class="p">,</span>
         <span class="n">positive</span><span class="p">,</span>
     <span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h6 id="gemseo_calibration.scenario.CalibrationScenario.post_process" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">post_process</span>
-
-
-<a href="#gemseo_calibration.scenario.CalibrationScenario.post_process" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">post_process</span><span class="p">(</span>
-    <span class="n">settings_model</span><span class="p">:</span> <span class="n"><span title="gemseo.post.base_post_settings.BasePostSettings">BasePostSettings</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">settings</span><span class="p">:</span> <span class="n"><span title="typing.Any">Any</span></span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="gemseo.post.base_post.BasePost">BasePost</span></span>
-</code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Post-process the optimization history.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-            <b><code>settings_model</code></b>
-              (<code><span title="gemseo.post.base_post_settings.BasePostSettings">BasePostSettings</span> | None</code>, default:
-                  <code>None</code>
-)
-          –
-          <div class="doc-md-description">
-            <p>The post-processor settings as a Pydantic model.
-If <code>None</code>, use <code>**settings</code>.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-            <b><code>**settings</code></b>
-              (<code><span title="typing.Any">Any</span></code>, default:
-                  <code>{}</code>
-)
-          –
-          <div class="doc-md-description">
-            <p>The post-processor settings,
-including the algorithm name (use the keyword <code>"post_name"</code>).
-These arguments are ignored when <code>settings_model</code> is not <code>None</code>.</p>
-          </div>
-        </li>
-    </ul>
-
-
-<p><span class="doc-section-title">Returns:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-              <code><span title="gemseo.post.base_post.BasePost">BasePost</span></code>
-          –
-          <div class="doc-md-description">
-            <p>The post-processor.</p>
-          </div>
-        </li>
-    </ul>
-
-
-            <details class="mkdocstrings-source">
-              <summary>Source code in <code>src/gemseo_calibration/scenario.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span>
-<span class="normal">236</span>
-<span class="normal">237</span>
-<span class="normal">238</span>
-<span class="normal">239</span>
-<span class="normal">240</span>
-<span class="normal">241</span>
-<span class="normal">242</span>
-<span class="normal">243</span>
-<span class="normal">244</span>
-<span class="normal">245</span>
-<span class="normal">246</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">post_process</span><span class="p">(</span>  <span class="c1"># noqa: D102</span>
-    <span class="bp">self</span><span class="p">,</span> <span class="n">settings_model</span><span class="p">:</span> <span class="n">BasePostSettings</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">settings</span><span class="p">:</span> <span class="n">Any</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BasePost</span><span class="p">:</span>
-    <span class="n">post_name</span> <span class="o">=</span> <span class="n">get_class_name</span><span class="p">(</span><span class="n">settings_model</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">class_name_arg</span><span class="o">=</span><span class="s2">&quot;post_name&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">post_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__calibration_post_factory</span><span class="o">.</span><span class="n">class_names</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__calibration_post_factory</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">formulation</span><span class="o">.</span><span class="n">optimization_problem</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">calibrator</span><span class="o">.</span><span class="n">reference_data</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">prior_model_data</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">posterior_model_data</span><span class="p">,</span>
-            <span class="n">post_name</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">settings</span><span class="p">,</span>
-        <span class="p">)</span>
-
-    <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">post_process</span><span class="p">(</span><span class="n">post_name</span><span class="o">=</span><span class="n">post_name</span><span class="p">,</span> <span class="o">**</span><span class="n">settings</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h6 id="gemseo_calibration.scenario.CalibrationScenario.set_algorithm" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">set_algorithm</span>
-
-
-<a href="#gemseo_calibration.scenario.CalibrationScenario.set_algorithm" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">set_algorithm</span><span class="p">(</span>
-    <span class="n">reference_data</span><span class="p">:</span> <span class="n"><span title="gemseo.typing.StrKeyMapping">StrKeyMapping</span></span><span class="p">,</span>
-    <span class="n">algo_settings_model</span><span class="p">:</span> <span class="n"><span title="gemseo.algos.base_driver_settings.BaseDriverSettings">BaseDriverSettings</span></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">algo_settings</span><span class="p">:</span> <span class="n"><span title="typing.Any">Any</span></span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
-</code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Define the algorithm to execute the scenario.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-            <b><code>reference_data</code></b>
-              (<code><span title="gemseo.typing.StrKeyMapping">StrKeyMapping</span></code>)
-          –
-          <div class="doc-md-description">
-            <p>The description is missing.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-            <b><code>algo_settings_model</code></b>
-              (<code><span title="gemseo.algos.base_driver_settings.BaseDriverSettings">BaseDriverSettings</span> | None</code>, default:
-                  <code>None</code>
-)
-          –
-          <div class="doc-md-description">
-            <p>The algorithm settings as a Pydantic model.
-If <code>None</code>, use <code>**settings</code>.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-            <b><code>**algo_settings</code></b>
-              (<code><span title="typing.Any">Any</span></code>, default:
-                  <code>{}</code>
-)
-          –
-          <div class="doc-md-description">
-            <p>The algorithm settings,
-including the algorithm name (use the keyword <code>"algo_name"</code>).
-These arguments are ignored when <code>settings_model</code> is not <code>None</code>.</p>
-          </div>
-        </li>
-    </ul>
-
-
-            <details class="mkdocstrings-source">
-              <summary>Source code in <code>src/gemseo_calibration/scenario.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">143</span>
-<span class="normal">144</span>
-<span class="normal">145</span>
-<span class="normal">146</span>
-<span class="normal">147</span>
-<span class="normal">148</span>
-<span class="normal">149</span>
-<span class="normal">150</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">set_algorithm</span><span class="p">(</span>  <span class="c1"># noqa:D102</span>
-    <span class="bp">self</span><span class="p">,</span>
-    <span class="n">reference_data</span><span class="p">:</span> <span class="n">StrKeyMapping</span><span class="p">,</span>
-    <span class="n">algo_settings_model</span><span class="p">:</span> <span class="n">BaseDriverSettings</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">algo_settings</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">__reference_data</span> <span class="o">=</span> <span class="n">reference_data</span>
-    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">set_algorithm</span><span class="p">(</span><span class="n">algo_settings_model</span><span class="o">=</span><span class="n">algo_settings_model</span><span class="p">,</span> <span class="o">**</span><span class="n">algo_settings</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
