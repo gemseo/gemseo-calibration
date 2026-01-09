@@ -187,7 +187,7 @@ paginate==0.5.7
     # via mkdocs-material
 pandas==2.3.3
     # via gemseo
-pathspec==1.0.1
+pathspec==1.0.2
     # via
     #   black
     #   mkdocs
