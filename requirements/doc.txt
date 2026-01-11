@@ -157,7 +157,7 @@ networkx==3.6.1
     # via gemseo
 nlopt==2.10.0
     # via gemseo
-numpy==2.4.0
+numpy==2.3.5
     # via
     #   gemseo-calibration (pyproject.toml)
     #   contourpy
