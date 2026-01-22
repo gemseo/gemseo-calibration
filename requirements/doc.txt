@@ -38,7 +38,7 @@ fieldz==0.1.3
     # via griffe-fieldz
 fonttools==4.61.1
     # via matplotlib
-gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@a0c2633b4eb9d91b0e56491622458549feedf5d1
+gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@d80f063f2d4701510c4248cdbf545f8c1119fa0e
     # via
     #   -c requirements/test-constraints.in
     #   gemseo-calibration (pyproject.toml)
@@ -78,7 +78,7 @@ kiwisolver==1.4.9
     # via matplotlib
 latexcodec==3.0.1
     # via pybtex
-markdown==3.10
+markdown==3.10.1
     # via
     #   mkdocs
     #   mkdocs-autorefs
@@ -230,7 +230,7 @@ pymdown-extensions==10.20
     #   mkdocstrings
 pypandoc==1.16.2
     # via mkdocs-bibtex
-pyparsing==3.3.1
+pyparsing==3.3.2
     # via
     #   matplotlib
     #   mike
@@ -276,7 +276,7 @@ scipy==1.15.2
     #   pydoe3
     #   scikit-learn
     #   spgl1
-setuptools==80.9.0
+setuptools==80.10.1
     # via mkdocs-bibtex
 six==1.17.0
     # via python-dateutil
@@ -318,7 +318,7 @@ watchdog==6.0.0
     # via mkdocs
 wcmatch==10.1
     # via mkdocs-include-markdown-plugin
-wcwidth==0.2.14
+wcwidth==0.3.0
     # via prettytable
 xdsmjs==2.0.0
     # via gemseo
