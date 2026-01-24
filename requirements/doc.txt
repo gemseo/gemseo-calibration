@@ -318,7 +318,7 @@ watchdog==6.0.0
     # via mkdocs
 wcmatch==10.1
     # via mkdocs-include-markdown-plugin
-wcwidth==0.3.1
+wcwidth==0.3.2
     # via prettytable
 xdsmjs==2.0.0
     # via gemseo
