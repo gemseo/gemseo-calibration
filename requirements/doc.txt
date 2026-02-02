@@ -2,7 +2,7 @@
 #    uv pip compile pyproject.toml --python-platform linux --constraint requirements/test-constraints.in --group doc --python-version 3.13 -o requirements/doc.txt
 annotated-types==0.7.0
     # via pydantic
-babel==2.17.0
+babel==2.18.0
     # via mkdocs-material
 backrefs==6.1
     # via mkdocs-material
@@ -38,7 +38,7 @@ fieldz==0.1.3
     # via griffe-fieldz
 fonttools==4.61.1
     # via matplotlib
-gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@eb0c111277e2bf94da19f257367dad5b5980111e
+gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@5d4a9e60d67a8d336dbaefaae9f5d15be94401c3
     # via
     #   -c requirements/test-constraints.in
     #   gemseo-calibration (pyproject.toml)
@@ -175,7 +175,7 @@ openpyxl==3.1.5
     # via gemseo
 openturns==1.26
     # via gemseo
-packaging==25.0
+packaging==26.0
     # via
     #   black
     #   gemseo
@@ -318,7 +318,7 @@ watchdog==6.0.0
     # via mkdocs
 wcmatch==10.1
     # via mkdocs-include-markdown-plugin
-wcwidth==0.5.2
+wcwidth==0.5.3
     # via prettytable
 xdsmjs==2.0.0
     # via gemseo
