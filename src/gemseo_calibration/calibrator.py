@@ -20,18 +20,17 @@ import logging
 from typing import TYPE_CHECKING
 from typing import Any
 
-from gemseo.space import DesignSpace
-from gemseo.doe.custom_doe.custom_doe import CustomDOE
-from gemseo.discipline import Discipline
 from gemseo.core.grammar.json import JSONGrammar
-from gemseo.scenario import MDOScenarioAdapter
+from gemseo.discipline import Discipline
+from gemseo.doe import CustomDOE_Settings
 from gemseo.scenario import MDOScenario
+from gemseo.scenario import MDOScenarioAdapter
+from gemseo.space import DesignSpace
 from numpy import array
 from numpy import hstack
 
 from gemseo_calibration.metrics.factory import CalibrationMetricFactory
 from gemseo_calibration.metrics.settings import CalibrationMetricSettings
-from gemseo.doe import CustomDOE_Settings
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
@@ -59,8 +58,7 @@ class Calibrator(MDOScenarioAdapter):
         metric_settings_models: CalibrationMetricSettings
         | Sequence[CalibrationMetricSettings],
         parameter_names: str | Iterable[str],
-        formulation_settings_model: BaseFormulationSettings | None = None,
-        **formulation_settings: Any,
+        formulation_settings: BaseFormulationSettings | None = None,
     ) -> None:
         """
         Args:
@@ -81,14 +79,8 @@ class Calibrator(MDOScenarioAdapter):
                 Lastly, `CalibrationMetric` can be imported
                 from [gemseo_calibration.calibrator][gemseo_calibration.calibrator].
             parameter_names: The names of the parameters to be calibrated.
-            formulation_settings_model: The MDO formulation settings
-                as a Pydantic model.
-                If ``None``, use ``**settings``.
-            **formulation_settings: The MDO formulation settings,
-                including the formulation name (use the keyword ``"formulation_name"``).
-                These arguments are ignored when ``settings_model`` is not ``None``.
-                If none and ``settings_model`` is ``None``,
-                the calibrator uses the default MDF formulation.
+            formulation_settings: The MDO formulation settings.
+                If `None`, use the MDF formulation with its default settings.
         """  # noqa: D205,D212,D415,E501
         self.__metric_factory = CalibrationMetricFactory()
         input_names = self.__to_iterable(input_names, str)
@@ -101,18 +93,10 @@ class Calibrator(MDOScenarioAdapter):
         for input_name in input_names:
             input_space.add_variable(input_name)
 
-        if (
-            formulation_settings_model is None
-            and "formulation_name" not in formulation_settings
-        ):
-            formulation_settings["formulation_name"] = "MDF"
-
         doe_scenario = MDOScenario(
-            disciplines,
-            design_space=input_space,
-            formulation_settings=formulation_settings_model,
-            **formulation_settings)
-        doe_scenario.add_objective(metric_settings_models[0].output_name, minimize=True)
+            disciplines, input_space, formulation_settings=formulation_settings
+        )
+        doe_scenario.add_objective(metric_settings_models[0].output_name)
         function_names = [metric_settings_models[0].output_name]
         for metric_settings_model in metric_settings_models:
             for name in (
@@ -122,9 +106,6 @@ class Calibrator(MDOScenarioAdapter):
                 if name and name not in function_names:
                     doe_scenario.add_observable(name)
                     function_names.append(name)
-
-        # TODO(bump-gemseo): cannot transform: the Settings class is named by CustomDOE.__name__, which is not a string literal  # noqa: E501
-        doe_scenario.set_algorithm(algo_name=CustomDOE.__name__)
 
         self.__names_to_metrics = {}
         self.__metrics = []
@@ -148,7 +129,7 @@ class Calibrator(MDOScenarioAdapter):
             return [obj]
         return obj
 
-    def _reset_optimization_problem(self) -> None:
+    def _reset_problem(self) -> None:
         self.scenario.formulation.problem.reset()
 
     def __update_output_grammar(self) -> None:
@@ -173,10 +154,13 @@ class Calibrator(MDOScenarioAdapter):
             design_space.add_variable(name, size=reference_data[name].shape[1])
 
         self.scenario.set_algorithm(
-            algorithm_settings=CustomDOE_Settings(samples=hstack([
-                reference_data[name]
-                for name in self.scenario.get_optim_variable_names()
-            ])))
+            CustomDOE_Settings(
+                samples=hstack([
+                    reference_data[name]
+                    for name in self.scenario.get_optim_variable_names()
+                ])
+            )
+        )
         for metric in self.__metrics:
             metric.set_reference_data(self.__reference_data)
 
@@ -189,9 +173,10 @@ class Calibrator(MDOScenarioAdapter):
 
     def _post_run(self) -> None:
         model_dataset = self.scenario.to_dataset().to_dict_of_arrays(False)
-        for name, metric in self.__names_to_metrics.items():
-            # TODO(bump-gemseo): IO.data is deprecated and returns a copy of the input and output data, so setting, updating or removing an item through it has no effect, and an output that _run produces through it is missing, even when produced by changing an input in place; return the outputs from _run or write them to output_data (or update_output_data(data)), write the inputs to input_data, and read input_data, output_data or get_merged_data()  # noqa: E501
-            self.io.data[name] = array([metric.func(model_dataset)])
+        self.io.update_output_data({
+            name: array([metric.func(model_dataset)])
+            for name, metric in self.__names_to_metrics.items()
+        })
 
     @property
     def maximize_objective_metric(self) -> bool:
