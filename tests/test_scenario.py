@@ -36,7 +36,7 @@ if TYPE_CHECKING:
     from gemseo.discipline import Discipline
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def calibration_space() -> DesignSpace:
     """The space of the parameters to calibrate."""
     space = DesignSpace()
@@ -126,11 +126,20 @@ def test_constraint(calibration_scenario):
     assert str(constraints[0]) == "0.5*MetricCstr[y]+0.5*MetricCstr[z](a, b) <= 0.05"
 
 
-def test_execute(calibration_scenario, reference_data):
-    """Test that the reference data are correctly passed during the execution."""
-    calibration_scenario.execute(
-        NLOPT_COBYLA_Settings(max_iter=10), reference_data=reference_data
-    )
+@pytest.mark.parametrize("use_set_reference_data", [False, True])
+def test_execute(calibration_scenario, reference_data, use_set_reference_data):
+    """Test that the reference data are correctly passed during the execution.
+
+    They are passed either to execute() or to set_reference_data() beforehand.
+    """
+    settings = NLOPT_COBYLA_Settings(max_iter=10)
+    if use_set_reference_data:
+        calibration_scenario.set_reference_data(reference_data)
+        calibration_scenario.execute(settings)
+    else:
+        calibration_scenario.execute(settings, reference_data=reference_data)
+
+    assert calibration_scenario.calibrator.reference_data is reference_data
     assert calibration_scenario.prior_parameters == {
         "a": array([0.5]),
         "b": array([0.5]),
