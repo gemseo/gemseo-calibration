@@ -21,7 +21,7 @@ classifiers = [
 dynamic = ["version"]
 requires-python = ">=3.11, <3.14"
 dependencies = [
-    "gemseo[all] >=6.3,<7",
+    "gemseo[all] @ git+https://gitlab.com/gemseo/dev/gemseo.git@develop",
     "matplotlib",
     "numpy",
 ]
