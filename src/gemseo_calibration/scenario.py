@@ -63,7 +63,7 @@ class CalibrationScenario(MDOScenario):
 
     The parameters are calibrated with the method ``execute()``
     from an optimizer and a reference
-    [IODataset][gemseo.datasets.io_dataset.IODataset].
+    [IODataset][gemseo.dataset.io_dataset.IODataset].
     """
 
     prior_model_data: dict[str, RealArray]
