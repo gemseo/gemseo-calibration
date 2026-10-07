@@ -24,8 +24,8 @@ from gemseo.post.core.base_post import BasePost
 from gemseo.post.core.base_post_settings import BasePostSettings
 
 if TYPE_CHECKING:
-    from gemseo.optimization import OptimizationProblem
     from gemseo.dataset import OptimizationDataset
+    from gemseo.optimization import OptimizationProblem
 
     from gemseo_calibration.metrics.base_calibration_metric import DataType
 

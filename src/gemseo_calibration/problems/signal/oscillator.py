@@ -19,8 +19,8 @@ from __future__ import annotations
 from math import exp
 from typing import TYPE_CHECKING
 
-from gemseo.discipline import DisciplineChain
 from gemseo.discipline import AutoPyDiscipline
+from gemseo.discipline import DisciplineChain
 
 from gemseo_calibration.signal.ode_signal_generator import ODESignalGenerator
 

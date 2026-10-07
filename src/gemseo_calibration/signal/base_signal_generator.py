@@ -20,9 +20,9 @@ from abc import abstractmethod
 from typing import TYPE_CHECKING
 from typing import NamedTuple
 
-from gemseo.util.typing import RealArray
 from gemseo.util.constant import read_only_empty_dict
 from gemseo.util.metaclass import ABCGoogleDocstringInheritanceMeta
+from gemseo.util.typing import RealArray
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
