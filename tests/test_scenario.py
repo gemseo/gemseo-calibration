@@ -19,16 +19,18 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import pytest
-from gemseo.space import DesignSpace
 from gemseo.discipline import AutoPyDiscipline
+from gemseo.optimization import NLOPT_COBYLA_Settings
 from gemseo.post import OptHistoryView
+from gemseo.post import OptHistoryView_Settings
+from gemseo.space import DesignSpace
 from numpy import array
 
 from gemseo_calibration.calibrator import Calibrator
 from gemseo_calibration.metrics.settings import CalibrationMetricSettings
 from gemseo_calibration.post.data_versus_model.post import DataVersusModel
+from gemseo_calibration.post.data_versus_model.settings import DataVersusModel_Settings
 from gemseo_calibration.scenario import CalibrationScenario
-from gemseo.optimization import NLOPT_COBYLA_Settings
 
 if TYPE_CHECKING:
     from gemseo.discipline import Discipline
@@ -73,15 +75,10 @@ def test_init(calibration_scenario):
     assert calibration_scenario.formulation_name == "DisciplinaryOpt"
     assert len(calibration_scenario.disciplines) == 1
     assert isinstance(calibration_scenario.disciplines[0], Calibrator)
-    # TODO(bump-gemseo): cannot transform: the type of calibration_scenario.design_space could not be inferred; if it is an instance of DesignSpace, variable_names became list({receiver}.variables)  # noqa: E501
-    assert calibration_scenario.design_space.variable_names == ["a", "b"]
+    assert list(calibration_scenario.design_space.variables) == ["a", "b"]
     assert calibration_scenario.name == "calib"
     assert isinstance(calibration_scenario.calibrator, Calibrator)
-    # TODO(bump-gemseo): cannot transform: the type of calibration_scenario.formulation could not be inferred; if it is an instance of BaseFormulation, optimization_problem became problem  # noqa: E501
-    assert (
-        calibration_scenario.formulation.optimization_problem.minimize_objective
-        is False
-    )
+    assert calibration_scenario.formulation.problem.minimize_objective is False
 
 
 @pytest.mark.parametrize("list_of_disciplines", [False, True])
@@ -107,10 +104,7 @@ def test_init_list(
     scenario = CalibrationScenario(disciplines, inputs, outputs, calibration_space)
     scenario.add_constraint(constraints)
     assert list(scenario.calibrator.scenario.input_space.variables) == ["x"]
-    assert (
-        scenario.calibrator.scenario.formulation.problem.objective.name
-        == "y"
-    )
+    assert scenario.calibrator.scenario.formulation.problem.objective.name == "y"
 
 
 def test_calibration_adapter(calibration_scenario):
@@ -127,8 +121,7 @@ def test_constraint(calibration_scenario):
 
     with the reference input data.
     """
-    # TODO(bump-gemseo): cannot transform: the type of calibration_scenario.formulation could not be inferred; if it is an instance of BaseFormulation, optimization_problem became problem  # noqa: E501
-    constraints = calibration_scenario.formulation.optimization_problem.constraints
+    constraints = calibration_scenario.formulation.problem.constraints
     assert len(constraints) == 1
     assert str(constraints[0]) == "0.5*MetricCstr[y]+0.5*MetricCstr[z](a, b) <= 0.05"
 
@@ -136,7 +129,7 @@ def test_constraint(calibration_scenario):
 def test_execute(calibration_scenario, reference_data):
     """Test that the reference data are correctly passed during the execution."""
     calibration_scenario.execute(
-        algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=10
+        NLOPT_COBYLA_Settings(max_iter=10), reference_data=reference_data
     )
     assert calibration_scenario.prior_parameters == {
         "a": array([0.5]),
@@ -159,14 +152,14 @@ def test_posts(calibration_scenario):
 def test_post_process(calibration_scenario, reference_data):
     """Check the post-processing of a calibration scenario."""
     calibration_scenario.execute(
-        algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=2
+        NLOPT_COBYLA_Settings(max_iter=2), reference_data=reference_data
     )
     post = calibration_scenario.post_process(
-        post_name="OptHistoryView", save=False, show=False
+        OptHistoryView_Settings(save=False, show=False)
     )
     assert isinstance(post, OptHistoryView)
     post = calibration_scenario.post_process(
-        post_name="DataVersusModel", output="y", save=False, show=False
+        DataVersusModel_Settings(output="y", save=False, show=False)
     )
     assert isinstance(post, DataVersusModel)
 
@@ -194,7 +187,5 @@ def test_float_calibration_parameter():
         CalibrationMetricSettings(output_name="y", metric_name="MSE"),
         calibration_space,
     )
-    scenario.execute(
-        algorithm_settings=NLOPT_COBYLA_Settings(reference_data=reference_data, max_iter=10
-    ))
+    scenario.execute(NLOPT_COBYLA_Settings(max_iter=10), reference_data=reference_data)
     assert scenario.optimization_result.x_opt == 0.5

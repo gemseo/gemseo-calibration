@@ -78,11 +78,9 @@ def test_maximize(adapter):
 def test_set_reference_data(adapter, reference_data):
     """Check that the reference data are correctly passed."""
     adapter.set_reference_data(reference_data)
-    assert adapter.scenario._settings.algo_name == "CustomDOE"
-    assert adapter.scenario._settings.algo_settings["samples"].shape == (
-        2,
-        1,
-    )
+    algorithm_settings = adapter.scenario._algorithm_settings
+    assert algorithm_settings.target_class_name == "CustomDOE"
+    assert algorithm_settings.samples.shape == (2, 1)
     for metric in adapter._Calibrator__metrics:
         assert len(metric._reference_data) == 2
 
@@ -93,16 +91,16 @@ def test_execute_default(adapter, reference_data):
     """Check the execution of the Calibrator with default input data."""
     adapter.set_reference_data(reference_data)
     adapter.execute()
-    assert adapter.io.data["MetricObj[y]"][0] == 0.25
-    assert adapter.io.data[CSTR_NAME][0] == 0.5
+    assert adapter.io.output_data["MetricObj[y]"][0] == 0.25
+    assert adapter.io.output_data[CSTR_NAME][0] == 0.5
 
 
 def test_execute(adapter, reference_data):
     """Check the execution of the Calibrator with custom input data."""
     adapter.set_reference_data(reference_data)
     adapter.execute({"a": array([0.25])})
-    assert adapter.io.data["MetricObj[y]"][0] == 0.125
-    assert adapter.io.data[CSTR_NAME][0] == 0.25
+    assert adapter.io.output_data["MetricObj[y]"][0] == 0.125
+    assert adapter.io.output_data[CSTR_NAME][0] == 0.25
     adapter.execute({"a": array([0.75])})
-    assert adapter.io.data["MetricObj[y]"][0] == 0.375
-    assert adapter.io.data[CSTR_NAME][0] == 0.75
+    assert adapter.io.output_data["MetricObj[y]"][0] == 0.375
+    assert adapter.io.output_data[CSTR_NAME][0] == 0.75
