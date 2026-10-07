@@ -15,6 +15,7 @@
 # WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 """Calibrate an ordinary differential equation."""
 
+from gemseo.optimization import NLOPT_COBYLA_Settings
 from gemseo.space import DesignSpace
 from matplotlib import pyplot as plt
 from numpy import atleast_2d
@@ -27,7 +28,6 @@ from gemseo_calibration.scenario import CalibrationScenario
 from gemseo_calibration.signal.signal_generator_discipline import (
     SignalGeneratorDiscipline,
 )
-from gemseo.optimization import NLOPT_COBYLA_Settings
 
 # %%
 # ## The problem
@@ -187,14 +187,16 @@ for i in range(m + 1):
         search_space,
     )
     calibration.execute(
-        algorithm_settings=NLOPT_COBYLA_Settings(reference_data={
+        NLOPT_COBYLA_Settings(max_iter=100),
+        reference_data={
             "initial_position": atleast_2d(initial_oscillator_position),
             "initial_velocity": atleast_2d(initial_oscillator_velocity),
             output_name: atleast_2d(oscillator_signal.evolution[output_name]),
-        }, max_iter=100))
+        },
+    )
 
     # Generation of simulations at times of interest with the calibrated simulator.
-    omega_opt = calibration.optimization_result.x_opt_as_dict["omega"][0]
+    omega_opt = float(calibration.optimization_result.x_opt_as_dict["omega"][0])
     calibrated_simulator.rhs_discipline.default_input_data["omega"] = omega_opt
     calibrated_simulator_signal = calibrated_simulator.generate(
         times,
@@ -351,15 +353,17 @@ for i in range(m + 1):
         search_space,
     )
     calibration.execute(
-        algorithm_settings=NLOPT_COBYLA_Settings(reference_data={
+        NLOPT_COBYLA_Settings(max_iter=100),
+        reference_data={
             "initial_omega": atleast_2d(initial_oscillator_omega),
             "initial_position": atleast_2d(initial_oscillator_position),
             "initial_velocity": atleast_2d(initial_oscillator_velocity),
             output_name: atleast_2d(oscillator_signal.evolution[output_name]),
-        }, max_iter=100))
+        },
+    )
 
     # Generation of simulations at times of interest with the calibrated simulator.
-    a_opt = calibration.optimization_result.x_opt_as_dict["a"][0]
+    a_opt = float(calibration.optimization_result.x_opt_as_dict["a"][0])
     calibrated_simulator.rhs_discipline.default_input_data["a"] = a_opt
     calibrated_simulator_signal = calibrated_simulator.generate(
         times,
@@ -495,11 +499,13 @@ calibration = CalibrationScenario(
     search_space,
 )
 calibration.execute(
-    algorithm_settings=NLOPT_COBYLA_Settings(reference_data={
+    NLOPT_COBYLA_Settings(max_iter=100),
+    reference_data={
         "initial_omega": atleast_2d(omega_0),
         "initial_velocity": atleast_2d(v_0),
         output_name: atleast_2d(simulator_signal.evolution[output_name]),
-    }, max_iter=100))
+    },
+)
 # %%
 # ### The results
 # Finally, we plot the results:
