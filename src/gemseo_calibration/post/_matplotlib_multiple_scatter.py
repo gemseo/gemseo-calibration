@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from gemseo.post.dataset.plots._matplotlib.plot import MatplotlibPlot
+from gemseo.post.dataset.plot._matplotlib.plot import MatplotlibPlot
 from matplotlib import colormaps
 from numpy import linspace
 
@@ -26,7 +26,7 @@ if TYPE_CHECKING:
     from collections.abc import Iterable
     from collections.abc import Mapping
 
-    from gemseo.typing import RealArray
+    from gemseo.util.typing import RealArray
     from matplotlib.axes import Axes
     from matplotlib.figure import Figure
 

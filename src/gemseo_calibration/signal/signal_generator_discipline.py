@@ -18,13 +18,13 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from gemseo.core.discipline.discipline import Discipline
+from gemseo.discipline import Discipline
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
 
     from gemseo import StrKeyMapping
-    from gemseo.typing import RealArray
+    from gemseo.util.typing import RealArray
 
     from gemseo_calibration.signal.base_signal_generator import BaseSignalGenerator
 

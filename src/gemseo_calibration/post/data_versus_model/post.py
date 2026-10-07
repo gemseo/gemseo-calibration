@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from typing import ClassVar
 
-from gemseo.datasets.dataset import Dataset
+from gemseo.dataset import Dataset
 from numpy import newaxis
 
 from gemseo_calibration.post.data_versus_model.settings import DataVersusModelSettings
@@ -29,7 +29,7 @@ from gemseo_calibration.post_processor import CalibrationPostProcessor
 class DataVersusModel(CalibrationPostProcessor[DataVersusModelSettings]):
     """Scatter plot of the model data versus the reference ones."""
 
-    Settings: ClassVar[type[DataVersusModelSettings]] = DataVersusModelSettings
+    settings_class: ClassVar[type[DataVersusModelSettings]] = DataVersusModelSettings
 
     def _plot(self, settings: DataVersusModelSettings) -> None:
         output = settings.output
@@ -46,10 +46,10 @@ class DataVersusModel(CalibrationPostProcessor[DataVersusModelSettings]):
         )
         dataset.add_variable(ref_name, self._reference_data[output].mean(1)[:, newaxis])
         plot = MultipleScatter(dataset, x=ref_name, y=[init_name, opt_name])
-        plot.color = ["blue", "red"]
-        plot.xlabel = "Reference"
-        plot.ylabel = "Model"
-        plot.labels = {opt_name: "After calibration", init_name: "Before calibration"}
+        plot.settings.color = ["blue", "red"]
+        plot.settings.xlabel = "Reference"
+        plot.settings.ylabel = "Model"
+        plot.settings.labels = {opt_name: "After calibration", init_name: "Before calibration"}
         figures = plot.execute(save=False, show=False)
         for figure in figures:
             self._add_figure(figure)

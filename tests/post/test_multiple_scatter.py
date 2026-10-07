@@ -22,8 +22,9 @@
 from __future__ import annotations
 
 import pytest
-from gemseo.datasets.dataset import Dataset
-from gemseo.utils.testing.helpers import image_comparison
+from gemseo.dataset import Dataset
+# TODO(bump-gemseo): gemseo.utils.testing.helpers.image_comparison: use the snapshot_matplotlib fixture of syrupy-matplotlib instead; add syrupy-matplotlib to the test dependencies, set snapshot_matplotlib_tolerance = 0.01 in .pytest.ini, replace the @image_comparison([...]) decorator by a snapshot_matplotlib argument of the test, then run pytest --snapshot-update without -n (the baseline_images directories are no longer used)  # noqa: E501
+from gemseo.util.testing.helper import image_comparison
 from matplotlib import pyplot as plt
 from numpy import array
 
@@ -41,8 +42,7 @@ def dataset() -> Dataset:
     return Dataset.from_array(
         data_array,
         variable_names=["x", "y1", "y2"],
-        variable_names_to_n_components=variable_names_to_n_components,
-    )
+        variable_name_to_n_components=variable_names_to_n_components)
 
 
 # the test parameters, it maps a test name to the inputs and references outputs:
@@ -92,7 +92,7 @@ def test_plot(
     """Test images created by MultipleScatter._plot against references."""
     plot = MultipleScatter(dataset, **options)
     fig, axes = (
-        (None, None) if not fig_and_axes else plt.subplots(figsize=plot.fig_size)
+        (None, None) if not fig_and_axes else plt.subplots(figsize=plot.settings.fig_size)
     )
     for name, value in properties.items():
         setattr(plot, name, value)

@@ -18,8 +18,8 @@ from __future__ import annotations
 
 from typing import ClassVar
 
-from gemseo.core.mdo_functions.mdo_function import MDOFunction
-from gemseo.typing import RealArray
+from gemseo.core.function.array_function import ArrayFunction
+from gemseo.util.typing import RealArray
 
 DataType = dict[str, RealArray]
 """The type of data.
@@ -30,7 +30,7 @@ whose rows are the samples and columns are the components of the variable.
 """
 
 
-class BaseCalibrationMetric(MDOFunction):
+class BaseCalibrationMetric(ArrayFunction):
     """The base class for metrics to compare data sets."""
 
     output_name: str
@@ -43,7 +43,7 @@ class BaseCalibrationMetric(MDOFunction):
         self,
         output_name: str,
         name: str = "",
-        f_type: MDOFunction.FunctionType = MDOFunction.FunctionType.NONE,
+        f_type: ArrayFunction.FunctionType = ArrayFunction.FunctionType.NONE,
     ) -> None:
         """
         Args:

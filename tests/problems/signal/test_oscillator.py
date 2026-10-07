@@ -26,7 +26,7 @@ from gemseo_calibration.problems.signal.oscillator import compute_omega_rhs
 from gemseo_calibration.problems.signal.oscillator import compute_oscillator_rhs
 
 if TYPE_CHECKING:
-    from gemseo.typing import RealArray
+    from gemseo.util.typing import RealArray
 
 
 @pytest.fixture(scope="module")

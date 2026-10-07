@@ -20,12 +20,12 @@ from typing import TYPE_CHECKING
 from typing import Generic
 from typing import TypeVar
 
-from gemseo.post.base_post import BasePost
-from gemseo.post.base_post_settings import BasePostSettings
+from gemseo.post.core.base_post import BasePost
+from gemseo.post.core.base_post_settings import BasePostSettings
 
 if TYPE_CHECKING:
-    from gemseo.algos.optimization_problem import OptimizationProblem
-    from gemseo.datasets.optimization_dataset import OptimizationDataset
+    from gemseo.optimization import OptimizationProblem
+    from gemseo.dataset import OptimizationDataset
 
     from gemseo_calibration.metrics.base_calibration_metric import DataType
 

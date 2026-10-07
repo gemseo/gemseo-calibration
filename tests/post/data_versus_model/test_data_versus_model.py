@@ -22,14 +22,16 @@
 from __future__ import annotations
 
 import pytest
-from gemseo.algos.parameter_space import ParameterSpace
-from gemseo.disciplines.analytic import AnalyticDiscipline
-from gemseo.utils.testing.helpers import image_comparison
+from gemseo.space import RandomSpace
+from gemseo.discipline import AnalyticDiscipline
+# TODO(bump-gemseo): gemseo.utils.testing.helpers.image_comparison: use the snapshot_matplotlib fixture of syrupy-matplotlib instead; add syrupy-matplotlib to the test dependencies, set snapshot_matplotlib_tolerance = 0.01 in .pytest.ini, replace the @image_comparison([...]) decorator by a snapshot_matplotlib argument of the test, then run pytest --snapshot-update without -n (the baseline_images directories are no longer used)  # noqa: E501
+from gemseo.util.testing.helper import image_comparison
 from numpy import array
 
 from gemseo_calibration.metrics.settings import CalibrationMetricSettings
 from gemseo_calibration.post.data_versus_model.post import DataVersusModel
 from gemseo_calibration.scenario import CalibrationScenario
+from gemseo.optimization import NLOPT_COBYLA_Settings
 
 
 @pytest.fixture(scope="module")
@@ -38,8 +40,10 @@ def calibration_scenario() -> CalibrationScenario:
     model = AnalyticDiscipline({"y": "a*x", "z": "b*x"}, name="model")
     reference = AnalyticDiscipline({"y": "2*x", "z": "3*x"}, name="reference")
 
-    prior = ParameterSpace()
+    prior = RandomSpace()
+    # TODO(bump-gemseo): a RandomSpace holds only random variables; add a deterministic variable to a DesignSpace instead  # noqa: E501
     prior.add_variable("a", lower_bound=0.0, upper_bound=10.0, value=0.0)
+    # TODO(bump-gemseo): a RandomSpace holds only random variables; add a deterministic variable to a DesignSpace instead  # noqa: E501
     prior.add_variable("b", lower_bound=0.0, upper_bound=10.0, value=0.0)
 
     reference.set_cache("MemoryFullCache")
@@ -57,8 +61,8 @@ def calibration_scenario() -> CalibrationScenario:
         prior,
     )
     calibration.execute(
-        algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=10
-    )
+        algorithm_settings=NLOPT_COBYLA_Settings(reference_data=reference_data, max_iter=10
+    ))
     return calibration
 
 
@@ -82,6 +86,7 @@ def test_plot(
     kwargs, baseline_images, calibration_scenario, pyplot_close_all, post_factory
 ):
     """Test images created by DataVersusModel._plot against references."""
+    # TODO(bump-gemseo): cannot transform: the type of calibration_scenario.formulation could not be inferred; if it is an instance of BaseFormulation, optimization_problem became problem  # noqa: E501
     post_factory.create(
         "DataVersusModel",
         calibration_scenario.formulation.optimization_problem,
@@ -93,6 +98,7 @@ def test_plot(
 
 def test_factory_plot(post_factory, calibration_scenario):
     """Check CalibrationPostFactory.execute()."""
+    # TODO(bump-gemseo): cannot transform: the type of calibration_scenario.formulation could not be inferred; if it is an instance of BaseFormulation, optimization_problem became problem  # noqa: E501
     post = post_factory.execute(
         calibration_scenario.formulation.optimization_problem,
         calibration_scenario.calibrator.reference_data,

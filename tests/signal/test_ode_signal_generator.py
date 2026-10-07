@@ -15,7 +15,7 @@
 from __future__ import annotations
 
 import pytest
-from gemseo.disciplines.auto_py import AutoPyDiscipline
+from gemseo.discipline import AutoPyDiscipline
 from numpy import array
 from numpy import linspace
 from numpy.testing import assert_almost_equal

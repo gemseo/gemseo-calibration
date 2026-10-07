@@ -16,9 +16,9 @@
 
 from __future__ import annotations
 
-from gemseo.post.base_post import BasePost
-from gemseo.post.base_post_settings import BasePostSettings
-from gemseo.problems.optimization.rosenbrock import Rosenbrock
+from gemseo.post.core.base_post import BasePost
+from gemseo.post.core.base_post_settings import BasePostSettings
+from gemseo.problem.optimization.rosenbrock import Rosenbrock
 from numpy import zeros
 
 from gemseo_calibration.post_processor import CalibrationPostProcessor
@@ -39,6 +39,7 @@ class NewCalibrationPostProcessor(
 def test_post():
     """Test that the base class CalibrationPostProcessor is correctly initialized."""
     opt_problem = Rosenbrock()
+    # TODO(bump-gemseo): EvaluationProblem.preprocess_functions was removed; see the GEMSEO 7 changelog.  # noqa: E501
     opt_problem.preprocess_functions()
     opt_problem.evaluate_functions(zeros(2))
     post = NewCalibrationPostProcessor(opt_problem, 1, 2, 3)

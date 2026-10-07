@@ -34,7 +34,7 @@ from scipy.interpolate import interp1d
 from gemseo_calibration.metrics.base_calibration_metric import BaseCalibrationMetric
 
 if TYPE_CHECKING:
-    from gemseo.typing import RealArray
+    from gemseo.util.typing import RealArray
 
     from gemseo_calibration.metrics.base_calibration_metric import DataType
 

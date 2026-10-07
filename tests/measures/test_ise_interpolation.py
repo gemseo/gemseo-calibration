@@ -17,7 +17,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import pytest
-from gemseo.datasets.dataset import Dataset
+from gemseo.dataset import Dataset
 from numpy import all as np_all
 from numpy import diff
 from numpy import full
@@ -50,8 +50,7 @@ def create_dataset(
     return Dataset.from_array(
         data=[hstack([y, mesh])],
         variable_names=["y", "y_mesh"],
-        variable_names_to_n_components={"y": mesh_size, "y_mesh": mesh_size},
-    )
+        variable_name_to_n_components={"y": mesh_size, "y_mesh": mesh_size})
 
 
 @pytest.mark.parametrize("is_decreasing_ref_mesh", [False, True])

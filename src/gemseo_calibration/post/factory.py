@@ -19,7 +19,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 from typing import Any
 
-from gemseo.algos.optimization_problem import OptimizationProblem
+from gemseo.optimization import OptimizationProblem
 from gemseo.post.factory import PostFactory
 
 from gemseo_calibration.post_processor import CalibrationPostProcessor
@@ -27,13 +27,13 @@ from gemseo_calibration.post_processor import CalibrationPostProcessor
 if TYPE_CHECKING:
     from pathlib import Path
 
-    from gemseo.datasets.dataset import Dataset
+    from gemseo.dataset import Dataset
 
 
 class CalibrationPostFactory(PostFactory):
     """A factory for calibration post-processing."""
 
-    _CLASS = CalibrationPostProcessor
+    _class = CalibrationPostProcessor
     _MODULE_NAMES = ("gemseo_calibration.post",)
 
     def execute(
@@ -86,6 +86,7 @@ class CalibrationPostFactory(PostFactory):
             prior_model_data,
             posterior_model_data,
         )
+        # TODO(bump-gemseo): **kwargs may contain: settings_model -> settings  # noqa: E501
         post.execute(
             save=save,
             show=show,

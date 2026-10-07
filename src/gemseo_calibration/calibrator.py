@@ -20,23 +20,24 @@ import logging
 from typing import TYPE_CHECKING
 from typing import Any
 
-from gemseo.algos.design_space import DesignSpace
-from gemseo.algos.doe.custom_doe.custom_doe import CustomDOE
-from gemseo.core.discipline.discipline import Discipline
-from gemseo.core.grammars.json_grammar import JSONGrammar
-from gemseo.disciplines.scenario_adapters.mdo_scenario_adapter import MDOScenarioAdapter
-from gemseo.scenarios.doe_scenario import DOEScenario
+from gemseo.space import DesignSpace
+from gemseo.doe.custom_doe.custom_doe import CustomDOE
+from gemseo.discipline import Discipline
+from gemseo.core.grammar.json import JSONGrammar
+from gemseo.scenario import MDOScenarioAdapter
+from gemseo.scenario import MDOScenario
 from numpy import array
 from numpy import hstack
 
 from gemseo_calibration.metrics.factory import CalibrationMetricFactory
 from gemseo_calibration.metrics.settings import CalibrationMetricSettings
+from gemseo.doe import CustomDOE_Settings
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
     from collections.abc import Sequence
 
-    from gemseo.formulations.base_formulation_settings import BaseFormulationSettings
+    from gemseo.formulation.core.base_settings import BaseFormulationSettings
 
     from gemseo_calibration.metrics.base_calibration_metric import BaseCalibrationMetric
     from gemseo_calibration.metrics.base_calibration_metric import DataType
@@ -106,13 +107,12 @@ class Calibrator(MDOScenarioAdapter):
         ):
             formulation_settings["formulation_name"] = "MDF"
 
-        doe_scenario = DOEScenario(
+        doe_scenario = MDOScenario(
             disciplines,
-            metric_settings_models[0].output_name,
-            input_space,
-            formulation_settings_model=formulation_settings_model,
-            **formulation_settings,
-        )
+            design_space=input_space,
+            formulation_settings=formulation_settings_model,
+            **formulation_settings)
+        doe_scenario.add_objective(metric_settings_models[0].output_name, minimize=True)
         function_names = [metric_settings_models[0].output_name]
         for metric_settings_model in metric_settings_models:
             for name in (
@@ -123,6 +123,7 @@ class Calibrator(MDOScenarioAdapter):
                     doe_scenario.add_observable(name)
                     function_names.append(name)
 
+        # TODO(bump-gemseo): cannot transform: the Settings class is named by CustomDOE.__name__, which is not a string literal  # noqa: E501
         doe_scenario.set_algorithm(algo_name=CustomDOE.__name__)
 
         self.__names_to_metrics = {}
@@ -148,7 +149,7 @@ class Calibrator(MDOScenarioAdapter):
         return obj
 
     def _reset_optimization_problem(self) -> None:
-        self.scenario.formulation.optimization_problem.reset()
+        self.scenario.formulation.problem.reset()
 
     def __update_output_grammar(self) -> None:
         """Redefine the output grammar from the names of the output metrics.
@@ -166,18 +167,16 @@ class Calibrator(MDOScenarioAdapter):
             reference_data: The reference data with which to compare the discipline.
         """
         self.__reference_data = reference_data
-        design_space = self.scenario.design_space
+        design_space = self.scenario.input_space
         for name in tuple(design_space):
             design_space.remove_variable(name)
             design_space.add_variable(name, size=reference_data[name].shape[1])
 
         self.scenario.set_algorithm(
-            algo_name="CustomDOE",
-            samples=hstack([
+            algorithm_settings=CustomDOE_Settings(samples=hstack([
                 reference_data[name]
                 for name in self.scenario.get_optim_variable_names()
-            ]),
-        )
+            ])))
         for metric in self.__metrics:
             metric.set_reference_data(self.__reference_data)
 
@@ -191,6 +190,7 @@ class Calibrator(MDOScenarioAdapter):
     def _post_run(self) -> None:
         model_dataset = self.scenario.to_dataset().to_dict_of_arrays(False)
         for name, metric in self.__names_to_metrics.items():
+            # TODO(bump-gemseo): IO.data is deprecated and returns a copy of the input and output data, so setting, updating or removing an item through it has no effect, and an output that _run produces through it is missing, even when produced by changing an input in place; return the outputs from _run or write them to output_data (or update_output_data(data)), write the inputs to input_data, and read input_data, output_data or get_merged_data()  # noqa: E501
             self.io.data[name] = array([metric.func(model_dataset)])
 
     @property
@@ -296,7 +296,7 @@ class Calibrator(MDOScenarioAdapter):
         metric_settings_models = self.__to_metric_settings(metric_settings_models)
         function_names = [
             function_.name
-            for function_ in self.scenario.formulation.optimization_problem.functions
+            for function_ in self.scenario.formulation.problem.functions
             if function_ is not None
         ]
         for metric_settings_model in metric_settings_models:

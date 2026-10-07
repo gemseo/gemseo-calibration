@@ -20,14 +20,14 @@ from abc import abstractmethod
 from typing import TYPE_CHECKING
 from typing import NamedTuple
 
-from gemseo.typing import RealArray
-from gemseo.utils.constants import READ_ONLY_EMPTY_DICT
-from gemseo.utils.metaclasses import ABCGoogleDocstringInheritanceMeta
+from gemseo.util.typing import RealArray
+from gemseo.util.constant import read_only_empty_dict
+from gemseo.util.metaclass import ABCGoogleDocstringInheritanceMeta
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
 
-    from gemseo.core.grammars.base_grammar import BaseGrammar
+    from gemseo.core.grammar.base import BaseGrammar
 
 
 Data = float | RealArray
@@ -57,7 +57,7 @@ class BaseSignalGenerator(metaclass=ABCGoogleDocstringInheritanceMeta):
         self,
         times: RealArray,
         initial_state_values: Mapping[str, Data],
-        parameter_values: Mapping[str, Data] = READ_ONLY_EMPTY_DICT,
+        parameter_values: Mapping[str, Data] = read_only_empty_dict,
     ) -> Signal:
         """Generate a multivariate signal.
 

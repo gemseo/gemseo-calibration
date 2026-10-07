@@ -15,7 +15,7 @@
 # WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 """Calibrate an ordinary differential equation."""
 
-from gemseo.algos.design_space import DesignSpace
+from gemseo.space import DesignSpace
 from matplotlib import pyplot as plt
 from numpy import atleast_2d
 from numpy import full
@@ -27,6 +27,7 @@ from gemseo_calibration.scenario import CalibrationScenario
 from gemseo_calibration.signal.signal_generator_discipline import (
     SignalGeneratorDiscipline,
 )
+from gemseo.optimization import NLOPT_COBYLA_Settings
 
 # %%
 # ## The problem
@@ -186,14 +187,11 @@ for i in range(m + 1):
         search_space,
     )
     calibration.execute(
-        algo_name="NLOPT_COBYLA",
-        reference_data={
+        algorithm_settings=NLOPT_COBYLA_Settings(reference_data={
             "initial_position": atleast_2d(initial_oscillator_position),
             "initial_velocity": atleast_2d(initial_oscillator_velocity),
             output_name: atleast_2d(oscillator_signal.evolution[output_name]),
-        },
-        max_iter=100,
-    )
+        }, max_iter=100))
 
     # Generation of simulations at times of interest with the calibrated simulator.
     omega_opt = calibration.optimization_result.x_opt_as_dict["omega"][0]
@@ -353,15 +351,12 @@ for i in range(m + 1):
         search_space,
     )
     calibration.execute(
-        algo_name="NLOPT_COBYLA",
-        reference_data={
+        algorithm_settings=NLOPT_COBYLA_Settings(reference_data={
             "initial_omega": atleast_2d(initial_oscillator_omega),
             "initial_position": atleast_2d(initial_oscillator_position),
             "initial_velocity": atleast_2d(initial_oscillator_velocity),
             output_name: atleast_2d(oscillator_signal.evolution[output_name]),
-        },
-        max_iter=100,
-    )
+        }, max_iter=100))
 
     # Generation of simulations at times of interest with the calibrated simulator.
     a_opt = calibration.optimization_result.x_opt_as_dict["a"][0]
@@ -500,14 +495,11 @@ calibration = CalibrationScenario(
     search_space,
 )
 calibration.execute(
-    algo_name="NLOPT_COBYLA",
-    reference_data={
+    algorithm_settings=NLOPT_COBYLA_Settings(reference_data={
         "initial_omega": atleast_2d(omega_0),
         "initial_velocity": atleast_2d(v_0),
         output_name: atleast_2d(simulator_signal.evolution[output_name]),
-    },
-    max_iter=100,
-)
+    }, max_iter=100))
 # %%
 # ### The results
 # Finally, we plot the results:

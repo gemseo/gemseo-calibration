@@ -22,13 +22,15 @@ with two poorly known parameters.
 from __future__ import annotations
 
 from gemseo import sample_disciplines
-from gemseo.algos.design_space import DesignSpace
-from gemseo.algos.parameter_space import ParameterSpace
-from gemseo.disciplines.analytic import AnalyticDiscipline
+from gemseo.space import DesignSpace
+from gemseo.space import RandomSpace
+from gemseo.discipline import AnalyticDiscipline
 from numpy import array
 
 from gemseo_calibration.metrics.settings import CalibrationMetricSettings
 from gemseo_calibration.scenario import CalibrationScenario
+from gemseo.optimization import NLOPT_COBYLA_Settings
+from gemseo.post import OptHistoryView_Settings
 
 # %%
 # Let us consider a model $f(x)=[ax,bx]$ from $\mathbb{R}$ to $\mathbb{R}^2$:
@@ -52,8 +54,10 @@ reference = AnalyticDiscipline({"y": "2*x", "z": "3*x"}, name="reference")
 # %%
 # Firstly,
 # we have prior knowledge of the parameter values, that is $[a,b]\in[0,10]^2$:
-prior = ParameterSpace()
+prior = RandomSpace()
+# TODO(bump-gemseo): a RandomSpace holds only random variables; add a deterministic variable to a DesignSpace instead  # noqa: E501
 prior.add_variable("a", lower_bound=0.0, upper_bound=10.0, value=0.0)
+# TODO(bump-gemseo): a RandomSpace holds only random variables; add a deterministic variable to a DesignSpace instead  # noqa: E501
 prior.add_variable("b", lower_bound=0.0, upper_bound=10.0, value=0.0)
 
 # %%
@@ -87,8 +91,8 @@ metric_settings = [
 ]
 calibration = CalibrationScenario(model, "x", metric_settings, prior)
 calibration.execute(
-    algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=100
-)
+    algorithm_settings=NLOPT_COBYLA_Settings(reference_data=reference_data, max_iter=100
+))
 
 # %%
 # Lastly,
@@ -97,9 +101,10 @@ calibration.optimization_result.x_opt
 
 # %%
 # and plot an optimization history view:
-calibration.post_process(post_name="OptHistoryView", save=False, show=True)
+calibration.post_process(settings=OptHistoryView_Settings(save=False, show=True))
 
 # %%
 # as well as the model data versus the reference ones,
 # before and after the calibration:
+# TODO(bump-gemseo): cannot transform: no Settings class DataVersusModel_Settings in the griffe dump to gather the settings into  # noqa: E501
 calibration.post_process(post_name="DataVersusModel", output="z", save=False, show=True)

@@ -21,7 +21,7 @@ from typing import TYPE_CHECKING
 from gemseo_calibration.metrics.base_mean_metric import BaseMeanMetric
 
 if TYPE_CHECKING:
-    from gemseo.typing import RealArray
+    from gemseo.util.typing import RealArray
 
 
 class MAE(BaseMeanMetric):

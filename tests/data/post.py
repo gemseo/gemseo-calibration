@@ -16,13 +16,13 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from gemseo.post.base_post import BasePost
+from gemseo.post.core.base_post import BasePost
 
 from gemseo_calibration.post_processor import CalibrationPostProcessor
 
 if TYPE_CHECKING:
-    from gemseo.algos.optimization_problem import OptimizationProblem
-    from gemseo.datasets.optimization_dataset import OptimizationDataset
+    from gemseo.optimization import OptimizationProblem
+    from gemseo.dataset import OptimizationDataset
     from numpy import ndarray
 
 

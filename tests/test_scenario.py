@@ -19,18 +19,19 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import pytest
-from gemseo.algos.design_space import DesignSpace
-from gemseo.disciplines.auto_py import AutoPyDiscipline
-from gemseo.post.opt_history_view import OptHistoryView
+from gemseo.space import DesignSpace
+from gemseo.discipline import AutoPyDiscipline
+from gemseo.post import OptHistoryView
 from numpy import array
 
 from gemseo_calibration.calibrator import Calibrator
 from gemseo_calibration.metrics.settings import CalibrationMetricSettings
 from gemseo_calibration.post.data_versus_model.post import DataVersusModel
 from gemseo_calibration.scenario import CalibrationScenario
+from gemseo.optimization import NLOPT_COBYLA_Settings
 
 if TYPE_CHECKING:
-    from gemseo.core.discipline.discipline import Discipline
+    from gemseo.discipline import Discipline
 
 
 @pytest.fixture(scope="module")
@@ -72,9 +73,11 @@ def test_init(calibration_scenario):
     assert calibration_scenario.formulation_name == "DisciplinaryOpt"
     assert len(calibration_scenario.disciplines) == 1
     assert isinstance(calibration_scenario.disciplines[0], Calibrator)
+    # TODO(bump-gemseo): cannot transform: the type of calibration_scenario.design_space could not be inferred; if it is an instance of DesignSpace, variable_names became list({receiver}.variables)  # noqa: E501
     assert calibration_scenario.design_space.variable_names == ["a", "b"]
     assert calibration_scenario.name == "calib"
     assert isinstance(calibration_scenario.calibrator, Calibrator)
+    # TODO(bump-gemseo): cannot transform: the type of calibration_scenario.formulation could not be inferred; if it is an instance of BaseFormulation, optimization_problem became problem  # noqa: E501
     assert (
         calibration_scenario.formulation.optimization_problem.minimize_objective
         is False
@@ -103,9 +106,9 @@ def test_init_list(
     constraints = [constraint] if list_of_constraints else constraint
     scenario = CalibrationScenario(disciplines, inputs, outputs, calibration_space)
     scenario.add_constraint(constraints)
-    assert scenario.calibrator.scenario.design_space.variable_names == ["x"]
+    assert list(scenario.calibrator.scenario.input_space.variables) == ["x"]
     assert (
-        scenario.calibrator.scenario.formulation.optimization_problem.objective.name
+        scenario.calibrator.scenario.formulation.problem.objective.name
         == "y"
     )
 
@@ -124,6 +127,7 @@ def test_constraint(calibration_scenario):
 
     with the reference input data.
     """
+    # TODO(bump-gemseo): cannot transform: the type of calibration_scenario.formulation could not be inferred; if it is an instance of BaseFormulation, optimization_problem became problem  # noqa: E501
     constraints = calibration_scenario.formulation.optimization_problem.constraints
     assert len(constraints) == 1
     assert str(constraints[0]) == "0.5*MetricCstr[y]+0.5*MetricCstr[z](a, b) <= 0.05"
@@ -191,6 +195,6 @@ def test_float_calibration_parameter():
         calibration_space,
     )
     scenario.execute(
-        algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=10
-    )
+        algorithm_settings=NLOPT_COBYLA_Settings(reference_data=reference_data, max_iter=10
+    ))
     assert scenario.optimization_result.x_opt == 0.5

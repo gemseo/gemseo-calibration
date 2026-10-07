@@ -18,8 +18,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from gemseo.disciplines.ode.ode_discipline import ODEDiscipline
-from gemseo.utils.constants import READ_ONLY_EMPTY_DICT
+from gemseo.discipline import ODEDiscipline
+from gemseo.util.constant import read_only_empty_dict
 
 from gemseo_calibration.signal.base_signal_generator import BaseSignalGenerator
 from gemseo_calibration.signal.base_signal_generator import Signal
@@ -28,8 +28,8 @@ if TYPE_CHECKING:
     from collections.abc import Iterable
     from collections.abc import Mapping
 
-    from gemseo.core.discipline.discipline import Discipline
-    from gemseo.typing import RealArray
+    from gemseo.discipline import Discipline
+    from gemseo.util.typing import RealArray
 
     from gemseo_calibration.signal.base_signal_generator import Data
 
@@ -76,7 +76,7 @@ class ODESignalGenerator(BaseSignalGenerator):
         self,
         times: RealArray,
         initial_state_values: Mapping[str, Data],
-        parameter_values: Mapping[str, Data] = READ_ONLY_EMPTY_DICT,
+        parameter_values: Mapping[str, Data] = read_only_empty_dict,
     ) -> Signal:
         ode_discipline = ODEDiscipline(
             self.__rhs_discipline,
@@ -90,6 +90,7 @@ class ODESignalGenerator(BaseSignalGenerator):
         })
         ode_discipline.default_input_data.update(parameter_values)
         ode_discipline.execute()
+        # TODO(bump-gemseo): IO.data is deprecated and returns a copy of the input and output data, so setting, updating or removing an item through it has no effect, and an output that _run produces through it is missing, even when produced by changing an input in place; return the outputs from _run or write them to output_data (or update_output_data(data)), write the inputs to input_data, and read input_data, output_data or get_merged_data()  # noqa: E501
         data = ode_discipline.io.data
         return Signal(
             evolution={name: data[name] for name in initial_state_values},

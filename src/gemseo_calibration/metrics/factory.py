@@ -25,8 +25,8 @@ from gemseo_calibration.metrics.base_integrated_metric import BaseIntegratedMetr
 class CalibrationMetricFactory(BaseFactory):
     """A factory of calibration metrics."""
 
-    _CLASS = BaseCalibrationMetric
-    _PACKAGE_NAMES = ("gemseo_calibration.metrics",)
+    _class = BaseCalibrationMetric
+    _package_names = ("gemseo_calibration.metrics",)
 
     def is_integrated_metric(self, name: str) -> bool:
         """Return whether a calibration metric is an integrated metric.

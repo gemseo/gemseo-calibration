@@ -30,17 +30,17 @@ from __future__ import annotations
 from types import MappingProxyType
 from typing import TYPE_CHECKING
 
-from gemseo.post.dataset.dataset_plot import DatasetPlot
+from gemseo.post.dataset.base import BaseDatasetPlot
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
     from collections.abc import Mapping
 
-    from gemseo.datasets.dataset import Dataset
-    from gemseo.typing import RealArray
+    from gemseo.dataset import Dataset
+    from gemseo.util.typing import RealArray
 
 
-class MultipleScatter(DatasetPlot):
+class MultipleScatter(BaseDatasetPlot):
     """Overlay several scatter y_i versus x."""
 
     def __init__(

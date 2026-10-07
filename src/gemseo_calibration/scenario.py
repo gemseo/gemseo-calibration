@@ -19,9 +19,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 from typing import Any
 
-from gemseo.core.mdo_functions.mdo_function import MDOFunction
-from gemseo.scenarios.mdo_scenario import MDOScenario
-from gemseo.utils.pydantic import get_class_name
+from gemseo.core.function.array_function import ArrayFunction
+from gemseo.scenario import MDOScenario
+from gemseo.util.pydantic import get_class_name
 from numpy import ndarray
 
 from gemseo_calibration.calibrator import Calibrator
@@ -31,14 +31,14 @@ if TYPE_CHECKING:
     from collections.abc import Iterable
     from collections.abc import Sequence
 
-    from gemseo.algos.base_driver_settings import BaseDriverSettings
-    from gemseo.algos.design_space import DesignSpace
-    from gemseo.core.discipline.discipline import Discipline
-    from gemseo.formulations.base_formulation_settings import BaseFormulationSettings
-    from gemseo.post.base_post import BasePost
-    from gemseo.post.base_post_settings import BasePostSettings
-    from gemseo.typing import RealArray
-    from gemseo.typing import StrKeyMapping
+    from gemseo.core.algorithm.base_driver_settings import BaseDriverSettings
+    from gemseo.space import DesignSpace
+    from gemseo.discipline import Discipline
+    from gemseo.formulation.core.base_settings import BaseFormulationSettings
+    from gemseo.post.core.base_post import BasePost
+    from gemseo.post.core.base_post_settings import BasePostSettings
+    from gemseo.util.typing import RealArray
+    from gemseo.util.typing import StrKeyMapping
 
     from gemseo_calibration.metrics.base_calibration_metric import DataType
     from gemseo_calibration.metrics.settings import CalibrationMetricSettings
@@ -75,6 +75,7 @@ class CalibrationScenario(MDOScenario):
     reference_data: StrKeyMapping
     """The reference data, if defined."""
 
+    # TODO(bump-gemseo): rename would duplicate an existing parameter, not renamed: formulation_settings_model -> formulation_settings  # noqa: E501
     def __init__(
         self,
         disciplines: Discipline | list[Discipline],
@@ -126,10 +127,11 @@ class CalibrationScenario(MDOScenario):
             disciplines,
             input_names,
             metric_settings_models,
-            calibration_space.variable_names,
+            list(calibration_space.variables),
             formulation_settings_model=formulation_settings_model,
             **formulation_settings,
         )
+        # TODO(bump-gemseo): cannot transform: objective_name goes to a call of add_objective() on the result of this call, which is not assigned to a name by a statement of its own  # noqa: E501
         super().__init__(
             [calibrator],
             calibrator.objective_name,
@@ -143,11 +145,10 @@ class CalibrationScenario(MDOScenario):
     def set_algorithm(  # noqa:D102
         self,
         reference_data: StrKeyMapping,
-        algo_settings_model: BaseDriverSettings | None = None,
-        **algo_settings: Any,
+        algorithm_settings: BaseDriverSettings | None = None, **algo_settings: Any,
     ) -> None:
         self.__reference_data = reference_data
-        super().set_algorithm(algo_settings_model=algo_settings_model, **algo_settings)
+        super().set_algorithm(algorithm_settings=algorithm_settings, **algo_settings)
 
     def _execute(self) -> None:
         self.calibrator.set_reference_data(self.__reference_data)
@@ -190,7 +191,7 @@ class CalibrationScenario(MDOScenario):
         self,
         metric_settings_models: CalibrationMetricSettings
         | Iterable[CalibrationMetricSettings],
-        constraint_type: MDOFunction.ConstraintType = MDOFunction.ConstraintType.EQ,
+        constraint_type: ArrayFunction.ConstraintType = ArrayFunction.ConstraintType.EQ,
         constraint_name: str = "",
         value: float = 0.0,
         positive: bool = False,
@@ -229,18 +230,20 @@ class CalibrationScenario(MDOScenario):
             positive,
         )
 
+    # TODO(bump-gemseo): rename would duplicate an existing parameter, not renamed: settings_model -> settings  # noqa: E501
     def post_process(  # noqa: D102
         self, settings_model: BasePostSettings | None = None, **settings: Any
     ) -> BasePost:
         post_name = get_class_name(settings_model, settings, class_name_arg="post_name")
         if post_name in self.__calibration_post_factory.class_names:
             return self.__calibration_post_factory.execute(
-                self.formulation.optimization_problem,
+                self.formulation.problem,
                 self.calibrator.reference_data,
                 self.prior_model_data,
                 self.posterior_model_data,
                 post_name,
-                **settings,
-            )
+                **settings)
 
+        # TODO(bump-gemseo): cannot transform: the Settings class is named by post_name, which is not a string literal  # noqa: E501
+        # TODO(bump-gemseo): **kwargs may contain: settings_model -> settings  # noqa: E501
         return super().post_process(post_name=post_name, **settings)

@@ -24,18 +24,24 @@ from __future__ import annotations
 # %%
 # Let us consider a model $f(x)=ax^2+bx+c$
 # from $\mathbb{R}$ to $\mathbb{R}$:
-from gemseo.algos.design_space import DesignSpace
-from gemseo.algos.parameter_space import ParameterSpace
-from gemseo.core.chains.chain import MDOChain
-from gemseo.disciplines.analytic import AnalyticDiscipline
-from gemseo.disciplines.scenario_adapters.mdo_scenario_adapter import MDOScenarioAdapter
-from gemseo.scenarios.doe_scenario import DOEScenario
+from gemseo.space import DesignSpace
+from gemseo.space import RandomSpace
+from gemseo.discipline import DisciplineChain
+from gemseo.discipline import AnalyticDiscipline
+from gemseo.scenario import MDOScenarioAdapter
+from gemseo.scenario import MDOScenario
 from matplotlib import pyplot as plt
 from numpy import array
 from numpy import linspace
 
 from gemseo_calibration.metrics.settings import CalibrationMetricSettings
 from gemseo_calibration.scenario import CalibrationScenario
+from gemseo.doe import OT_LHSC_Settings
+from gemseo.doe import PYDOE_FULLFACT_Settings
+from gemseo.optimization import NLOPT_COBYLA_Settings
+from gemseo.formulation import DisciplinaryOpt_Settings
+from gemseo.post import OptHistoryView_Settings
+from gemseo.uncertainty.distribution import OTNormalDistribution_Settings
 
 model = AnalyticDiscipline({"y": "a*x**2+b*x+c"}, name="model")
 
@@ -45,7 +51,7 @@ model = AnalyticDiscipline({"y": "a*x**2+b*x+c"}, name="model")
 # without the mathematical relationship behind it:
 original_model = AnalyticDiscipline({"y": "2*x**2-1.5*x+0.75"}, name="model")
 
-reference = MDOChain([original_model, AnalyticDiscipline({"y": "y+u"}, name="noise")])
+reference = DisciplineChain([original_model, AnalyticDiscipline({"y": "y+u"}, name="noise")])
 reference.set_cache(reference.CacheType.MEMORY_FULL)
 
 # %%
@@ -66,9 +72,12 @@ reference.set_cache(reference.CacheType.MEMORY_FULL)
 # %%
 # Firstly,
 # we have prior knowledge of the parameter values, that is $[a,b,c]\in[-5,5]^2$:
-prior = ParameterSpace()
+prior = RandomSpace()
+# TODO(bump-gemseo): a RandomSpace holds only random variables; add a deterministic variable to a DesignSpace instead  # noqa: E501
 prior.add_variable("a", lower_bound=-5.0, upper_bound=5.0, value=0.0)
+# TODO(bump-gemseo): a RandomSpace holds only random variables; add a deterministic variable to a DesignSpace instead  # noqa: E501
 prior.add_variable("b", lower_bound=-5.0, upper_bound=5.0, value=0.0)
+# TODO(bump-gemseo): a RandomSpace holds only random variables; add a deterministic variable to a DesignSpace instead  # noqa: E501
 prior.add_variable("c", lower_bound=-5.0, upper_bound=5.0, value=0.0)
 
 # %%
@@ -79,8 +88,8 @@ input_space.add_variable("x", lower_bound=0.0, upper_bound=3.0, value=1.5)
 # %%
 # These data are noisy; this noise can be modeled by a centered Gaussian random variable
 # with standard deviation equal to 0.5.
-noise_space = ParameterSpace()
-noise_space.add_random_variable("u", "OTNormalDistribution", mu=0.0, sigma=0.5)
+noise_space = RandomSpace()
+noise_space.add_variable("u", OTNormalDistribution_Settings(mu=0.0, sigma=0.5))
 
 # %%
 # The observations can be generated with two nested design of experiments:
@@ -94,10 +103,10 @@ noise_space.add_random_variable("u", "OTNormalDistribution", mu=0.0, sigma=0.5)
 # For example, let us imagine a [DOEScenario][gemseo.scenarios.doe_scenario.DOEScenario]
 # evaluating the reference data source at 5 equispaced points $x_1,\ldots,x_5$.
 
-sub_scenario = DOEScenario(
-    [reference], "y", input_space, formulation_name="DisciplinaryOpt"
-)
-sub_scenario.set_algorithm(algo_name="PYDOE_FULLFACT", n_samples=5)
+sub_scenario = MDOScenario(
+    [reference], design_space=input_space, formulation_settings=DisciplinaryOpt_Settings())
+sub_scenario.add_objective("y", minimize=True)
+sub_scenario.set_algorithm(algorithm_settings=PYDOE_FULLFACT_Settings(n_samples=5))
 
 adapter = MDOScenarioAdapter(sub_scenario, ["u"], ["y"])
 
@@ -108,8 +117,10 @@ adapter = MDOScenarioAdapter(sub_scenario, ["u"], ["y"])
 # is embedded in a
 # [DOEScenario][gemseo.scenarios.doe_scenario.DOEScenario]
 # in charge to sample it over the uncertain space.
-scenario = DOEScenario([adapter], "y", noise_space, formulation_name="DisciplinaryOpt")
-scenario.execute(algo_name="OT_LHSC", n_samples=5)
+# TODO(bump-gemseo): MDOScenario takes a DesignSpace only, and a ParameterSpace is now a RandomSpace, so use EvaluationScenario(disciplines, input_space, formulation_settings=...) and add the objective as an observable with add_observable  # noqa: E501
+scenario = MDOScenario([adapter], design_space=noise_space, formulation_settings=DisciplinaryOpt_Settings())
+scenario.add_objective("y", minimize=True)
+scenario.execute(algorithm_settings=OT_LHSC_Settings(n_samples=5))
 reference_data = reference.cache.to_dataset().to_dict_of_arrays(False)
 
 # %%
@@ -124,8 +135,8 @@ calibration = CalibrationScenario(
     model, "x", CalibrationMetricSettings(output_name="y", metric_name="MSE"), prior
 )
 calibration.execute(
-    algo_name="NLOPT_COBYLA", reference_data=reference_data, max_iter=100
-)
+    algorithm_settings=NLOPT_COBYLA_Settings(reference_data=reference_data, max_iter=100
+))
 
 # %%
 # Lastly,
@@ -134,7 +145,7 @@ calibration.optimization_result.x_opt
 
 # %%
 # even if the result are converged:
-calibration.post_process(post_name="OptHistoryView", save=False, show=True)
+calibration.post_process(settings=OptHistoryView_Settings(save=False, show=True))
 
 # %%
 # However,

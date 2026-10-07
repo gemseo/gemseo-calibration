@@ -18,8 +18,8 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 import pytest
-from gemseo.disciplines.analytic import AnalyticDiscipline
-from gemseo.utils.testing.pytest_conftest import *  # noqa: F401, F403
+from gemseo.discipline import AnalyticDiscipline
+from gemseo.util.testing.pytest_conftest import *  # noqa: F401, F403
 from matplotlib import pyplot as plt
 from numpy import array
 

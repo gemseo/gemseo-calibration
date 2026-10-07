@@ -19,8 +19,8 @@ from __future__ import annotations
 from math import exp
 from typing import TYPE_CHECKING
 
-from gemseo.core.chains.chain import MDOChain
-from gemseo.disciplines.auto_py import AutoPyDiscipline
+from gemseo.discipline import DisciplineChain
+from gemseo.discipline import AutoPyDiscipline
 
 from gemseo_calibration.signal.ode_signal_generator import ODESignalGenerator
 
@@ -92,9 +92,9 @@ class Oscillator(ODESignalGenerator):
         rhs_discipline = AutoPyDiscipline(compute_oscillator_rhs)
         state_names = ["omega", "position", "velocity"]
         if callable(omega):
-            rhs_discipline = MDOChain([AutoPyDiscipline(omega), rhs_discipline])
+            rhs_discipline = DisciplineChain([AutoPyDiscipline(omega), rhs_discipline])
         elif omega == 0.0:
-            rhs_discipline = MDOChain([
+            rhs_discipline = DisciplineChain([
                 AutoPyDiscipline(compute_omega_rhs),
                 rhs_discipline,
             ])

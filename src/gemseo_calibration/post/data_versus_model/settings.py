@@ -18,12 +18,13 @@ from __future__ import annotations
 
 from typing import ClassVar
 
-from gemseo.post.base_post_settings import BasePostSettings
-from gemseo.utils.pydantic import update_field
+from gemseo.post.core.base_post_settings import BasePostSettings
+from gemseo.util.pydantic import update_field
 from pydantic import Field
 
 
 class DataVersusModelSettings(BasePostSettings):  # noqa: D101
+    # TODO(bump-gemseo): read it with the target_class_name property of a settings instance; in a settings class, remove the assignment, as the value is now derived from the name of the class (X_Settings targets X)  # noqa: E501
     _TARGET_CLASS_NAME: ClassVar[str] = "DataVersusModel"
 
     output: str = Field(
