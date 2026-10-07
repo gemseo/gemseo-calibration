@@ -50,7 +50,8 @@ def create_dataset(
     return Dataset.from_array(
         data=[hstack([y, mesh])],
         variable_names=["y", "y_mesh"],
-        variable_name_to_n_components={"y": mesh_size, "y_mesh": mesh_size})
+        variable_name_to_n_components={"y": mesh_size, "y_mesh": mesh_size},
+    )
 
 
 @pytest.mark.parametrize("is_decreasing_ref_mesh", [False, True])
