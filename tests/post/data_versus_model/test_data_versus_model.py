@@ -22,16 +22,15 @@
 from __future__ import annotations
 
 import pytest
-from gemseo.space import RandomSpace
 from gemseo.discipline import AnalyticDiscipline
-# TODO(bump-gemseo): gemseo.utils.testing.helpers.image_comparison: use the snapshot_matplotlib fixture of syrupy-matplotlib instead; add syrupy-matplotlib to the test dependencies, set snapshot_matplotlib_tolerance = 0.01 in .pytest.ini, replace the @image_comparison([...]) decorator by a snapshot_matplotlib argument of the test, then run pytest --snapshot-update without -n (the baseline_images directories are no longer used)  # noqa: E501
-from gemseo.util.testing.helper import image_comparison
+from gemseo.optimization import NLOPT_COBYLA_Settings
+from gemseo.space import DesignSpace
 from numpy import array
 
 from gemseo_calibration.metrics.settings import CalibrationMetricSettings
 from gemseo_calibration.post.data_versus_model.post import DataVersusModel
+from gemseo_calibration.post.data_versus_model.settings import DataVersusModel_Settings
 from gemseo_calibration.scenario import CalibrationScenario
-from gemseo.optimization import NLOPT_COBYLA_Settings
 
 
 @pytest.fixture(scope="module")
@@ -40,10 +39,8 @@ def calibration_scenario() -> CalibrationScenario:
     model = AnalyticDiscipline({"y": "a*x", "z": "b*x"}, name="model")
     reference = AnalyticDiscipline({"y": "2*x", "z": "3*x"}, name="reference")
 
-    prior = RandomSpace()
-    # TODO(bump-gemseo): a RandomSpace holds only random variables; add a deterministic variable to a DesignSpace instead  # noqa: E501
+    prior = DesignSpace()
     prior.add_variable("a", lower_bound=0.0, upper_bound=10.0, value=0.0)
-    # TODO(bump-gemseo): a RandomSpace holds only random variables; add a deterministic variable to a DesignSpace instead  # noqa: E501
     prior.add_variable("b", lower_bound=0.0, upper_bound=10.0, value=0.0)
 
     reference.set_cache("MemoryFullCache")
@@ -61,51 +58,30 @@ def calibration_scenario() -> CalibrationScenario:
         prior,
     )
     calibration.execute(
-        algorithm_settings=NLOPT_COBYLA_Settings(reference_data=reference_data, max_iter=10
-    ))
+        NLOPT_COBYLA_Settings(max_iter=10), reference_data=reference_data
+    )
     return calibration
 
 
-# the test parameters, it maps a test name to the inputs and references outputs:
-# - the kwargs to be passed to DataVersusModel._plot
-# - the expected file names without extension to be compared
-TEST_PARAMETERS = {
-    "output_y": ({"output": "y"}, ["output_y"]),
-    "output_z": ({"output": "z"}, ["output_z"]),
-}
-
-
-@pytest.mark.parametrize(
-    ("kwargs", "baseline_images"),
-    TEST_PARAMETERS.values(),
-    indirect=["baseline_images"],
-    ids=TEST_PARAMETERS.keys(),
-)
-@image_comparison(None)
-def test_plot(
-    kwargs, baseline_images, calibration_scenario, pyplot_close_all, post_factory
-):
+@pytest.mark.parametrize("output", ["y", "z"])
+def test_plot(output, calibration_scenario, post_factory, snapshot_matplotlib):
     """Test images created by DataVersusModel._plot against references."""
-    # TODO(bump-gemseo): cannot transform: the type of calibration_scenario.formulation could not be inferred; if it is an instance of BaseFormulation, optimization_problem became problem  # noqa: E501
     post_factory.create(
         "DataVersusModel",
-        calibration_scenario.formulation.optimization_problem,
+        calibration_scenario.formulation.problem,
         calibration_scenario.calibrator.reference_data,
         calibration_scenario.prior_model_data,
         calibration_scenario.posterior_model_data,
-    ).execute(save=False, **kwargs)
+    ).execute(DataVersusModel_Settings(output=output, save=False))
 
 
 def test_factory_plot(post_factory, calibration_scenario):
     """Check CalibrationPostFactory.execute()."""
-    # TODO(bump-gemseo): cannot transform: the type of calibration_scenario.formulation could not be inferred; if it is an instance of BaseFormulation, optimization_problem became problem  # noqa: E501
     post = post_factory.execute(
-        calibration_scenario.formulation.optimization_problem,
+        calibration_scenario.formulation.problem,
         calibration_scenario.calibrator.reference_data,
         calibration_scenario.prior_model_data,
         calibration_scenario.posterior_model_data,
-        "DataVersusModel",
-        output="y",
-        save=False,
+        DataVersusModel_Settings(output="y", save=False),
     )
     assert isinstance(post, DataVersusModel)

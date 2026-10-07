@@ -20,7 +20,6 @@ from typing import TYPE_CHECKING
 import pytest
 from gemseo.discipline import AnalyticDiscipline
 from gemseo.util.testing.pytest_conftest import *  # noqa: F401, F403
-from matplotlib import pyplot as plt
 from numpy import array
 
 from gemseo_calibration.metrics.factory import CalibrationMetricFactory
@@ -46,21 +45,6 @@ def reference_data() -> dict[str, ndarray]:
         "y": array([[1.0], [2.0]]),
         "z": array([[-1.0], [-2.0]]),
     }
-
-
-@pytest.fixture
-def baseline_images(request):
-    """Return the baseline_images contents.
-
-    Used when the compare_images decorator has indirect set.
-    """
-    return request.param
-
-
-@pytest.fixture
-def pyplot_close_all():
-    """Fixture that prevents figures aggregation with matplotlib pyplot."""
-    plt.close("all")
 
 
 @pytest.fixture
