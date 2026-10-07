@@ -26,6 +26,47 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Added
+
+- [CalibrationScenario.set_reference_data][gemseo_calibration.scenario.CalibrationScenario.set_reference_data]
+  sets the reference data used for the calibration.
+- [MultipleScatter_Settings][gemseo_calibration.post.multiple_scatter_settings.MultipleScatter_Settings]
+  defines the settings of
+  [MultipleScatter][gemseo_calibration.post.multiple_scatter.MultipleScatter].
+
+### Changed
+
+- Support for GEMSEO 7.
+- [Calibrator][gemseo_calibration.calibrator.Calibrator]
+  and [CalibrationScenario][gemseo_calibration.scenario.CalibrationScenario]
+  take the MDO formulation settings as a settings model
+  through the `formulation_settings` argument,
+  instead of `formulation_settings_model` and `**formulation_settings`.
+- [CalibrationScenario.execute][gemseo_calibration.scenario.CalibrationScenario.execute]
+  takes the algorithm settings as a settings model
+  and the reference data through the `reference_data` argument,
+  e.g. `scenario.execute(NLOPT_COBYLA_Settings(max_iter=10), reference_data=data)`
+  instead of `scenario.execute(algo_name="NLOPT_COBYLA", reference_data=data, max_iter=10)`.
+  `CalibrationScenario.set_algorithm` no longer takes the reference data.
+- `CalibrationScenario.post_process`
+  and [CalibrationPostFactory.execute][gemseo_calibration.post.factory.CalibrationPostFactory.execute]
+  take the post-processing settings as a settings model,
+  e.g. `scenario.post_process(DataVersusModel_Settings(output="y"))`
+  instead of `scenario.post_process(post_name="DataVersusModel", output="y")`.
+- `DataVersusModelSettings` is renamed
+  [DataVersusModel_Settings][gemseo_calibration.post.data_versus_model.settings.DataVersusModel_Settings].
+- [MultipleScatter][gemseo_calibration.post.multiple_scatter.MultipleScatter]
+  takes its settings as a
+  [MultipleScatter_Settings][gemseo_calibration.post.multiple_scatter_settings.MultipleScatter_Settings],
+  e.g. `MultipleScatter(dataset, MultipleScatter_Settings(x="x", y=["y1", "y2"]))`
+  instead of `MultipleScatter(dataset, x="x", y=["y1", "y2"])`.
+
+### Removed
+
+- Support for Python 3.10.
+
 ## Version 4.0.1 (October 2025)
 
 ### Added
