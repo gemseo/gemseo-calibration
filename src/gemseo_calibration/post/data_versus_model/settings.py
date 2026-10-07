@@ -16,17 +16,12 @@
 
 from __future__ import annotations
 
-from typing import ClassVar
-
 from gemseo.post.core.base_post_settings import BasePostSettings
 from gemseo.util.pydantic import update_field
 from pydantic import Field
 
 
-class DataVersusModelSettings(BasePostSettings):  # noqa: D101
-    # TODO(bump-gemseo): read it with the target_class_name property of a settings instance; in a settings class, remove the assignment, as the value is now derived from the name of the class (X_Settings targets X)  # noqa: E501
-    _TARGET_CLASS_NAME: ClassVar[str] = "DataVersusModel"
-
+class DataVersusModel_Settings(BasePostSettings):  # noqa: D101, N801
     output: str = Field(
         ...,
         description="The names of the output of interest.",
@@ -34,4 +29,4 @@ class DataVersusModelSettings(BasePostSettings):  # noqa: D101
     )
 
 
-update_field(DataVersusModelSettings, "fig_size", default=(6.4, 4.8))
+update_field(DataVersusModel_Settings, "fig_size", default=(6.4, 4.8))
