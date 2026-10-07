@@ -24,24 +24,24 @@ from __future__ import annotations
 # %%
 # Let us consider a model $f(x)=ax^2+bx+c$
 # from $\mathbb{R}$ to $\mathbb{R}$:
+from gemseo.discipline import AnalyticDiscipline
+from gemseo.discipline import DisciplineChain
+from gemseo.doe import OT_LHSC_Settings
+from gemseo.doe import PYDOE_FULLFACT_Settings
+from gemseo.formulation import DisciplinaryOpt_Settings
+from gemseo.optimization import NLOPT_COBYLA_Settings
+from gemseo.post import OptHistoryView_Settings
+from gemseo.scenario import EvaluationScenario
+from gemseo.scenario import EvaluationScenarioAdapter
 from gemseo.space import DesignSpace
 from gemseo.space import RandomSpace
-from gemseo.discipline import DisciplineChain
-from gemseo.discipline import AnalyticDiscipline
-from gemseo.scenario import MDOScenarioAdapter
-from gemseo.scenario import MDOScenario
+from gemseo.uncertainty.distribution import OTNormalDistribution_Settings
 from matplotlib import pyplot as plt
 from numpy import array
 from numpy import linspace
 
 from gemseo_calibration.metrics.settings import CalibrationMetricSettings
 from gemseo_calibration.scenario import CalibrationScenario
-from gemseo.doe import OT_LHSC_Settings
-from gemseo.doe import PYDOE_FULLFACT_Settings
-from gemseo.optimization import NLOPT_COBYLA_Settings
-from gemseo.formulation import DisciplinaryOpt_Settings
-from gemseo.post import OptHistoryView_Settings
-from gemseo.uncertainty.distribution import OTNormalDistribution_Settings
 
 model = AnalyticDiscipline({"y": "a*x**2+b*x+c"}, name="model")
 
@@ -51,7 +51,10 @@ model = AnalyticDiscipline({"y": "a*x**2+b*x+c"}, name="model")
 # without the mathematical relationship behind it:
 original_model = AnalyticDiscipline({"y": "2*x**2-1.5*x+0.75"}, name="model")
 
-reference = DisciplineChain([original_model, AnalyticDiscipline({"y": "y+u"}, name="noise")])
+reference = DisciplineChain([
+    original_model,
+    AnalyticDiscipline({"y": "y+u"}, name="noise"),
+])
 reference.set_cache(reference.CacheType.MEMORY_FULL)
 
 # %%
@@ -72,12 +75,9 @@ reference.set_cache(reference.CacheType.MEMORY_FULL)
 # %%
 # Firstly,
 # we have prior knowledge of the parameter values, that is $[a,b,c]\in[-5,5]^2$:
-prior = RandomSpace()
-# TODO(bump-gemseo): a RandomSpace holds only random variables; add a deterministic variable to a DesignSpace instead  # noqa: E501
+prior = DesignSpace()
 prior.add_variable("a", lower_bound=-5.0, upper_bound=5.0, value=0.0)
-# TODO(bump-gemseo): a RandomSpace holds only random variables; add a deterministic variable to a DesignSpace instead  # noqa: E501
 prior.add_variable("b", lower_bound=-5.0, upper_bound=5.0, value=0.0)
-# TODO(bump-gemseo): a RandomSpace holds only random variables; add a deterministic variable to a DesignSpace instead  # noqa: E501
 prior.add_variable("c", lower_bound=-5.0, upper_bound=5.0, value=0.0)
 
 # %%
@@ -95,32 +95,36 @@ noise_space.add_variable("u", OTNormalDistribution_Settings(mu=0.0, sigma=0.5))
 # The observations can be generated with two nested design of experiments:
 # an inner one sampling the reference model $f$,
 # an outer one repeating this sampling for different values of the noise.
-# A classical way of doing this with |g| is to use a
-# [MDOScenarioAdapter][gemseo.disciplines.scenario_adapters.mdo_scenario_adapter.MDOScenarioAdapter]
-# which is a [Discipline][gemseo.core.discipline.discipline.Discipline] executing a
-# [DOEScenario][gemseo.scenarios.doe_scenario.DOEScenario]
+# A classical way of doing this with |g| is to use an
+# [EvaluationScenarioAdapter][gemseo.scenario.adapter.evaluation.EvaluationScenarioAdapter]
+# which is a [Discipline][gemseo.core.discipline.discipline.Discipline] executing an
+# [EvaluationScenario][gemseo.scenario.evaluation.EvaluationScenario]
 # for a given value of $u$.
-# For example, let us imagine a [DOEScenario][gemseo.scenarios.doe_scenario.DOEScenario]
+# For example,
+# let us imagine an
+# [EvaluationScenario][gemseo.scenario.evaluation.EvaluationScenario]
 # evaluating the reference data source at 5 equispaced points $x_1,\ldots,x_5$.
 
-sub_scenario = MDOScenario(
-    [reference], design_space=input_space, formulation_settings=DisciplinaryOpt_Settings())
-sub_scenario.add_objective("y", minimize=True)
-sub_scenario.set_algorithm(algorithm_settings=PYDOE_FULLFACT_Settings(n_samples=5))
+sub_scenario = EvaluationScenario(
+    [reference], input_space, formulation_settings=DisciplinaryOpt_Settings()
+)
+sub_scenario.add_observable("y")
+sub_scenario.set_algorithm(PYDOE_FULLFACT_Settings(n_samples=5))
 
-adapter = MDOScenarioAdapter(sub_scenario, ["u"], ["y"])
+adapter = EvaluationScenarioAdapter(sub_scenario, ["u"], ["y"])
 
 # %%
 # Then,
 # this
-# [MDOScenarioAdapter][gemseo.disciplines.scenario_adapters.mdo_scenario_adapter.MDOScenarioAdapter]
-# is embedded in a
-# [DOEScenario][gemseo.scenarios.doe_scenario.DOEScenario]
+# [EvaluationScenarioAdapter][gemseo.scenario.adapter.evaluation.EvaluationScenarioAdapter]
+# is embedded in an
+# [EvaluationScenario][gemseo.scenario.evaluation.EvaluationScenario]
 # in charge to sample it over the uncertain space.
-# TODO(bump-gemseo): MDOScenario takes a DesignSpace only, and a ParameterSpace is now a RandomSpace, so use EvaluationScenario(disciplines, input_space, formulation_settings=...) and add the objective as an observable with add_observable  # noqa: E501
-scenario = MDOScenario([adapter], design_space=noise_space, formulation_settings=DisciplinaryOpt_Settings())
-scenario.add_objective("y", minimize=True)
-scenario.execute(algorithm_settings=OT_LHSC_Settings(n_samples=5))
+scenario = EvaluationScenario(
+    [adapter], noise_space, formulation_settings=DisciplinaryOpt_Settings()
+)
+scenario.add_observable("y")
+scenario.execute(OT_LHSC_Settings(n_samples=5))
 reference_data = reference.cache.to_dataset().to_dict_of_arrays(False)
 
 # %%
@@ -134,9 +138,7 @@ reference_data = reference.cache.to_dataset().to_dict_of_arrays(False)
 calibration = CalibrationScenario(
     model, "x", CalibrationMetricSettings(output_name="y", metric_name="MSE"), prior
 )
-calibration.execute(
-    algorithm_settings=NLOPT_COBYLA_Settings(reference_data=reference_data, max_iter=100
-))
+calibration.execute(NLOPT_COBYLA_Settings(max_iter=100), reference_data=reference_data)
 
 # %%
 # Lastly,
@@ -145,7 +147,7 @@ calibration.optimization_result.x_opt
 
 # %%
 # even if the result are converged:
-calibration.post_process(settings=OptHistoryView_Settings(save=False, show=True))
+calibration.post_process(OptHistoryView_Settings(save=False, show=True))
 
 # %%
 # However,
@@ -161,15 +163,9 @@ post_y_values = [calibrated.execute({"x": array([x_i])})["y"][0] for x_i in x_va
 plt.plot(x_values, y_values, color="blue", label="Unknown model")
 plt.plot(x_values, post_y_values, color="red", label="Calibrated model")
 
-x_points = []
-y_points = []
-for data in reference.cache:
-    x_points.append(data.inputs["x"][0])
-    y_points.append(data.outputs["y"][0])
-
 plt.plot(
-    x_points,
-    y_points,
+    reference_data["x"][:, 0],
+    reference_data["y"][:, 0],
     color="blue",
     linestyle="",
     marker="x",
