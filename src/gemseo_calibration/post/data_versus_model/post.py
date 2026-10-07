@@ -23,6 +23,7 @@ from numpy import newaxis
 
 from gemseo_calibration.post.data_versus_model.settings import DataVersusModel_Settings
 from gemseo_calibration.post.multiple_scatter import MultipleScatter
+from gemseo_calibration.post.multiple_scatter_settings import MultipleScatter_Settings
 from gemseo_calibration.post_processor import CalibrationPostProcessor
 
 
@@ -45,11 +46,20 @@ class DataVersusModel(CalibrationPostProcessor[DataVersusModel_Settings]):
             init_name, self._prior_model_data[output].mean(1)[:, newaxis]
         )
         dataset.add_variable(ref_name, self._reference_data[output].mean(1)[:, newaxis])
-        plot = MultipleScatter(dataset, x=ref_name, y=[init_name, opt_name])
-        plot.settings.color = ["blue", "red"]
-        plot.settings.xlabel = "Reference"
-        plot.settings.ylabel = "Model"
-        plot.settings.labels = {opt_name: "After calibration", init_name: "Before calibration"}
+        plot = MultipleScatter(
+            dataset,
+            MultipleScatter_Settings(
+                x=ref_name,
+                y=[init_name, opt_name],
+                color=["blue", "red"],
+                xlabel="Reference",
+                ylabel="Model",
+                labels={
+                    opt_name: "After calibration",
+                    init_name: "Before calibration",
+                },
+            ),
+        )
         figures = plot.execute(save=False, show=False)
         for figure in figures:
             self._add_figure(figure)

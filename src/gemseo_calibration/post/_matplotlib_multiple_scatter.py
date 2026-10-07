@@ -22,6 +22,8 @@ from gemseo.post.dataset.plot._matplotlib.plot import MatplotlibPlot
 from matplotlib import colormaps
 from numpy import linspace
 
+from gemseo_calibration.post.multiple_scatter_settings import MultipleScatter_Settings
+
 if TYPE_CHECKING:
     from collections.abc import Iterable
     from collections.abc import Mapping
@@ -31,7 +33,7 @@ if TYPE_CHECKING:
     from matplotlib.figure import Figure
 
 
-class MultipleScatter(MatplotlibPlot):
+class MultipleScatter(MatplotlibPlot[MultipleScatter_Settings]):
     """Overlay several scatter y_i versus x."""
 
     def _create_figures(
@@ -50,11 +52,12 @@ class MultipleScatter(MatplotlibPlot):
             y: The names of the variables on the y-axis.
             y_comp: The components of these variables.
         """  # noqa: D205 D212
+        settings = self._settings
         fig, axes = self._get_figure_and_axes(fig, axes)
         axes.plot(bounds, bounds, color="gray", linestyle="--", marker="o")
         n_items = len(y)
-        color = self._common_settings.color
-        color_map = colormaps[self._common_settings.colormap]
+        color = settings.color
+        color_map = colormaps[settings.colormap]
         color = color or [color_map(c) for c in linspace(0, 1, n_items)]
         if isinstance(color, str):
             color = [color] * n_items
@@ -67,11 +70,11 @@ class MultipleScatter(MatplotlibPlot):
                 color=color[index],
                 marker="o",
                 linestyle="",
-                label=self._common_settings.labels.get(name, name),
+                label=settings.labels.get(name, name),
             )
-        axes.grid()
-        axes.set_xlabel(self._common_settings.xlabel)
-        axes.set_ylabel(self._common_settings.ylabel)
-        axes.set_title(self._common_settings.title)
+        axes.grid(visible=settings.grid)
+        axes.set_xlabel(settings.xlabel)
+        axes.set_ylabel(settings.ylabel)
+        axes.set_title(settings.title)
         axes.legend()
         return [fig]

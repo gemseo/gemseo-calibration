@@ -27,42 +27,24 @@ one color per series $\{y_i\}_{1\leq i \leq n}$.
 
 from __future__ import annotations
 
-from types import MappingProxyType
 from typing import TYPE_CHECKING
+from typing import ClassVar
 
 from gemseo.post.dataset.base import BaseDatasetPlot
+
+from gemseo_calibration.post.multiple_scatter_settings import MultipleScatter_Settings
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
     from collections.abc import Mapping
 
-    from gemseo.dataset import Dataset
     from gemseo.util.typing import RealArray
 
 
-class MultipleScatter(BaseDatasetPlot):
+class MultipleScatter(BaseDatasetPlot[MultipleScatter_Settings]):
     """Overlay several scatter y_i versus x."""
 
-    def __init__(
-        self,
-        dataset: Dataset,
-        x: str,
-        y: str | Iterable[str],
-        x_comp: int = 0,
-        y_comp: Mapping[str, int] = MappingProxyType({}),
-    ) -> None:
-        """
-        Args:
-            x: The name of the variable on the x-axis.
-            y: The names of the variables on the y-axis.
-            x_comp: The component of x.
-            y_comp: The components of y,
-                where the names are the names of the variables
-                and the values are the components.
-                If empty or if a name is missing,
-                use the first component.
-        """  # noqa: D205 D212 D415
-        super().__init__(dataset=dataset, x=x, y=y, x_comp=x_comp, y_comp=y_comp)
+    settings_class: ClassVar[type[MultipleScatter_Settings]] = MultipleScatter_Settings
 
     def _create_specific_data_from_dataset(
         self,
@@ -74,18 +56,15 @@ class MultipleScatter(BaseDatasetPlot):
             the names of the variables on the y-axis and
             the components of these variables.
         """  # noqa: D205, D212, D415
-        x = self._specific_settings.x
-        y = self._specific_settings.y
+        settings = self.settings
+        y = settings.y
         if isinstance(y, str):
             y = [y]
 
-        y_comp = self._specific_settings.y_comp or {}
-        for name in y:
-            y_comp[name] = y_comp.get(name, 0)
-
-        reference = self.dataset.get_view(variable_names=x).to_numpy()[
-            :, self._specific_settings.x_comp
+        y_comp = {name: settings.y_comp.get(name, 0) for name in y}
+        reference = self.dataset.get_view(variable_names=settings.x).to_numpy()[
+            :, settings.x_comp
         ]
-        self._n_items = len(y)
+        settings.n_items = len(y)
         bounds = (min(reference), max(reference))
         return bounds, reference, y, y_comp

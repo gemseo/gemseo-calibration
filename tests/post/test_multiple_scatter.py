@@ -23,12 +23,11 @@ from __future__ import annotations
 
 import pytest
 from gemseo.dataset import Dataset
-# TODO(bump-gemseo): gemseo.utils.testing.helpers.image_comparison: use the snapshot_matplotlib fixture of syrupy-matplotlib instead; add syrupy-matplotlib to the test dependencies, set snapshot_matplotlib_tolerance = 0.01 in .pytest.ini, replace the @image_comparison([...]) decorator by a snapshot_matplotlib argument of the test, then run pytest --snapshot-update without -n (the baseline_images directories are no longer used)  # noqa: E501
-from gemseo.util.testing.helper import image_comparison
 from matplotlib import pyplot as plt
 from numpy import array
 
 from gemseo_calibration.post.multiple_scatter import MultipleScatter
+from gemseo_calibration.post.multiple_scatter_settings import MultipleScatter_Settings
 
 
 @pytest.fixture(scope="module")
@@ -42,59 +41,49 @@ def dataset() -> Dataset:
     return Dataset.from_array(
         data_array,
         variable_names=["x", "y1", "y2"],
-        variable_name_to_n_components=variable_names_to_n_components)
+        variable_name_to_n_components=variable_names_to_n_components,
+    )
 
 
-# the test parameters, it maps a test name to the inputs and references outputs:
-# - the kwargs to be passed to MultipleScatter._plot
-# - the expected file names without extension to be compared
+# The test parameters, mapping a test name to
+# the settings of MultipleScatter selecting the data and those styling the plot.
 TEST_PARAMETERS = {
-    "default": ({"x": "x", "y": "y1"}, {}, ["default"]),
+    "default": ({"x": "x", "y": "y1"}, {}),
     "with_color": (
         {"x": "x", "y": ["y1"]},
         {"color": "red"},
-        ["with_color"],
     ),
     "with_2_outputs": (
         {"x": "x", "y": ["y1", "y2"]},
         {},
-        ["with_2_outputs"],
     ),
     "with_2_outputs_and_color": (
         {"x": "x", "y": ["y1", "y2"]},
         {"color": "red"},
-        ["with_2_outputs_and_color"],
     ),
     "with_2_outputs_and_colors": (
         {"x": "x", "y": ["y1", "y2"]},
         {"color": ["red", "blue"]},
-        ["with_2_outputs_and_colors"],
     ),
     "with_2_outputs_components": (
         {"x": "x", "y": ["y1", "y2"], "y_comp": {"y2": 1}},
         {},
-        ["with_2_outputs_components"],
     ),
 }
 
 
 @pytest.mark.parametrize(
-    ("options", "properties", "baseline_images"),
+    ("options", "properties"),
     TEST_PARAMETERS.values(),
-    indirect=["baseline_images"],
     ids=TEST_PARAMETERS.keys(),
 )
 @pytest.mark.parametrize("fig_and_axes", [False, True])
-@image_comparison(None)
-def test_plot(
-    options, properties, baseline_images, dataset, pyplot_close_all, fig_and_axes
-):
+def test_plot(options, properties, dataset, fig_and_axes, snapshot_matplotlib):
     """Test images created by MultipleScatter._plot against references."""
-    plot = MultipleScatter(dataset, **options)
+    plot = MultipleScatter(dataset, MultipleScatter_Settings(**options, **properties))
     fig, axes = (
-        (None, None) if not fig_and_axes else plt.subplots(figsize=plot.settings.fig_size)
+        (None, None)
+        if not fig_and_axes
+        else plt.subplots(figsize=plot.settings.fig_size)
     )
-    for name, value in properties.items():
-        setattr(plot, name, value)
-
     plot.execute(save=False, show=False, fig=fig, ax=axes)
