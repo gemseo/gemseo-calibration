@@ -1,2 +1,10 @@
 include:
   - remote: "https://gitlab.com/gemseo/dev/ci-includes/-/raw/4/main.yml"
+
+variables:
+  __PY_VERSION_MIN: 311
+
+.test-all-py-versions:
+  - 311
+  - 312
+  - 313
