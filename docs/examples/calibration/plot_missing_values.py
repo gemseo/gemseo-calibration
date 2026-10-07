@@ -21,22 +21,20 @@ with two poorly known parameters and from observations with missing values.
 
 from __future__ import annotations
 
-from gemseo.space import RandomSpace
 from gemseo.dataset import Dataset
 from gemseo.discipline import AnalyticDiscipline
+from gemseo.optimization import NLOPT_COBYLA_Settings
+from gemseo.space import DesignSpace
 from numpy import array
 from numpy import nan
 
 from gemseo_calibration.metrics.settings import CalibrationMetricSettings
 from gemseo_calibration.scenario import CalibrationScenario
-from gemseo.optimization import NLOPT_COBYLA_Settings
 
 model = AnalyticDiscipline({"y": "a*x", "z": "b*x"}, name="model")
 
-prior = RandomSpace()
-# TODO(bump-gemseo): a RandomSpace holds only random variables; add a deterministic variable to a DesignSpace instead  # noqa: E501
+prior = DesignSpace()
 prior.add_variable("a", lower_bound=0.0, upper_bound=10.0, value=0.0)
-# TODO(bump-gemseo): a RandomSpace holds only random variables; add a deterministic variable to a DesignSpace instead  # noqa: E501
 prior.add_variable("b", lower_bound=0.0, upper_bound=10.0, value=0.0)
 
 data = array([
@@ -53,13 +51,12 @@ reference_data = Dataset.from_array(
         "x": "inputs",
         "y": "outputs",
         "z": "outputs",
-    }).to_dict_of_arrays(False)
+    },
+).to_dict_of_arrays(False)
 
 metric_settings = [
     CalibrationMetricSettings(output_name="y", metric_name="MSE"),
     CalibrationMetricSettings(output_name="z", metric_name="MSE"),
 ]
 calibration = CalibrationScenario(model, "x", metric_settings, prior)
-calibration.execute(
-    algorithm_settings=NLOPT_COBYLA_Settings(reference_data=reference_data, max_iter=100
-))
+calibration.execute(NLOPT_COBYLA_Settings(max_iter=100), reference_data=reference_data)
