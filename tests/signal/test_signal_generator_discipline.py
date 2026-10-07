@@ -62,9 +62,8 @@ def test_basic(oscillator, times):
         "initial_velocity": 0.0,
         "initial_omega": 1.5,
     })
-    # TODO(bump-gemseo): IO.data is deprecated and returns a copy of the input and output data, so setting, updating or removing an item through it has no effect, and an output that _run produces through it is missing, even when produced by changing an input in place; return the outputs from _run or write them to output_data (or update_output_data(data)), write the inputs to input_data, and read input_data, output_data or get_merged_data()  # noqa: E501
     assert_almost_equal(
-        discipline.io.data["position"],
+        discipline.io.output_data["position"],
         array([1.0, 0.9306871, 0.7327731, 0.4343574, 0.0766517]),
         decimal=2,
     )
@@ -92,9 +91,8 @@ def test_parameter_names(oscillator, times):
         "initial_omega": 1.5,
         "a": 1e-2,
     })
-    # TODO(bump-gemseo): IO.data is deprecated and returns a copy of the input and output data, so setting, updating or removing an item through it has no effect, and an output that _run produces through it is missing, even when produced by changing an input in place; return the outputs from _run or write them to output_data (or update_output_data(data)), write the inputs to input_data, and read input_data, output_data or get_merged_data()  # noqa: E501
     assert_almost_equal(
-        discipline.io.data["position"],
+        discipline.io.output_data["position"],
         array([1.0, 0.930612, 0.7322193, 0.4327589, 0.0736661]),
         decimal=2,
     )
@@ -115,9 +113,8 @@ def test_not_all_state_names(oscillator, times):
     )
     assert tuple(discipline.io.output_grammar.names) == ("position",)
     discipline.execute({"initial_position": 1.0, "initial_velocity": 0.0})
-    # TODO(bump-gemseo): IO.data is deprecated and returns a copy of the input and output data, so setting, updating or removing an item through it has no effect, and an output that _run produces through it is missing, even when produced by changing an input in place; return the outputs from _run or write them to output_data (or update_output_data(data)), write the inputs to input_data, and read input_data, output_data or get_merged_data()  # noqa: E501
     assert_almost_equal(
-        discipline.io.data["position"],
+        discipline.io.output_data["position"],
         array([1.0, 0.9689715, 0.8780239, 0.7329289, 0.5429478]),
         decimal=2,
     )
