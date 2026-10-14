@@ -19,7 +19,7 @@ from __future__ import annotations
 
 def test_init(post_factory):
     """Check that the factory is correctly initialized."""
-    assert post_factory._CLASS.__name__ == "CalibrationPostProcessor"
+    assert post_factory._class.__name__ == "CalibrationPostProcessor"
 
 
 def test_posts(post_factory):
