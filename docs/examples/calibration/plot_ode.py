@@ -15,6 +15,8 @@
 # WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 """Calibrate an ordinary differential equation."""
 
+from __future__ import annotations
+
 from gemseo.optimization import NLOPT_COBYLA_Settings
 from gemseo.space import DesignSpace
 from matplotlib import pyplot as plt

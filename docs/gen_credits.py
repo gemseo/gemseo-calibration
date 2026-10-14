@@ -39,7 +39,9 @@ project = pyproject["project"]
 project_name = project["name"]
 devdeps = [
     dep
-    for group in pyproject["dependency-groups"].values()
+    for group_name, group in pyproject["dependency-groups"].items()
+    # The dev group includes other groups.
+    if group_name != "dev"
     for dep in group
     if not dep.startswith("-e")
 ]

@@ -19,7 +19,7 @@ from typing import TYPE_CHECKING
 
 import pytest
 from gemseo.discipline import AnalyticDiscipline
-from gemseo.util.testing.pytest_conftest import *  # noqa: F401, F403
+from gemseo.util.testing.pytest_conftest import *  # noqa: F403
 from numpy import array
 
 from gemseo_calibration.metrics.factory import CalibrationMetricFactory

@@ -1,7 +1,10 @@
 /build
 /dist
-/.tox
+/.cache
+/.venv
+/.ruff_cache
 *.pyc
+__pycache__/
 /src/gemseo_calibration.egg-info
 
 /.project
@@ -21,6 +24,8 @@
 /coverage.xml
 /.coverage*
 !/.coveragerc
+/diff-cover.html
+/figure-report
 
 /.pytest_cache
-/figure-report
+**/result_images
