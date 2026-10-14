@@ -83,7 +83,7 @@ and this project adheres to
 
 - The [signal][gemseo_calibration.signal] package
   proposes new features to facilitate the calibration of a signal generator,
-  such as an [ODEDiscipline][gemseo.disciplines.ode].
+  such as an [ODEDiscipline][gemseo.discipline.ode].
 - The package [problems.signal][gemseo_calibration.problems.signal]
   proposes problems to illustrate the features of the [signal][gemseo_calibration.signal] package.
 - [Calibrator][gemseo_calibration.calibrator.Calibrator]
@@ -102,7 +102,7 @@ and this project adheres to
 - API CHANGES:
   - `BaseCalibrationMetric.mesh` renamed to [CalibrationMetricSettings.mesh_name][gemseo_calibration.metrics.settings.CalibrationMetricSettings].
   - use the expression _calibration metric_ rather the _calibration measure_,
-      to be consistent with [gemseo.utils.metrics][gemseo.utils.metrics].
+      to be consistent with [gemseo.util.metric][gemseo.util.metric].
   - rename `measures` package to [metrics][gemseo_calibration.metrics].
   - rename `gemseo_calibration.measure.CalibrationMeasure` to [gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric][gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric].
   - `gemseo_calibration.calibrator.CalibrationMeasure`:
@@ -156,10 +156,10 @@ and this project adheres to
 ### Changed
 
 - Data are `dict[str, ndarray]` objects a `{variable_name: variable_values}` instead of
-  [Dataset][gemseo.datasets.dataset.Dataset].
+  [Dataset][gemseo.dataset.Dataset].
 - Use `""` as empty value of `str` and `str | Path` arguments, instead of `"None"`.
 - [BaseCalibrationMetric][gemseo_calibration.metrics.base_calibration_metric.BaseCalibrationMetric]:
-  the type of `f_type` is [FunctionType][gemseo.core.mdo_functions.mdo_function.MDOFunction.FunctionType].
+  the type of `f_type` is [FunctionType][gemseo.core.function.array_function.ArrayFunction.FunctionType].
 
 ## Version 1.0.0 (July 2022)
 
